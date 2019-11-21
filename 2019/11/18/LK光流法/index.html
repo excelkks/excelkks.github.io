@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="1 超定方程组求解1.1 超定方程组超定方程组是指方程的个数大于未知数个数的方程组，例如  \begin{bmatrix} a_{11} &amp; a_{12} &amp; a_{13} \\  a_{21} &amp; a_{22} &amp; a_{23} \\ ...    &amp; ...    &amp; ...    \\ a_{n1} &amp; a_{n2} &amp; a_{n3} \\ \end{bmatrix} \times \beg">
+<meta name="keywords" content="光流法,超定方程,最小二乘法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LK光流法">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;LK%E5%85%89%E6%B5%81%E6%B3%95&#x2F;index.html">
+<meta property="og:site_name" content="Excelkks">
+<meta property="og:description" content="1 超定方程组求解1.1 超定方程组超定方程组是指方程的个数大于未知数个数的方程组，例如  \begin{bmatrix} a_{11} &amp; a_{12} &amp; a_{13} \\  a_{21} &amp; a_{22} &amp; a_{23} \\ ...    &amp; ...    &amp; ...    \\ a_{n1} &amp; a_{n2} &amp; a_{n3} \\ \end{bmatrix} \times \beg">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-21T03:10:24.959Z">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.png">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+          
+        
+    
+    <!-- title -->
+    <title>LK光流法</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/11/16/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%BF%87%E7%A8%8B/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&text=LK光流法"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&title=LK光流法"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&is_video=false&description=LK光流法"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LK光流法&body=Check out this article: http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&title=LK光流法"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&title=LK光流法"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&title=LK光流法"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&title=LK光流法"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&name=LK光流法&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-超定方程组求解"><span class="toc-number">1.</span> <span class="toc-text">1 超定方程组求解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-超定方程组"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 超定方程组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-超定方程组的最小二乘解"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 超定方程组的最小二乘解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-LK光流法"><span class="toc-number">2.</span> <span class="toc-text">2 LK光流法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-光流的计算"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 光流的计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-LK光流法求解"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 LK光流法求解</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { fonts: ["TeX"] }
+  });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        LK光流法
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Excelkks</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-11-18T03:10:53.000Z" itemprop="datePublished">2019-11-18</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81/">视频编解码</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/%E5%85%89%E6%B5%81%E6%B3%95/" rel="tag">光流法</a>, <a class="tag-link" href="/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/" rel="tag">最小二乘法</a>, <a class="tag-link" href="/tags/%E8%B6%85%E5%AE%9A%E6%96%B9%E7%A8%8B/" rel="tag">超定方程</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="1-超定方程组求解"><a href="#1-超定方程组求解" class="headerlink" title="1 超定方程组求解"></a>1 超定方程组求解</h2><h3 id="1-1-超定方程组"><a href="#1-1-超定方程组" class="headerlink" title="1.1 超定方程组"></a>1.1 超定方程组</h3><p>超定方程组是指方程的个数大于未知数个数的方程组，例如</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\ 
+a_{21} & a_{22} & a_{23} \\ ...    & ...    & ...    \\ a_{n1} & a_{n2} & a_{n3} \\
+\end{bmatrix}
+\times
+\begin{bmatrix} x_1 \\ x_2 \\ x_3 \\
+\end{bmatrix}
+= 
+\begin{bmatrix} b_1 \\ b_2 \\ ... \\ b_n \\
+\end{bmatrix}</script><p>其中，$n&gt;3$，将上述方程表示为$\boldsymbol{A}_{n\times3}x_{3\times 1}=b_{n\times 1}$，该方程不能按照一般的求解方法求解，但可以求的最小二乘法的解。</p>
+<p>先给出结论，该超定方程组的最小二乘解为：</p>
+<script type="math/tex; mode=display">x=(\boldsymbol{A}^{T}\boldsymbol{A})^{-1}\boldsymbol{A}^{T}b</script><h3 id="1-2-超定方程组的最小二乘解"><a href="#1-2-超定方程组的最小二乘解" class="headerlink" title="1.2 超定方程组的最小二乘解"></a>1.2 超定方程组的最小二乘解</h3><p>对于无一般解的超定方程组$\boldsymbol{A}x=b$来说，假设$r=\boldsymbol{A}x -b$，使得$||r||^2_2=（\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$的值最小的解即为最小二乘解。于是，问题转变为最小化$(\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$，令</p>
+<script type="math/tex; mode=display">J(x)=(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)</script><p>对上式求导，可得 </p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\frac{\partial J(x)}{\partial x} & =\frac{\partial{(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)}}{\partial{x}} \\
+& =\frac{\partial(x^T\boldsymbol{A}^T\boldsymbol{A}x-x^T\boldsymbol{A}^Tb-b^T\boldsymbol{A}x+b^Tb)}{\partial{x}} \\
+& =(\boldsymbol{A}^T\boldsymbol{A}x)^T+x^T\boldsymbol{A}\boldsymbol{A}-b^T\boldsymbol{A}-b^T\boldsymbol{A} \\
+& =2(x^T\boldsymbol{A}^T\boldsymbol{A}-b^T\boldsymbol{A})
+\end{aligned}</script><p>令$\frac{\partial{J(x)}}{\partial{x}}=0$，那么，可以解得</p>
+<script type="math/tex; mode=display">
+x=(\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^Tb</script><h2 id="2-LK光流法"><a href="#2-LK光流法" class="headerlink" title="2 LK光流法"></a>2 LK光流法</h2><p>Optical flow光流简单来说是描述物体的运动，可理解为运动向量。光流法可用于运动检测、物体切割、运动补偿编码等等方向。</p>
+<h3 id="2-1-光流的计算"><a href="#2-1-光流的计算" class="headerlink" title="2.1 光流的计算"></a>2.1 光流的计算</h3><p>光流法实际是通过检测图像像素点的强度随时间的变化进而推断出物体移动速度及方向的方法.</p>
+<p>光流法的假设条件：</p>
+<ul>
+<li>物体移动很小</li>
+<li>相同像素点移动前后像素强度不变（一般指亮度）</li>
+</ul>
+<p>现假设在时间$t$时，点$(x,y)$处像素点强度为$I(x,y,t)$，那么$\Delta{t}$时间后，该像素点将移动到$(x+\Delta{x},y+\Delta{y})$处，像素强度为$I(x+\Delta{x},y+\Delta{y},t+\Delta{t})$，对其进行泰勒级数展开得到：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+    & I(x+\Delta{x},y+\Delta{y},t+\Delta{t}) \\
+= & I(x,y,t)+\frac{\partial{I}}{\partial{x}}\Delta{x}+\frac{\partial{I}}{\partial{y}}\Delta{y}+\frac{\partial{I}}{\partial{t}}\Delta{t}+H.O.T.
+\end{aligned}</script><p>基于假设条件，相同像素移动前后的强度不变，同时忽略$H.O.T$，可得：</p>
+<script type="math/tex; mode=display">
+\frac{\partial{I}}{\partial{x}}\Delta{x}+\frac{\partial{I}}{\partial{y}}\Delta{y}+\frac{\partial{I}}{\partial{t}}\Delta{t}=0</script><p>可写作：</p>
+<script type="math/tex; mode=display">
+\frac{\partial{I}}{\partial{x}}\frac{\Delta{x}}{\Delta{t}}+\frac{\partial{I}}{\partial{y}}\frac{\Delta{y}}{\Delta{t}}+\frac{\partial{I}}{\partial{t}}\frac{\Delta{t}}{\Delta{t}}=0</script><p>令$\frac{\Delta{x}}{\Delta{t}}=V_x$表示$x$方向上的运动速度，$\frac{\Delta{y}}{\Delta{t}}=V_y$表示$y$方向上的运动速度，那么最终可得：</p>
+<script type="math/tex; mode=display">
+\frac{\partial{I}}{\partial{x}}V_x+\frac{\partial{I}}{\partial{y}}V_y+\frac{\partial{I}}{\partial{t}}=0</script><p>$V_x$, $V_y$也即为$I(x,y,t)$的光流，$\frac{\partial{I}}{\partial{x}}$,$\frac{\partial{I}}{\partial{y}}$,$\frac{\partial{I}}{\partial{t}}$为图像$(x,y,t)$在对应方向的偏导数。</p>
+<p>显然上式中，两个未知数，一个方程，无法求解，以下介绍LK光流法求解。</p>
+<h3 id="2-2-LK光流法求解"><a href="#2-2-LK光流法求解" class="headerlink" title="2.2 LK光流法求解"></a>2.2 LK光流法求解</h3><p>卢卡斯-卡纳徳(Bruce D. Lucas和Takeo Kanade)光流法在光流假设条件下增加了另一个假设条件</p>
+<ul>
+<li>假设光流在像素点的邻域是一个常数</li>
+</ul>
+<p>那么，假设研究领域大小为$N\times{N}$，那么在该区域内的光流均相等，根据光流的计算方法，该区域内有等式：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+    & I_x(p_1)V_x+I_y(p_1)V_y = -I_t(p_1) \\
+    & I_x(p_2)V_x+I_y(p_2)V_y = -I_t(p_2) \\
+    & \cdots                              \\
+    & I_x(p_n)V_x+I_y(p_n)V_y = -I_t(p_n)
+\end{aligned}</script><p>写成矩阵形式</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+    I_x(p_1) & I_y(p_1) \\
+    I_x(p_2) & I_y(p_2) \\
+    \cdots \\
+    I_x(p_n) & I_y(p_n)
+\end{bmatrix}
+\begin{bmatrix}
+    V_x \\ V_y
+\end{bmatrix}
+=\begin{bmatrix}
+    -I_t(p_1)\\
+    -I_t(p_2) \\
+    \cdots \\
+    -I_t(p_n)
+\end{bmatrix}</script><p>根据最小二乘法求解超定方程$Ax=b$方法，上述矩阵解为</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+    V_x \\ V_y
+\end{bmatrix}
+=\begin{bmatrix}
+    \sum_iI_x(p_i)^2 & \sum_iI_x(p_i)I_y(p_i) \\
+    \sum_iI_y(p_i)I_x(p_i) & \sum_iI_y(p_i)^2 \\
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+    -\sum_iI_x(p_i)I_t(p_i) \\
+    -\sum_iI_y(p_i)I_t(p_i)
+\end{bmatrix}</script><p>最终求的该区域内的光流为$V_x,V_y$。</p>
+<p>总结:</p>
+<ul>
+<li>三个条件<ol>
+<li>物体运动足够小</li>
+<li>同一像素点移动前后的强度不变</li>
+<li>一定区域内的光流值一致</li>
+</ol>
+</li>
+<li>最小二乘法求解超定方程</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-超定方程组求解"><span class="toc-number">1.</span> <span class="toc-text">1 超定方程组求解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-超定方程组"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 超定方程组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-超定方程组的最小二乘解"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 超定方程组的最小二乘解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-LK光流法"><span class="toc-number">2.</span> <span class="toc-text">2 LK光流法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-光流的计算"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 光流的计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-LK光流法求解"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 LK光流法求解</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&text=LK光流法"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&title=LK光流法"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&is_video=false&description=LK光流法"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LK光流法&body=Check out this article: http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&title=LK光流法"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&title=LK光流法"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&title=LK光流法"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&title=LK光流法"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/11/18/LK%E5%85%89%E6%B5%81%E6%B3%95/&name=LK光流法&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 KKS
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/categories/">分类</a></li>
+         
+          <li><a href="/tags/">标签</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
