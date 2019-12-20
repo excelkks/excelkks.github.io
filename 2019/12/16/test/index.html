@@ -6,16 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="搭建v2ray并使用CDN的方法，拯救被墙的IP，CDN + v2ray，安全的科学上网方法">
-<meta name="keywords" content="v2ray,free internet">
+    <meta name="description" content="顾名思义，顺序存储的线性表就是存储方式是在内存中安装先后顺序依次存储、逻辑结构为线性结构的一种数据结构。其存储方式如下图所示：">
+<meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="v2ray+CDN">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;v2ray-CDN&#x2F;index.html">
+<meta property="og:title" content="(一)数据结构：顺序存储线性表">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;16&#x2F;test&#x2F;index.html">
 <meta property="og:site_name" content="Excelkks">
-<meta property="og:description" content="搭建v2ray并使用CDN的方法，拯救被墙的IP，CDN + v2ray，安全的科学上网方法">
+<meta property="og:description" content="顾名思义，顺序存储的线性表就是存储方式是在内存中安装先后顺序依次存储、逻辑结构为线性结构的一种数据结构。其存储方式如下图所示：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-12T02:43:48.470Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;16&#x2F;test&#x2F;image&#x2F;listlinear.bmp">
+<meta property="og:updated_time" content="2019-12-16T07:43:26.737Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;16&#x2F;test&#x2F;image&#x2F;listlinear.bmp">
     
     
         
@@ -35,7 +37,7 @@
         
     
     <!-- title -->
-    <title>v2ray+CDN</title>
+    <title>(一)数据结构：顺序存储线性表</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- persian styles -->
@@ -71,10 +73,8 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2019/12/16/GIF%E5%8A%A8%E5%9B%BE%E5%88%B6%E4%BD%9C/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
-        
-        <li><a class="icon" href="/2019/12/10/skip%E3%80%81merge%E3%80%81AMVP%E6%A8%A1%E5%BC%8F/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/12/16/%EF%BC%88%E4%B8%80%EF%BC%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E7%BA%BF%E6%80%A7%E5%AD%98%E5%82%A8%E7%9A%84%E7%BA%BF%E6%80%A7%E8%A1%A8/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -87,16 +87,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/12/12/v2ray-CDN/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/12/12/v2ray-CDN/&text=v2ray+CDN"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/12/12/v2ray-CDN/&title=v2ray+CDN"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/12/12/v2ray-CDN/&is_video=false&description=v2ray+CDN"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=v2ray+CDN&body=Check out this article: http://yoursite.com/2019/12/12/v2ray-CDN/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/12/12/v2ray-CDN/&title=v2ray+CDN"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/12/12/v2ray-CDN/&title=v2ray+CDN"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/12/12/v2ray-CDN/&title=v2ray+CDN"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/12/12/v2ray-CDN/&title=v2ray+CDN"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/12/12/v2ray-CDN/&name=v2ray+CDN&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/12/16/test/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/12/16/test/&text=(一)数据结构：顺序存储线性表"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/12/16/test/&title=(一)数据结构：顺序存储线性表"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/12/16/test/&is_video=false&description=(一)数据结构：顺序存储线性表"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=(一)数据结构：顺序存储线性表&body=Check out this article: http://yoursite.com/2019/12/16/test/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/12/16/test/&title=(一)数据结构：顺序存储线性表"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/12/16/test/&title=(一)数据结构：顺序存储线性表"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/12/16/test/&title=(一)数据结构：顺序存储线性表"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/12/16/test/&title=(一)数据结构：顺序存储线性表"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/12/16/test/&name=(一)数据结构：顺序存储线性表&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -126,7 +126,7 @@
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <h1 class="posttitle" itemprop="name headline">
-        v2ray+CDN
+        (一)数据结构：顺序存储线性表
     </h1>
 
 
@@ -138,7 +138,7 @@
       
     <div class="postdate">
       
-        <time datetime="2019-12-12T02:39:51.000Z" itemprop="datePublished">2019-12-12</time>
+        <time datetime="2019-12-16T06:23:35.000Z" itemprop="datePublished">2019-12-16</time>
         
       
     </div>
@@ -147,14 +147,14 @@
       
     <div class="article-category">
         <i class="fas fa-archive"></i>
-        <a class="category-link" href="/categories/free-internet/">free internet</a>
+        <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
     </div>
 
 
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/free-internet/" rel="tag">free internet</a>, <a class="tag-link" href="/tags/v2ray/" rel="tag">v2ray</a>
+        <a class="tag-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a>
     </div>
 
 
@@ -163,8 +163,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>搭建v2ray并使用CDN的方法，<a href="https://blog.sprov.xyz/2019/03/11/cdn-v2ray-safe-proxy/">拯救被墙的IP，CDN + v2ray，安全的科学上网方法
-</a></p>
+    <p>顾名思义，顺序存储的线性表就是存储方式是在内存中安装先后顺序依次存储、逻辑结构为线性结构的一种数据结构。<br>其存储方式如下图所示：<br><img src="/2019/12/16/test/image/listlinear.bmp" alt="listlinear"></p>
 
   </div>
 </article>
@@ -195,16 +194,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/12/12/v2ray-CDN/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/12/12/v2ray-CDN/&text=v2ray+CDN"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/12/12/v2ray-CDN/&title=v2ray+CDN"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/12/12/v2ray-CDN/&is_video=false&description=v2ray+CDN"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=v2ray+CDN&body=Check out this article: http://yoursite.com/2019/12/12/v2ray-CDN/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/12/12/v2ray-CDN/&title=v2ray+CDN"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/12/12/v2ray-CDN/&title=v2ray+CDN"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/12/12/v2ray-CDN/&title=v2ray+CDN"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/12/12/v2ray-CDN/&title=v2ray+CDN"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/12/12/v2ray-CDN/&name=v2ray+CDN&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/12/16/test/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/12/16/test/&text=(一)数据结构：顺序存储线性表"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/12/16/test/&title=(一)数据结构：顺序存储线性表"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/12/16/test/&is_video=false&description=(一)数据结构：顺序存储线性表"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=(一)数据结构：顺序存储线性表&body=Check out this article: http://yoursite.com/2019/12/16/test/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/12/16/test/&title=(一)数据结构：顺序存储线性表"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/12/16/test/&title=(一)数据结构：顺序存储线性表"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/12/16/test/&title=(一)数据结构：顺序存储线性表"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/12/16/test/&title=(一)数据结构：顺序存储线性表"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/12/16/test/&name=(一)数据结构：顺序存储线性表&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

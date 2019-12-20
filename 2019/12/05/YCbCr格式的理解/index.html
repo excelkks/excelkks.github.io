@@ -14,10 +14,10 @@
 <meta property="og:site_name" content="Excelkks">
 <meta property="og:description" content="YCbCr格式的理解YUV格式YUV格式有别于传统的RGB三原色格式，YUV是将亮度分量Y和两个色度分量U、V分开，其中Y表示灰阶值，U表示蓝色与亮度值之间的差异，V表示红色与亮度之间的差异，于是对亮度分量的处理Y并不影响U、V分量，此外单独传输Y分量可向后兼容老式黑白电视。YCbCr格式与YUV格式类似，YCbCr主要应用于图像、视频压缩的数字彩色信息表示，是YUV压缩和偏移的版本。RGB与YC">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;image&#x2F;YUV_sampling.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;05&#x2F;YCbCr%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3&#x2F;YUV_sampling.png">
 <meta property="og:updated_time" content="2019-12-05T09:26:44.093Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;image&#x2F;YUV_sampling.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;05&#x2F;YCbCr%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3&#x2F;YUV_sampling.png">
     
     
         
@@ -191,7 +191,7 @@
 \end{bmatrix}
 \begin{bmatrix}
     Y\\Cb-128\\Cr-128
-\end{bmatrix}</script><h4 id="色度亚采样"><a href="#色度亚采样" class="headerlink" title="色度亚采样"></a>色度亚采样</h4><p>由于人眼对于色度的敏感度要低于对亮度的敏感度，因此，可采用低于亮度的采样率对色度采样，从而达到视频压缩的目的，衍生的YCbCr采样格式有4:4:4、4:2:2、4:1:1、4:2:0。它们的采用方式如下图所示，4:4:4采样比较容易理解，不作表述。4:2:2采样表示水平方向上，每4个Y分量对应2个Cb分量和2个Cr分量；4:1:1采样表示水平方向上，每4个Y分量对应1个Cb分量和1个Cr分量；4:2:0采样表示水平方向上，每4个Y分量对应2个Cb分量和0个Cr分量，或者每4个Y分量对应0个Cb分量和2个Cr分量。<br><img src="/image/YUV_sampling.png" alt="YUV采样" title="YUV采样"></p>
+\end{bmatrix}</script><h4 id="色度亚采样"><a href="#色度亚采样" class="headerlink" title="色度亚采样"></a>色度亚采样</h4><p>由于人眼对于色度的敏感度要低于对亮度的敏感度，因此，可采用低于亮度的采样率对色度采样，从而达到视频压缩的目的，衍生的YCbCr采样格式有4:4:4、4:2:2、4:1:1、4:2:0。它们的采用方式如下图所示，4:4:4采样比较容易理解，不作表述。4:2:2采样表示水平方向上，每4个Y分量对应2个Cb分量和2个Cr分量；4:1:1采样表示水平方向上，每4个Y分量对应1个Cb分量和1个Cr分量；4:2:0采样表示水平方向上，每4个Y分量对应2个Cb分量和0个Cr分量，或者每4个Y分量对应0个Cb分量和2个Cr分量。<br><img src="/2019/12/05/YCbCr%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/YUV_sampling.png" alt="YUV采样" title="YUV采样"></p>
 <h4 id="YCbCr格式的存储方式"><a href="#YCbCr格式的存储方式" class="headerlink" title="YCbCr格式的存储方式"></a>YCbCr格式的存储方式</h4><p>YCbCr数据的存放分为两类，packed formats和planar formats。Packed formats的Y, Cr(U), Cb(V)一起存放在一个数组中，依据像素点交替存放，类似YCbCrYCbCrYCbCr….；Planar formats的Y, Cr(U), Cb(V)每个分量单独存放，存放的方式类似YYY…CbCbCb…CrCrCr…<br>Packed formats以4:2:0采样方法举例，假设分辨率为8x2，如下图所示：</p>
 
   </div>
