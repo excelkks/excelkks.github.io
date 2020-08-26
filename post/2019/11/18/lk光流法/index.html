@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>LK光流法 - excelkks</title>
+    <meta property="og:title" content="LK光流法 - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="超定方程组是指方程的个数大于未知数个数的方程组，例如
+$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \ &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \
+a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} \ &amp;hellip;">
+      <meta property="og:description" content="超定方程组是指方程的个数大于未知数个数的方程组，例如
+$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \ &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \
+a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} \ &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/style.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/fonts.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+  </head>
+
+  
+  <body class="excelkks">
+    <header class="masthead">
+      <h1><a href="/excelkks/excelkks.github.io/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">do it and just waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/excelkks/excelkks.github.io/">主页</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/about/">关于</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/categories/">分类</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>LK光流法</h1>
+
+<h3>
+  2019-11-18</h3>
+<hr>
+
+
+      </header>
+
+
+
+<h2 id="1-超定方程组求解">1 超定方程组求解</h2>
+<h3 id="11-超定方程组">1.1 超定方程组</h3>
+<p>超定方程组是指方程的个数大于未知数个数的方程组，例如</p>
+<p>$$
+\begin{bmatrix}
+a_{11} &amp; a_{12} &amp; a_{13} \
+a_{21} &amp; a_{22} &amp; a_{23} \
+&hellip; &amp; &hellip; &amp; &hellip; \<br>
+a_{n1} &amp; a_{n2} &amp; a_{n3} \<br>
+\end{bmatrix}</p>
+<p>\times</p>
+<p>\begin{bmatrix}
+x_1 \ x_2 \ x_3 \<br>
+\end{bmatrix}</p>
+<p>=</p>
+<p>\begin{bmatrix}
+b_1 \ b_2 \ &hellip; \ b_n \<br>
+\end{bmatrix}
+$$
+其中，$n&gt;3$，将上述方程表示为$\boldsymbol{A}<em>{n\times3}x</em>{3\times 1}=b_{n\times 1}$，该方程不能按照一般的求解方法求解，但可以求的最小二乘法的解。</p>
+<p>先给出结论，该超定方程组的最小二乘解为：
+$$x=(\boldsymbol{A}^{T}\boldsymbol{A})^{-1}\boldsymbol{A}^{T}b$$</p>
+<h3 id="12-超定方程组的最小二乘解">1.2 超定方程组的最小二乘解</h3>
+<p>对于无一般解的超定方程组$\boldsymbol{A}x=b$来说，假设$r=\boldsymbol{A}x -b$，使得$||r||^2_2=（\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$的值最小的解即为最小二乘解。于是，问题转变为最小化$(\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$，令
+$$J(x)=(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)$$
+对上式求导，可得
+$$
+\begin{aligned}
+\frac{\partial J(x)}{\partial x} &amp; =\frac{\partial{(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)}}{\partial{x}} \<br>
+&amp; =\frac{\partial(x^T\boldsymbol{A}^T\boldsymbol{A}x-x^T\boldsymbol{A}^Tb-b^T\boldsymbol{A}x+b^Tb)}{\partial{x}} \<br>
+&amp; =(\boldsymbol{A}^T\boldsymbol{A}x)^T+x^T\boldsymbol{A}\boldsymbol{A}-b^T\boldsymbol{A}-b^T\boldsymbol{A} \<br>
+&amp; =2(x^T\boldsymbol{A}^T\boldsymbol{A}-b^T\boldsymbol{A})
+\end{aligned}
+$$
+令$\frac{\partial{J(x)}}{\partial{x}}=0$，那么，可以解得
+$$
+x=(\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^Tb
+$$</p>
+<h2 id="2-lk光流法">2 LK光流法</h2>
+<p>Optical flow光流简单来说是描述物体的运动，可理解为运动向量。光流法可用于运动检测、物体切割、运动补偿编码等等方向。</p>
+<h3 id="21-光流的计算">2.1 光流的计算</h3>
+<p>光流法实际是通过检测图像像素点的强度随时间的变化进而推断出物体移动速度及方向的方法.</p>
+<p>光流法的假设条件：</p>
+<ul>
+<li>物体移动很小</li>
+<li>相同像素点移动前后像素强度不变（一般指亮度）</li>
+</ul>
+<p>现假设在时间$t$时，点$(x,y)$处像素点强度为$I(x,y,t)$，那么$\Delta{t}$时间后，该像素点将移动到$(x+\Delta{x},y+\Delta{y})$处，像素强度为$I(x+\Delta{x},y+\Delta{y},t+\Delta{t})$，对其进行泰勒级数展开得到：
+$$
+\begin{aligned}
+&amp; I(x+\Delta{x},y+\Delta{y},t+\Delta{t}) \<br>
+= &amp; I(x,y,t)+\frac{\partial{I}}{\partial{x}}\Delta{x}+\frac{\partial{I}}{\partial{y}}\Delta{y}+\frac{\partial{I}}{\partial{t}}\Delta{t}+H.O.T.
+\end{aligned}
+$$</p>
+<p>基于假设条件，相同像素移动前后的强度不变，同时忽略$H.O.T$，可得：
+$$
+\frac{\partial{I}}{\partial{x}}\Delta{x}+\frac{\partial{I}}{\partial{y}}\Delta{y}+\frac{\partial{I}}{\partial{t}}\Delta{t}=0
+$$
+可写作：
+$$
+\frac{\partial{I}}{\partial{x}}\frac{\Delta{x}}{\Delta{t}}+\frac{\partial{I}}{\partial{y}}\frac{\Delta{y}}{\Delta{t}}+\frac{\partial{I}}{\partial{t}}\frac{\Delta{t}}{\Delta{t}}=0
+$$
+令$\frac{\Delta{x}}{\Delta{t}}=V_x$表示$x$方向上的运动速度，$\frac{\Delta{y}}{\Delta{t}}=V_y$表示$y$方向上的运动速度，那么最终可得：
+$$
+\frac{\partial{I}}{\partial{x}}V_x+\frac{\partial{I}}{\partial{y}}V_y+\frac{\partial{I}}{\partial{t}}=0
+$$
+$V_x$, $V_y$也即为$I(x,y,t)$的光流，$\frac{\partial{I}}{\partial{x}}$,$\frac{\partial{I}}{\partial{y}}$,$\frac{\partial{I}}{\partial{t}}$为图像$(x,y,t)$在对应方向的偏导数。</p>
+<p>显然上式中，两个未知数，一个方程，无法求解，以下介绍LK光流法求解。</p>
+<h3 id="22-lk光流法求解">2.2 LK光流法求解</h3>
+<p>卢卡斯-卡纳徳(Bruce D. Lucas和Takeo Kanade)光流法在光流假设条件下增加了另一个假设条件</p>
+<ul>
+<li>假设光流在像素点的邻域是一个常数</li>
+</ul>
+<p>那么，假设研究领域大小为$N\times{N}$，那么在该区域内的光流均相等，根据光流的计算方法，该区域内有等式：
+$$
+\begin{aligned}
+&amp; I_x(p_1)V_x+I_y(p_1)V_y = -I_t(p_1) \<br>
+&amp; I_x(p_2)V_x+I_y(p_2)V_y = -I_t(p_2) \<br>
+&amp; \cdots                              \<br>
+&amp; I_x(p_n)V_x+I_y(p_n)V_y = -I_t(p_n)
+\end{aligned}
+$$
+写成矩阵形式
+$$
+\begin{bmatrix}
+I_x(p_1) &amp; I_y(p_1) \<br>
+I_x(p_2) &amp; I_y(p_2) \<br>
+\cdots \<br>
+I_x(p_n) &amp; I_y(p_n)
+\end{bmatrix}
+\begin{bmatrix}
+V_x \ V_y
+\end{bmatrix}
+=\begin{bmatrix}
+-I_t(p_1)\<br>
+-I_t(p_2) \<br>
+\cdots \<br>
+-I_t(p_n)
+\end{bmatrix}
+$$</p>
+<p>根据最小二乘法求解超定方程$Ax=b$方法，$x=(\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^Tb$，上述矩阵解为
+$$
+\begin{bmatrix}
+V_x \ V_y
+\end{bmatrix}
+=\begin{bmatrix}
+\sum_iI_x(p_i)^2 &amp; \sum_iI_x(p_i)I_y(p_i) \<br>
+\sum_iI_y(p_i)I_x(p_i) &amp; \sum_iI_y(p_i)^2 \<br>
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+-\sum_iI_x(p_i)I_t(p_i) \<br>
+-\sum_iI_y(p_i)I_t(p_i)
+\end{bmatrix}
+$$</p>
+<p>最终求的该区域内的光流为$V_x,V_y$。</p>
+<p>总结:</p>
+<ul>
+<li>三个条件
+<ol>
+<li>物体运动足够小</li>
+<li>同一像素点移动前后的强度不变</li>
+<li>一定区域内的光流值一致</li>
+</ol>
+</li>
+<li>最小二乘法求解超定方程</li>
+</ul>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev"></span>
+  <span class="nav-next"><a href="/excelkks/excelkks.github.io/post/2019/11/22/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91opencv%E5%B9%B6%E7%A7%BB%E6%A4%8D%E8%87%B3%E6%A0%91%E8%8E%93%E6%B4%BE/">交叉编译opencv并移植至树莓派</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

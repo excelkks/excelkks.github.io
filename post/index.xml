@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on excelkks</title>
+    <link>https://github.com/excelkks/excelkks.github.io/post/</link>
+    <description>Recent content in Posts on excelkks</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 26 Aug 2020 17:06:33 +0800</lastBuildDate>
+    
+	<atom:link href="https://github.com/excelkks/excelkks.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>转移到hugo</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2020/08/26/%E8%BD%AC%E7%A7%BB%E5%88%B0hugo/</link>
+      <pubDate>Wed, 26 Aug 2020 17:06:33 +0800</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2020/08/26/%E8%BD%AC%E7%A7%BB%E5%88%B0hugo/</guid>
+      <description>介于hexo框架太麻烦了，要安装nodejs，又要安装各种包，实在是难同步。由于电脑前段时间崩了，重新搭建hexo环境总是失败，实在浪费了很多时间，于是决定迁移到hugo。
+在mac搭建hugo环境非常简单，只需要用homebrew即可安装
+brew install hugo 这就算安装好hugo了，初始化新的hugo站点则至于要在任意路径下执行，再将主题放到theme中，我这里用的是yihui的hugo-ivy进行的修改，除了yihui的字体好像经过优化了，其他基本类似.
+hugo new site &amp;lt;/path/to/site&amp;gt; git clone https://github.com/yihui/hugo-ivy themes/hugo-ivy yihui的主题可以很好的支持行间公式(双美元符$$)，但是不能支持行内公式(单美元符$)，于是从这里中找到解决方案，即在layouts/partials/mathjax.html中加入：
+&amp;lt;script type=&amp;#34;text/javascript&amp;#34; async src=&amp;#34;https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;#34;&amp;gt; MathJax.Hub.Config({ tex2jax: { inlineMath: [[&amp;#39;$&amp;#39;,&amp;#39;$&amp;#39;], [&amp;#39;\\(&amp;#39;,&amp;#39;\\)&amp;#39;]], displayMath: [[&amp;#39;$$&amp;#39;,&amp;#39;$$&amp;#39;], [&amp;#39;\[\[&amp;#39;,&amp;#39;\]\]&amp;#39;]], processEscapes: true, processEnvironments: true, skipTags: [&amp;#39;script&amp;#39;, &amp;#39;noscript&amp;#39;, &amp;#39;style&amp;#39;, &amp;#39;textarea&amp;#39;, &amp;#39;pre&amp;#39;], TeX: { equationNumbers: { autoNumber: &amp;#34;AMS&amp;#34; }, extensions: [&amp;#34;AMSmath.js&amp;#34;, &amp;#34;AMSsymbols.js&amp;#34;] } } }); MathJax.Hub.Queue(function() { // Fix &amp;lt;code&amp;gt; tags after MathJax finishes running. This is a  // hack to overcome a shortcoming of Markdown.</description>
+    </item>
+    
+    <item>
+      <title>数组指针和指针数组</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2020/01/10/%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88%E5%92%8C%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84/</link>
+      <pubDate>Fri, 10 Jan 2020 09:42:37 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2020/01/10/%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88%E5%92%8C%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>(一)数据结构：顺序存储线性表</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/12/16/%E4%B8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BA%BF%E6%80%A7%E8%A1%A8/</link>
+      <pubDate>Mon, 16 Dec 2019 14:23:35 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/12/16/%E4%B8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BA%BF%E6%80%A7%E8%A1%A8/</guid>
+      <description>顾名思义，顺序存储的线性表就是存储方式是在内存中安装先后顺序依次存储、逻辑结构为线性结构的一种数据结构。 其存储方式如下图所示： 各个储存单元都是顺序排放的。为了顺序存储数据，需要为一个顺序存储线性表指定长度。 下面是顺序存储的线性表结构代码
+#define LIST_LENGTH_MAX 20 struct listlinear_t { int data[LIST_LENGTH_MAX]; int length; }listlinear; 为了指示对线性表的操作后的返回状态，可以作如下定义
+#define OK 1 #define ERROR 0 #define TRUE 1 #define FALSE 0 线性表初始化 void InitList(listlinear *list) { for(int i=0; i&amp;lt;LIST_LENGTH_MAX; i++) list-&amp;gt;data[i] = 0; list-&amp;gt;length = 0; } 查询数据 查询线性表中的第loc个数据，由于顺序存储的线性表按照先后顺序存储在存储单元内，因此支持随机查询数据, 代码的实现如下
+status GetElim(listlinear list, int loc, int *e){ if(list.length == 0 || loc &amp;gt; list.length) return ERROR; *e = list.data[loc]; return OK; } 插入数据 顺序存储的方式使线性表在需要插入数据时要重新排放存储单元的数据，但要在第loc处插入数据时，loc后的数据需要在当前的存储单元后移个位置，如下图，在data[2]处插入数据，则原来data[2]处的数据需要向后存放致data[3]处，后面的数据依次后移。 代码实现如下:</description>
+    </item>
+    
+    <item>
+      <title>GIF动图制作</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/12/16/gif%E5%8A%A8%E5%9B%BE%E5%88%B6%E4%BD%9C/</link>
+      <pubDate>Mon, 16 Dec 2019 11:09:38 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/12/16/gif%E5%8A%A8%E5%9B%BE%E5%88%B6%E4%BD%9C/</guid>
+      <description>屏幕录制GIF动图工具  Screen， 缺点是只能在windows系统使用。 LICEcap 同时支持windows和macos  </description>
+    </item>
+    
+    <item>
+      <title>v2ray&#43;CDN</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/12/12/v2ray-cdn/</link>
+      <pubDate>Thu, 12 Dec 2019 10:39:51 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/12/12/v2ray-cdn/</guid>
+      <description>搭建v2ray并使用CDN的方法，拯救被墙的IP，CDN + v2ray，安全的科学上网方法</description>
+    </item>
+    
+    <item>
+      <title>skip、merge、AMVP模式</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/12/10/skipmergeamvp%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Tue, 10 Dec 2019 19:09:17 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/12/10/skipmergeamvp%E6%A8%A1%E5%BC%8F/</guid>
+      <description>在H.265中，帧间预测模式包括Skip模式、Merge模式、AMVP模式，其中，Skip模式是一种特殊的Merge模式。它们所需要编码的信息如下
+    MVP MVD 量化残差     Skip ✔ ❌ ❌   Merge ✔ ❌ ✔   AMVP ✔ ✔ ✔    MVP的获取方法都是通过在编解码端建立候选列表，但要注意的是Skip模式和Merge模式建立MVP列表的方法一样，而AMVP建立候选列表的方式与Merge模式建立候选列表的方式不一样</description>
+    </item>
+    
+    <item>
+      <title>梯度下降法原理</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/12/10/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Tue, 10 Dec 2019 09:40:39 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/12/10/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8E%9F%E7%90%86/</guid>
+      <description>在机器学习中，梯度下降法是首先接触的到的最优求解方法，特别是在线性回归中，目标函数往往是一个凸函数(convex)，可以通过梯度下降法求得全局最优解。梯度下降法的公式比较简单。例如，优化函数$J(\theta)$的梯度为$\nabla J(\theta)$，那么其梯度下降过程为：
+$$ \theta^{(k+1)} = \theta^{(k)}-\eta \nabla J(\theta)|_{\theta = \theta^{(k)}} $$ 也可以写成： $$ \theta_i^{(k+1)} = \theta_i^{(k)}-\eta \frac{\partial J(\theta_i)}{\partial \theta_i}|_{\theta_i = \theta_i^{(k)}} $$ 梯度下降法的推导方法如下：
+假设待优化函数为$J(\theta)$，根据一阶泰勒展开，得到 $$ J(\theta) = J(\theta^{(k)})+\nabla J(\theta^{(k)})(\theta-\theta^{(k)}) $$ 假设当前位置$\theta^{(k)}$的下一步更新位置为$\theta^{(k+1)}$，那么 $$ J(\theta^{(k+1)}) = J(\theta^{(k)})+\nabla J(\theta^{(k)})(\theta^{(k+1)}-\theta^{(k)}) $$ 也就是： $$ J(\theta^{(k+1)})-J(\theta^{(k)})=\nabla J(\theta^{(k)})(\theta^{(k+1)}-\theta^{(k)}) $$ 我们的目标是求的使$J(\theta)$的值取得最小的$\theta$，那么每次更新应该保证$J(\theta^{(k+1)})-J(\theta^{(k)})&amp;lt;0$，并且越小越好。可以观察上式中$\nabla J(\theta^{(k)})$和$\theta^{(k+1)}-\theta^{(k)}$表示的是两个向量的乘积。 $$ \nabla J(\theta^{(k)})(\theta^{(k+1)}-\theta^{(k)})=||\nabla J(\theta^{(k)})||\cdot||(\theta^{(k+1)}-\theta^{(k)}||\cdot cos\alpha $$ 回顾向量的乘法，$J(\theta^{(k+1)})-J(\theta^{(k)})$的值取决于$||\nabla J(\theta^{(k)})||$,$||(\theta^{(k+1)}-\theta^{(k)}||$以及$cos\alpha$的大小，对于给定目标函数$J(\theta)$，结果只与$\theta^{(k+1)}$和与之相关的$cos\alpha$如何取值有关。当$||(\theta^{(k+1)}-\theta^{(k)}||$确定时，可使$cos\alpha=-1$来使得向量乘积负得最大（即值最小），也就是两个向量的夹角为$180^{\circ}$，此时有 $$ \frac{(\theta^{(k+1)}-\theta^{(k)})}{||(\theta^{(k+1)}-\theta^{(k)})||}=-\frac{\nabla J(\theta^{(k)})}{||\nabla J(\theta^{(k)})||} $$ 也就是: $$ \theta^{(k+1)} = \theta^{(k)} -\frac{||(\theta^{(k+1)}-\theta^{(k)})||}{||\nabla J(\theta^{(k)})||} \nabla J(\theta^{(k)}) $$ 令$\eta=\frac{||(\theta^{(k+1)}-\theta^{(k)})||}{||\nabla J(\theta^{(k)})||}$，上式可写成: $$ \theta^{(k+1)} = \theta^{(k)} -\eta\nabla J(\theta^{(k)}) $$ 或写成： $$ \theta_i^{(k+1)} = \theta_i^{(k)} -\eta\frac{\partial J(\theta_i)}{\partial\theta_i} |_{\theta_i=\theta_i^{(k)}} $$</description>
+    </item>
+    
+    <item>
+      <title>YCbCr格式的理解</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/12/05/ycbcr%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/</link>
+      <pubDate>Thu, 05 Dec 2019 16:37:21 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/12/05/ycbcr%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
+      <description>YCbCr格式的理解 YUV格式 YUV格式有别于传统的RGB三原色格式，YUV是将亮度分量Y和两个色度分量U、V分开，其中Y表示灰阶值，U表示蓝色与亮度值之间的差异，V表示红色与亮度之间的差异，于是对亮度分量的处理Y并不影响U、V分量，此外单独传输Y分量可向后兼容老式黑白电视。YCbCr格式与YUV格式类似，YCbCr主要应用于图像、视频压缩的数字彩色信息表示，是YUV压缩和偏移的版本。RGB与YCbCr的转换如下： $$ \begin{bmatrix} Y \
+Cb \
+Cr \end{bmatrix} = \begin{bmatrix} 0.299 &amp;amp; 0.587&amp;amp; 0.114 \
+-0.169&amp;amp; -0.331&amp;amp; 0.449 \
+0.449 &amp;amp; -0.418&amp;amp; -0.0813 \
+\end{bmatrix} \begin{bmatrix} R \ G \ B \end{bmatrix}+ \begin{bmatrix} 0 \ 128 \ 128 \end{bmatrix} $$
+$$ \begin{bmatrix} R \ G \ B \end{bmatrix} = \begin{bmatrix} 1.0 &amp;amp; 0.0 &amp;amp; 1.402 \
+1.0 &amp;amp; -0.344 &amp;amp; -0.714 \
+1.0 &amp;amp; 1.772 &amp;amp; 0.0 \end{bmatrix} \begin{bmatrix} Y \ Cb-128 \ Cr-128 \end{bmatrix} $$</description>
+    </item>
+    
+    <item>
+      <title>cmake编译与测试opencv4</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/11/28/cmake%E7%BC%96%E8%AF%91%E4%B8%8E%E6%B5%8B%E8%AF%95opencv4/</link>
+      <pubDate>Thu, 28 Nov 2019 15:43:42 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/11/28/cmake%E7%BC%96%E8%AF%91%E4%B8%8E%E6%B5%8B%E8%AF%95opencv4/</guid>
+      <description>保证已经安装：
+ GCC 4.4.x or later CMake 2.8.7 or higher Git GTK+2.x or higher, incuding headers(libgtk2.0-dev) pkg-config Python 2.6 or later and Numpy 1.5 or later with developer package (python-dev, python-numpy) ffmpeg or libav development packages: libavcodec-dev, libavformat-dev, libswscale-dev [optional] libtbb2 libtbb-dev [optional] libdc1394 2.x [optional] libjpeg-dev, libpng-dev, libtiff-dev, libjasper-dev, libdc1394-22-dev [optional] CUDA Toolkit 6.5 or higher 可通过以下命令安装  # [compiler] sudo apt-get install build-essential # required sudo apt-get install cmake git libgtk2.</description>
+    </item>
+    
+    <item>
+      <title>交叉编译opencv并移植至树莓派</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/11/22/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91opencv%E5%B9%B6%E7%A7%BB%E6%A4%8D%E8%87%B3%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
+      <pubDate>Fri, 22 Nov 2019 11:14:26 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/11/22/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91opencv%E5%B9%B6%E7%A7%BB%E6%A4%8D%E8%87%B3%E6%A0%91%E8%8E%93%E6%B4%BE/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LK光流法</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/11/18/lk%E5%85%89%E6%B5%81%E6%B3%95/</link>
+      <pubDate>Mon, 18 Nov 2019 11:10:53 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/11/18/lk%E5%85%89%E6%B5%81%E6%B3%95/</guid>
+      <description>1 超定方程组求解 1.1 超定方程组 超定方程组是指方程的个数大于未知数个数的方程组，例如
+$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \ &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \
+a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} \
+\end{bmatrix}
+\times
+\begin{bmatrix} x_1 \ x_2 \ x_3 \
+\end{bmatrix}
+=
+\begin{bmatrix} b_1 \ b_2 \ &amp;hellip; \ b_n \
+\end{bmatrix} $$ 其中，$n&amp;gt;3$，将上述方程表示为$\boldsymbol{A}{n\times3}x{3\times 1}=b_{n\times 1}$，该方程不能按照一般的求解方法求解，但可以求的最小二乘法的解。
+先给出结论，该超定方程组的最小二乘解为： $$x=(\boldsymbol{A}^{T}\boldsymbol{A})^{-1}\boldsymbol{A}^{T}b$$
+1.2 超定方程组的最小二乘解 对于无一般解的超定方程组$\boldsymbol{A}x=b$来说，假设$r=\boldsymbol{A}x -b$，使得$||r||^2_2=（\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$的值最小的解即为最小二乘解。于是，问题转变为最小化$(\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$，令 $$J(x)=(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)$$ 对上式求导，可得 $$ \begin{aligned} \frac{\partial J(x)}{\partial x} &amp;amp; =\frac{\partial{(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)}}{\partial{x}} \</description>
+    </item>
+    
+  </channel>
+</rss>

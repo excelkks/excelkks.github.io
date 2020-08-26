@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>视频编解码 on excelkks</title>
+    <link>https://github.com/excelkks/excelkks.github.io/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81/</link>
+    <description>Recent content in 视频编解码 on excelkks</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 10 Dec 2019 19:09:17 +0000</lastBuildDate>
+    
+	<atom:link href="https://github.com/excelkks/excelkks.github.io/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>skip、merge、AMVP模式</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/12/10/skipmergeamvp%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Tue, 10 Dec 2019 19:09:17 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/12/10/skipmergeamvp%E6%A8%A1%E5%BC%8F/</guid>
+      <description>在H.265中，帧间预测模式包括Skip模式、Merge模式、AMVP模式，其中，Skip模式是一种特殊的Merge模式。它们所需要编码的信息如下
+    MVP MVD 量化残差     Skip ✔ ❌ ❌   Merge ✔ ❌ ✔   AMVP ✔ ✔ ✔    MVP的获取方法都是通过在编解码端建立候选列表，但要注意的是Skip模式和Merge模式建立MVP列表的方法一样，而AMVP建立候选列表的方式与Merge模式建立候选列表的方式不一样</description>
+    </item>
+    
+    <item>
+      <title>YCbCr格式的理解</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/12/05/ycbcr%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/</link>
+      <pubDate>Thu, 05 Dec 2019 16:37:21 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/12/05/ycbcr%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
+      <description>YCbCr格式的理解 YUV格式 YUV格式有别于传统的RGB三原色格式，YUV是将亮度分量Y和两个色度分量U、V分开，其中Y表示灰阶值，U表示蓝色与亮度值之间的差异，V表示红色与亮度之间的差异，于是对亮度分量的处理Y并不影响U、V分量，此外单独传输Y分量可向后兼容老式黑白电视。YCbCr格式与YUV格式类似，YCbCr主要应用于图像、视频压缩的数字彩色信息表示，是YUV压缩和偏移的版本。RGB与YCbCr的转换如下： $$ \begin{bmatrix} Y \
+Cb \
+Cr \end{bmatrix} = \begin{bmatrix} 0.299 &amp;amp; 0.587&amp;amp; 0.114 \
+-0.169&amp;amp; -0.331&amp;amp; 0.449 \
+0.449 &amp;amp; -0.418&amp;amp; -0.0813 \
+\end{bmatrix} \begin{bmatrix} R \ G \ B \end{bmatrix}+ \begin{bmatrix} 0 \ 128 \ 128 \end{bmatrix} $$
+$$ \begin{bmatrix} R \ G \ B \end{bmatrix} = \begin{bmatrix} 1.0 &amp;amp; 0.0 &amp;amp; 1.402 \
+1.0 &amp;amp; -0.344 &amp;amp; -0.714 \
+1.0 &amp;amp; 1.772 &amp;amp; 0.0 \end{bmatrix} \begin{bmatrix} Y \ Cb-128 \ Cr-128 \end{bmatrix} $$</description>
+    </item>
+    
+    <item>
+      <title>LK光流法</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/11/18/lk%E5%85%89%E6%B5%81%E6%B3%95/</link>
+      <pubDate>Mon, 18 Nov 2019 11:10:53 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/11/18/lk%E5%85%89%E6%B5%81%E6%B3%95/</guid>
+      <description>1 超定方程组求解 1.1 超定方程组 超定方程组是指方程的个数大于未知数个数的方程组，例如
+$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \ &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \
+a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} \
+\end{bmatrix}
+\times
+\begin{bmatrix} x_1 \ x_2 \ x_3 \
+\end{bmatrix}
+=
+\begin{bmatrix} b_1 \ b_2 \ &amp;hellip; \ b_n \
+\end{bmatrix} $$ 其中，$n&amp;gt;3$，将上述方程表示为$\boldsymbol{A}{n\times3}x{3\times 1}=b_{n\times 1}$，该方程不能按照一般的求解方法求解，但可以求的最小二乘法的解。
+先给出结论，该超定方程组的最小二乘解为： $$x=(\boldsymbol{A}^{T}\boldsymbol{A})^{-1}\boldsymbol{A}^{T}b$$
+1.2 超定方程组的最小二乘解 对于无一般解的超定方程组$\boldsymbol{A}x=b$来说，假设$r=\boldsymbol{A}x -b$，使得$||r||^2_2=（\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$的值最小的解即为最小二乘解。于是，问题转变为最小化$(\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$，令 $$J(x)=(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)$$ 对上式求导，可得 $$ \begin{aligned} \frac{\partial J(x)}{\partial x} &amp;amp; =\frac{\partial{(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)}}{\partial{x}} \</description>
+    </item>
+    
+  </channel>
+</rss>

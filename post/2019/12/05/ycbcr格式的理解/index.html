@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>YCbCr格式的理解 - excelkks</title>
+    <meta property="og:title" content="YCbCr格式的理解 - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="YUV格式有别于传统的RGB三原色格式，YUV是将亮度分量Y和两个色度分量U、V分开，其中Y表示灰阶值，U表示蓝色与亮度值之间的差异，V表示红色与亮度之间的差异，于是对亮度分量的处理Y并不影响U、V分量，此外单独传输Y分量可向后兼容老式黑白电视。YCbCr格式与YUV格式类似，YCbCr主要应用于图像、视频压缩的数字彩色信息表示，是YUV压缩和偏移的版本。RGB与YCbCr的转换如下： $$ &amp;hellip;">
+      <meta property="og:description" content="YUV格式有别于传统的RGB三原色格式，YUV是将亮度分量Y和两个色度分量U、V分开，其中Y表示灰阶值，U表示蓝色与亮度值之间的差异，V表示红色与亮度之间的差异，于是对亮度分量的处理Y并不影响U、V分量，此外单独传输Y分量可向后兼容老式黑白电视。YCbCr格式与YUV格式类似，YCbCr主要应用于图像、视频压缩的数字彩色信息表示，是YUV压缩和偏移的版本。RGB与YCbCr的转换如下： $$ &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/style.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/fonts.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+  </head>
+
+  
+  <body class="excelkks">
+    <header class="masthead">
+      <h1><a href="/excelkks/excelkks.github.io/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">do it and just waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/excelkks/excelkks.github.io/">主页</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/about/">关于</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/categories/">分类</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>YCbCr格式的理解</h1>
+
+<h3>
+  2019-12-05</h3>
+<hr>
+
+
+      </header>
+
+
+
+<h3 id="ycbcr格式的理解">YCbCr格式的理解</h3>
+<h4 id="yuv格式">YUV格式</h4>
+<p>YUV格式有别于传统的RGB三原色格式，YUV是将亮度分量Y和两个色度分量U、V分开，其中Y表示灰阶值，U表示蓝色与亮度值之间的差异，V表示红色与亮度之间的差异，于是对亮度分量的处理Y并不影响U、V分量，此外单独传输Y分量可向后兼容老式黑白电视。YCbCr格式与YUV格式类似，YCbCr主要应用于图像、视频压缩的数字彩色信息表示，是YUV压缩和偏移的版本。RGB与YCbCr的转换如下：
+$$
+\begin{bmatrix}
+Y \<br>
+Cb \<br>
+Cr
+\end{bmatrix} =
+\begin{bmatrix}
+0.299 &amp; 0.587&amp; 0.114 \<br>
+-0.169&amp; -0.331&amp; 0.449 \<br>
+0.449 &amp; -0.418&amp; -0.0813 \<br>
+\end{bmatrix}
+\begin{bmatrix}
+R \ G \ B
+\end{bmatrix}+
+\begin{bmatrix}
+0 \ 128 \ 128
+\end{bmatrix}
+$$</p>
+<p>$$
+\begin{bmatrix}
+R \ G \ B
+\end{bmatrix} =
+\begin{bmatrix}
+1.0 &amp; 0.0 &amp; 1.402 \<br>
+1.0 &amp; -0.344 &amp; -0.714 \<br>
+1.0 &amp; 1.772 &amp; 0.0
+\end{bmatrix}
+\begin{bmatrix}
+Y \ Cb-128 \ Cr-128
+\end{bmatrix}
+$$</p>
+<h4 id="色度亚采样">色度亚采样</h4>
+<p>由于人眼对于色度的敏感度要低于对亮度的敏感度，因此，可采用低于亮度的采样率对色度采样，从而达到视频压缩的目的，衍生的YCbCr采样格式有4:4:4、4:2:2、4:1:1、4:2:0。它们的采用方式如下图所示，4:4:4采样比较容易理解，不作表述。4:2:2采样表示水平方向上，每4个Y分量对应2个Cb分量和2个Cr分量；4:1:1采样表示水平方向上，每4个Y分量对应1个Cb分量和1个Cr分量；4:2:0采样表示水平方向上，每4个Y分量对应2个Cb分量和0个Cr分量，或者每4个Y分量对应0个Cb分量和2个Cr分量。
+<img src="/images/YUV_sampling.png" alt="YUV采样" title="YUV采样"></p>
+<h4 id="ycbcr格式的存储方式">YCbCr格式的存储方式</h4>
+<p>YCbCr数据的存放分为两类，packed formats和planar formats。Packed formats的Y, Cr(U), Cb(V)一起存放在一个数组中，依据像素点交替存放，类似YCbCrYCbCrYCbCr&hellip;.；Planar formats的Y, Cr(U), Cb(V)每个分量单独存放，存放的方式类似YYY&hellip;CbCbCb&hellip;CrCrCr&hellip;
+Packed formats以4:2:0采样方法举例，假设分辨率为8x2，如下图所示：</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/excelkks/excelkks.github.io/post/2019/11/28/cmake%E7%BC%96%E8%AF%91%E4%B8%8E%E6%B5%8B%E8%AF%95opencv4/">cmake编译与测试opencv4</a></span>
+  <span class="nav-next"><a href="/excelkks/excelkks.github.io/post/2019/12/10/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8E%9F%E7%90%86/">梯度下降法原理</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>skip、merge、AMVP模式 - excelkks</title>
+    <meta property="og:title" content="skip、merge、AMVP模式 - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="在H.265中，帧间预测模式包括Skip模式、Merge模式、AMVP模式，其中，Skip模式是一种特殊的Merge模式。它们所需要编码的信息如下
+[&amp;hellip;] MVP的获取方法都是通过在编解码端建立候选列表，但要注意的是Skip模式和Merge模式建立MVP列表的方法一样，而AMVP建立候选列表的方式与Merge模式建立候选列表的方式不一样
+">
+      <meta property="og:description" content="在H.265中，帧间预测模式包括Skip模式、Merge模式、AMVP模式，其中，Skip模式是一种特殊的Merge模式。它们所需要编码的信息如下
+[&amp;hellip;] MVP的获取方法都是通过在编解码端建立候选列表，但要注意的是Skip模式和Merge模式建立MVP列表的方法一样，而AMVP建立候选列表的方式与Merge模式建立候选列表的方式不一样
+">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/style.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/fonts.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+  </head>
+
+  
+  <body class="excelkks">
+    <header class="masthead">
+      <h1><a href="/excelkks/excelkks.github.io/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">do it and just waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/excelkks/excelkks.github.io/">主页</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/about/">关于</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/categories/">分类</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>skip、merge、AMVP模式</h1>
+
+<h3>
+  2019-12-10</h3>
+<hr>
+
+
+      </header>
+
+
+
+<p>在H.265中，帧间预测模式包括Skip模式、Merge模式、AMVP模式，其中，Skip模式是一种特殊的Merge模式。它们所需要编码的信息如下</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">MVP</th>
+<th align="center">MVD</th>
+<th align="center">量化残差</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Skip</td>
+<td align="center">✔</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td align="center">Merge</td>
+<td align="center">✔</td>
+<td align="center">❌</td>
+<td align="center">✔</td>
+</tr>
+<tr>
+<td align="center">AMVP</td>
+<td align="center">✔</td>
+<td align="center">✔</td>
+<td align="center">✔</td>
+</tr>
+</tbody>
+</table>
+<p>MVP的获取方法都是通过在编解码端建立候选列表，但要注意的是Skip模式和Merge模式建立MVP列表的方法<strong>一样</strong>，而AMVP建立候选列表的方式与Merge模式建立候选列表的方式<strong>不一样</strong></p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/excelkks/excelkks.github.io/post/2019/12/10/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8E%9F%E7%90%86/">梯度下降法原理</a></span>
+  <span class="nav-next"><a href="/excelkks/excelkks.github.io/post/2019/12/12/v2ray-cdn/">v2ray&#43;CDN</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>梯度下降法原理 - excelkks</title>
+    <meta property="og:title" content="梯度下降法原理 - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="在机器学习中，梯度下降法是首先接触的到的最优求解方法，特别是在线性回归中，目标函数往往是一个凸函数(convex)，可以通过梯度下降法求得全局最优解。梯度下降法的公式比较简单。例如，优化函数$J(\theta)$的梯度为$\nabla J(\theta)$，那么其梯度下降过程为：
+$$ \theta^{(k&#43;1)} = \theta^{(k)}-\eta \nabla &amp;hellip;">
+      <meta property="og:description" content="在机器学习中，梯度下降法是首先接触的到的最优求解方法，特别是在线性回归中，目标函数往往是一个凸函数(convex)，可以通过梯度下降法求得全局最优解。梯度下降法的公式比较简单。例如，优化函数$J(\theta)$的梯度为$\nabla J(\theta)$，那么其梯度下降过程为：
+$$ \theta^{(k&#43;1)} = \theta^{(k)}-\eta \nabla &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/style.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/fonts.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+  </head>
+
+  
+  <body class="excelkks">
+    <header class="masthead">
+      <h1><a href="/excelkks/excelkks.github.io/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">do it and just waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/excelkks/excelkks.github.io/">主页</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/about/">关于</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/categories/">分类</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>梯度下降法原理</h1>
+
+<h3>
+  2019-12-10</h3>
+<hr>
+
+
+      </header>
+
+
+
+<p>在机器学习中，梯度下降法是首先接触的到的最优求解方法，特别是在线性回归中，目标函数往往是一个凸函数(convex)，可以通过梯度下降法求得全局最优解。梯度下降法的公式比较简单。例如，优化函数$J(\theta)$的梯度为$\nabla J(\theta)$，那么其梯度下降过程为：</p>
+<p>$$
+\theta^{(k+1)} = \theta^{(k)}-\eta \nabla J(\theta)|_{\theta = \theta^{(k)}}
+$$
+也可以写成：
+$$
+\theta_i^{(k+1)} = \theta_i^{(k)}-\eta \frac{\partial J(\theta_i)}{\partial \theta_i}|_{\theta_i = \theta_i^{(k)}}
+$$
+梯度下降法的推导方法如下：</p>
+<p>假设待优化函数为$J(\theta)$，根据一阶泰勒展开，得到
+$$
+J(\theta) = J(\theta^{(k)})+\nabla J(\theta^{(k)})(\theta-\theta^{(k)})
+$$
+假设当前位置$\theta^{(k)}$的下一步更新位置为$\theta^{(k+1)}$，那么
+$$
+J(\theta^{(k+1)}) = J(\theta^{(k)})+\nabla J(\theta^{(k)})(\theta^{(k+1)}-\theta^{(k)})
+$$
+也就是：
+$$
+J(\theta^{(k+1)})-J(\theta^{(k)})=\nabla J(\theta^{(k)})(\theta^{(k+1)}-\theta^{(k)})
+$$
+我们的目标是求的使$J(\theta)$的值取得最小的$\theta$，那么每次更新应该保证$J(\theta^{(k+1)})-J(\theta^{(k)})&lt;0$，并且越小越好。可以观察上式中$\nabla J(\theta^{(k)})$和$\theta^{(k+1)}-\theta^{(k)}$表示的是两个向量的乘积。
+$$
+\nabla J(\theta^{(k)})(\theta^{(k+1)}-\theta^{(k)})=||\nabla J(\theta^{(k)})||\cdot||(\theta^{(k+1)}-\theta^{(k)}||\cdot cos\alpha
+$$
+回顾向量的乘法，$J(\theta^{(k+1)})-J(\theta^{(k)})$的值取决于$||\nabla J(\theta^{(k)})||$,$||(\theta^{(k+1)}-\theta^{(k)}||$以及$cos\alpha$的大小，对于给定目标函数$J(\theta)$，结果只与$\theta^{(k+1)}$和与之相关的$cos\alpha$如何取值有关。当$||(\theta^{(k+1)}-\theta^{(k)}||$确定时，可使$cos\alpha=-1$来使得向量乘积负得最大（即值最小），也就是两个向量的夹角为$180^{\circ}$，此时有
+$$
+\frac{(\theta^{(k+1)}-\theta^{(k)})}{||(\theta^{(k+1)}-\theta^{(k)})||}=-\frac{\nabla J(\theta^{(k)})}{||\nabla J(\theta^{(k)})||}
+$$
+也就是:
+$$
+\theta^{(k+1)} = \theta^{(k)} -\frac{||(\theta^{(k+1)}-\theta^{(k)})||}{||\nabla J(\theta^{(k)})||} \nabla J(\theta^{(k)})
+$$
+令$\eta=\frac{||(\theta^{(k+1)}-\theta^{(k)})||}{||\nabla J(\theta^{(k)})||}$，上式可写成:
+$$
+\theta^{(k+1)} = \theta^{(k)} -\eta\nabla J(\theta^{(k)})
+$$
+或写成：
+$$
+\theta_i^{(k+1)} = \theta_i^{(k)} -\eta\frac{\partial J(\theta_i)}{\partial\theta_i} |_{\theta_i=\theta_i^{(k)}}
+$$</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/excelkks/excelkks.github.io/post/2019/12/05/ycbcr%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/">YCbCr格式的理解</a></span>
+  <span class="nav-next"><a href="/excelkks/excelkks.github.io/post/2019/12/10/skipmergeamvp%E6%A8%A1%E5%BC%8F/">skip、merge、AMVP模式</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

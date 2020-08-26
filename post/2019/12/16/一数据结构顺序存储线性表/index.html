@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>(一)数据结构：顺序存储线性表 - excelkks</title>
+    <meta property="og:title" content="(一)数据结构：顺序存储线性表 - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="顾名思义，顺序存储的线性表就是存储方式是在内存中安装先后顺序依次存储、逻辑结构为线性结构的一种数据结构。 其存储方式如下图所示： 各个储存单元都是顺序排放的。为了顺序存储数据，需要为一个顺序存储线性表指定长度。 下面是顺序存储的线性表结构代码
+[&amp;hellip;] #define LIST_LENGTH_MAX 20 struct listlinear_t { int &amp;hellip;">
+      <meta property="og:description" content="顾名思义，顺序存储的线性表就是存储方式是在内存中安装先后顺序依次存储、逻辑结构为线性结构的一种数据结构。 其存储方式如下图所示： 各个储存单元都是顺序排放的。为了顺序存储数据，需要为一个顺序存储线性表指定长度。 下面是顺序存储的线性表结构代码
+[&amp;hellip;] #define LIST_LENGTH_MAX 20 struct listlinear_t { int &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/style.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/fonts.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+  </head>
+
+  
+  <body class="excelkks">
+    <header class="masthead">
+      <h1><a href="/excelkks/excelkks.github.io/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">do it and just waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/excelkks/excelkks.github.io/">主页</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/about/">关于</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/categories/">分类</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>(一)数据结构：顺序存储线性表</h1>
+
+<h3>
+  2019-12-16</h3>
+<hr>
+
+
+      </header>
+
+
+
+<p>顾名思义，顺序存储的线性表就是存储方式是在内存中安装先后顺序依次存储、逻辑结构为线性结构的一种数据结构。
+其存储方式如下图所示：
+<img src="/images/listlinear.bmp" alt="listlinear">
+各个储存单元都是顺序排放的。为了顺序存储数据，需要为一个顺序存储线性表指定长度。
+下面是顺序存储的线性表结构代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#define LIST_LENGTH_MAX 20
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">listlinear_t</span> {
+    <span style="color:#66d9ef">int</span> data[LIST_LENGTH_MAX];
+    <span style="color:#66d9ef">int</span> length;
+}listlinear;
+</code></pre></div><p>为了指示对线性表的操作后的返回状态，可以作如下定义</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#define OK 1
+</span><span style="color:#75715e">#define ERROR 0
+</span><span style="color:#75715e">#define TRUE 1
+</span><span style="color:#75715e">#define FALSE 0
+</span></code></pre></div><h4 id="线性表初始化">线性表初始化</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">InitList</span>(listlinear <span style="color:#f92672">*</span>list)
+{
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>LIST_LENGTH_MAX; i<span style="color:#f92672">++</span>)
+        list<span style="color:#f92672">-&gt;</span>data[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    list<span style="color:#f92672">-&gt;</span>length <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h4 id="查询数据">查询数据</h4>
+<p>查询线性表中的第loc个数据，由于顺序存储的线性表按照先后顺序存储在存储单元内，因此支持随机查询数据,
+代码的实现如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">status <span style="color:#a6e22e">GetElim</span>(listlinear list, <span style="color:#66d9ef">int</span> loc, <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>e){
+    <span style="color:#66d9ef">if</span>(list.length <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> loc <span style="color:#f92672">&gt;</span> list.length)
+        <span style="color:#66d9ef">return</span> ERROR;
+    <span style="color:#f92672">*</span>e <span style="color:#f92672">=</span> list.data[loc];
+    <span style="color:#66d9ef">return</span> OK;
+}
+</code></pre></div><h4 id="插入数据">插入数据</h4>
+<p>顺序存储的方式使线性表在需要插入数据时要重新排放存储单元的数据，但要在第loc处插入数据时，loc后的数据需要在当前的存储单元后移个位置，如下图，在data[2]处插入数据，则原来data[2]处的数据需要向后存放致data[3]处，后面的数据依次后移。
+<img src="/images/listinsert.bmp" alt="listinsert">
+代码实现如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">status <span style="color:#a6e22e">InsertList</span>(listlinear <span style="color:#f92672">*</span>list, <span style="color:#66d9ef">int</span> loc, <span style="color:#66d9ef">int</span> e){
+    <span style="color:#66d9ef">if</span>(loc <span style="color:#f92672">&gt;</span> list<span style="color:#f92672">-&gt;</span>length) <span style="color:#66d9ef">return</span> ERROR;
+    <span style="color:#66d9ef">if</span>(list<span style="color:#f92672">-&gt;</span>length <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>){
+        list<span style="color:#f92672">-&gt;</span>data[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> e;
+        list<span style="color:#f92672">-&gt;</span>length<span style="color:#f92672">++</span>;
+        <span style="color:#66d9ef">return</span> OK;
+    }
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>list<span style="color:#f92672">-&gt;</span>length; i<span style="color:#f92672">&gt;</span>loc; i<span style="color:#f92672">--</span>)
+        list<span style="color:#f92672">-&gt;</span>data[i] <span style="color:#f92672">=</span> list<span style="color:#f92672">-&gt;</span>data[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];
+    list<span style="color:#f92672">-&gt;</span>date[loc] <span style="color:#f92672">=</span> e;
+    list<span style="color:#f92672">-&gt;</span>length<span style="color:#f92672">++</span>;
+    <span style="color:#66d9ef">return</span> OK;
+}
+</code></pre></div><h4 id="移除数据">移除数据</h4>
+<p>与插入数据相反，移除数据时，移除位置处之后的数据需要往前移动一个存储单元
+<img src="/images/listremove.bmp" alt="listremove">
+代码实现如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">status <span style="color:#a6e22e">RemoveList</span>(listlinear <span style="color:#f92672">*</span>list, <span style="color:#66d9ef">int</span> loc){
+    <span style="color:#66d9ef">if</span>(list<span style="color:#f92672">-&gt;</span>length <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> loc <span style="color:#f92672">&gt;</span> list<span style="color:#f92672">-&gt;</span>length) <span style="color:#66d9ef">return</span> ERROR;
+    <span style="color:#66d9ef">if</span>(list<span style="color:#f92672">-&gt;</span>length <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>)
+    {
+        list<span style="color:#f92672">-&gt;</span>data[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        list<span style="color:#f92672">-&gt;</span>length<span style="color:#f92672">--</span>;
+        <span style="color:#66d9ef">return</span> OK;
+    }
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>loc; i<span style="color:#f92672">&lt;</span>list<span style="color:#f92672">-&gt;</span>length; i<span style="color:#f92672">++</span>)
+        list<span style="color:#f92672">-&gt;</span>data[i] <span style="color:#f92672">=</span> list<span style="color:#f92672">-&gt;</span>data[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+    list<span style="color:#f92672">-&gt;</span>data[list<span style="color:#f92672">-&gt;</span>length<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    list<span style="color:#f92672">-&gt;</span>length<span style="color:#f92672">--</span>;
+    <span style="color:#66d9ef">return</span> OK;
+}
+</code></pre></div><p><a href="https://github.com/excelkks/datastruct">完整代码</a></p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/excelkks/excelkks.github.io/post/2019/12/16/gif%E5%8A%A8%E5%9B%BE%E5%88%B6%E4%BD%9C/">GIF动图制作</a></span>
+  <span class="nav-next"><a href="/excelkks/excelkks.github.io/post/2020/01/10/%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88%E5%92%8C%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84/">数组指针和指针数组</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

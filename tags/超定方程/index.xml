@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>超定方程 on excelkks</title>
+    <link>https://github.com/excelkks/excelkks.github.io/tags/%E8%B6%85%E5%AE%9A%E6%96%B9%E7%A8%8B/</link>
+    <description>Recent content in 超定方程 on excelkks</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 18 Nov 2019 11:10:53 +0000</lastBuildDate>
+    
+	<atom:link href="https://github.com/excelkks/excelkks.github.io/tags/%E8%B6%85%E5%AE%9A%E6%96%B9%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LK光流法</title>
+      <link>https://github.com/excelkks/excelkks.github.io/post/2019/11/18/lk%E5%85%89%E6%B5%81%E6%B3%95/</link>
+      <pubDate>Mon, 18 Nov 2019 11:10:53 +0000</pubDate>
+      
+      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/11/18/lk%E5%85%89%E6%B5%81%E6%B3%95/</guid>
+      <description>1 超定方程组求解 1.1 超定方程组 超定方程组是指方程的个数大于未知数个数的方程组，例如
+$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \ &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \
+a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} \
+\end{bmatrix}
+\times
+\begin{bmatrix} x_1 \ x_2 \ x_3 \
+\end{bmatrix}
+=
+\begin{bmatrix} b_1 \ b_2 \ &amp;hellip; \ b_n \
+\end{bmatrix} $$ 其中，$n&amp;gt;3$，将上述方程表示为$\boldsymbol{A}{n\times3}x{3\times 1}=b_{n\times 1}$，该方程不能按照一般的求解方法求解，但可以求的最小二乘法的解。
+先给出结论，该超定方程组的最小二乘解为： $$x=(\boldsymbol{A}^{T}\boldsymbol{A})^{-1}\boldsymbol{A}^{T}b$$
+1.2 超定方程组的最小二乘解 对于无一般解的超定方程组$\boldsymbol{A}x=b$来说，假设$r=\boldsymbol{A}x -b$，使得$||r||^2_2=（\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$的值最小的解即为最小二乘解。于是，问题转变为最小化$(\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$，令 $$J(x)=(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)$$ 对上式求导，可得 $$ \begin{aligned} \frac{\partial J(x)}{\partial x} &amp;amp; =\frac{\partial{(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)}}{\partial{x}} \</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>cmake编译与测试opencv4 - excelkks</title>
+    <meta property="og:title" content="cmake编译与测试opencv4 - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="保证已经安装：
+[&amp;hellip;] # [compiler] sudo apt-get install build-essential # required sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev # [optional] sudo &amp;hellip;">
+      <meta property="og:description" content="保证已经安装：
+[&amp;hellip;] # [compiler] sudo apt-get install build-essential # required sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev # [optional] sudo &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/style.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/fonts.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+  </head>
+
+  
+  <body class="excelkks">
+    <header class="masthead">
+      <h1><a href="/excelkks/excelkks.github.io/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">do it and just waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/excelkks/excelkks.github.io/">主页</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/about/">关于</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/categories/">分类</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>cmake编译与测试opencv4</h1>
+
+<h3>
+  2019-11-28</h3>
+<hr>
+
+
+      </header>
+
+
+
+<p>保证已经安装：</p>
+<ol>
+<li>GCC 4.4.x or later</li>
+<li>CMake 2.8.7 or higher</li>
+<li>Git</li>
+<li>GTK+2.x or higher, incuding headers(libgtk2.0-dev)</li>
+<li>pkg-config</li>
+<li>Python 2.6 or later and Numpy 1.5 or later with developer package (python-dev, python-numpy)</li>
+<li>ffmpeg or libav development packages: libavcodec-dev, libavformat-dev, libswscale-dev</li>
+<li>[optional] libtbb2 libtbb-dev</li>
+<li>[optional] libdc1394 2.x</li>
+<li>[optional] libjpeg-dev, libpng-dev, libtiff-dev, libjasper-dev, libdc1394-22-dev</li>
+<li>[optional] CUDA Toolkit 6.5 or higher
+可通过以下命令安装</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># [compiler]</span>
+sudo apt-get install build-essential
+<span style="color:#75715e"># required</span>
+sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+<span style="color:#75715e"># [optional]</span>
+ sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+
+</code></pre></div><h3 id="1-编译opencv">1 编译opencv</h3>
+<h4 id="11-下载opencv4源码">1.1 下载opencv4源码</h4>
+<p>打开<a href="https://opencv.org/releases/">opencv sources</a>，下载源码Sources</p>
+<h4 id="12-cmake编译opencv4库">1.2 CMake编译opencv4库</h4>
+<p>进入opencv源码目录，创建build文件夹</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd opencv
+mkdir build
+cd build
+</code></pre></div><p>配置CMAKE参数，例如</p>
+<ol>
+<li><code>CMAKE_BUILD_TYPE=Release</code>  设置编译版本</li>
+<li><code>CMAKE_INSTALL_PREFIX=/usr/local</code> 设置opencv库的安装目录</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Release -DCMAKE_INSTALL_PREFIX<span style="color:#f92672">=</span>/usr/local ..
+</code></pre></div><p>此时，opencv库将被安装在/usr/local目录中</p>
+<h3 id="2-测试opencv4">2 测试opencv4</h3>
+<p>新建测试文件DisplayImage.cpp</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;opencv2/opencv.hpp&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> cv;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv)
+{
+    <span style="color:#66d9ef">if</span>(argc <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span>){
+        printf(<span style="color:#e6db74">&#34;usage: DisplayImage.out &lt;Image_Path&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+    }
+
+    Mat image;
+    image <span style="color:#f92672">=</span> imread(argv[<span style="color:#ae81ff">1</span>], <span style="color:#ae81ff">1</span>);
+
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>image.data){
+        printf(<span style="color:#e6db74">&#34;No image data</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+    }
+
+    namedWindow(<span style="color:#e6db74">&#34;Display Image&#34;</span>, WINDOW_AUTOSIZE);
+    imshow(<span style="color:#e6db74">&#34;Display Image&#34;</span>, image);
+
+    waitKey(<span style="color:#ae81ff">0</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>新建CMakeLists.txt文件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">cmake_minimum_required(<span style="color:#e6db74">VERSION</span> <span style="color:#e6db74">2.8</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>project(<span style="color:#e6db74">DisplayImage</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>set(<span style="color:#e6db74">CMAKE_CXX_STANDARD</span> <span style="color:#e6db74">11</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>set(<span style="color:#e6db74">CMAKE_CXX_STANDARD_REQUIRED</span> <span style="color:#e6db74">TRUE</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>find_package(<span style="color:#e6db74">OpenCV</span> <span style="color:#e6db74">HINTS</span> <span style="color:#e6db74">&#34;/usr/local/opencv&#34;</span>) <span style="color:#75715e"># “/usr/local/opencv” is the path of compiled opencv
+</span><span style="color:#75715e"></span>include_directories(<span style="color:#f92672">${</span>OpenCV_INCLUDE_DIRS<span style="color:#f92672">}</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>aux_source_directory(<span style="color:#e6db74">.</span> <span style="color:#e6db74">DIR_SRCS</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>add_executable(<span style="color:#e6db74">DisplayImage</span> <span style="color:#f92672">${</span>DIR_SRCS<span style="color:#f92672">}</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>target_link_libraries(<span style="color:#e6db74">DisplayImage</span> <span style="color:#f92672">${</span>OpenCV_LIBS<span style="color:#f92672">}</span>)<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>接下来cmake，可能需要安装提示将cuda指定版本</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake -D CUDA_TOOLKIT_ROOT_DIR<span style="color:#f92672">=</span>/usr/local/cuda-9<span style="color:#f92672">=</span>8.0 .
+</code></pre></div><p>最后直接make即可编译二进制可执行文件。</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/excelkks/excelkks.github.io/post/2019/11/22/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91opencv%E5%B9%B6%E7%A7%BB%E6%A4%8D%E8%87%B3%E6%A0%91%E8%8E%93%E6%B4%BE/">交叉编译opencv并移植至树莓派</a></span>
+  <span class="nav-next"><a href="/excelkks/excelkks.github.io/post/2019/12/05/ycbcr%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/">YCbCr格式的理解</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

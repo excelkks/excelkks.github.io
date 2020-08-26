@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>转移到hugo - excelkks</title>
+    <meta property="og:title" content="转移到hugo - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="介于hexo框架太麻烦了，要安装nodejs，又要安装各种包，实在是难同步。由于电脑前段时间崩了，重新搭建hexo环境总是失败，实在浪费了很多时间，于是决定迁移到hugo。
+在mac搭建hugo环境非常简单，只需要用homebrew即可安装
+[&amp;hellip;] brew install hugo 这就算安装好hugo了，初始化新的hugo站点则至于要在任意路径下执行，再将主题放到theme中，我 &amp;hellip;">
+      <meta property="og:description" content="介于hexo框架太麻烦了，要安装nodejs，又要安装各种包，实在是难同步。由于电脑前段时间崩了，重新搭建hexo环境总是失败，实在浪费了很多时间，于是决定迁移到hugo。
+在mac搭建hugo环境非常简单，只需要用homebrew即可安装
+[&amp;hellip;] brew install hugo 这就算安装好hugo了，初始化新的hugo站点则至于要在任意路径下执行，再将主题放到theme中，我 &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/style.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/fonts.css" />
+    <link rel="stylesheet" href="/excelkks/excelkks.github.io/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+
+  </head>
+
+  
+  <body class="excelkks">
+    <header class="masthead">
+      <h1><a href="/excelkks/excelkks.github.io/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">do it and just waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/excelkks/excelkks.github.io/">主页</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/about/">关于</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/categories/">分类</a></li>
+  
+  <li><a href="/excelkks/excelkks.github.io/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>转移到hugo</h1>
+
+<h3>
+  2020-08-26</h3>
+<hr>
+
+
+      </header>
+
+
+
+<p>介于hexo框架太麻烦了，要安装nodejs，又要安装各种包，实在是难同步。由于电脑前段时间崩了，重新搭建hexo环境总是失败，实在浪费了很多时间，于是决定迁移到hugo。</p>
+<p>在mac搭建hugo环境非常简单，只需要用homebrew即可安装</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install hugo
+</code></pre></div><p>这就算安装好hugo了，初始化新的hugo站点则至于要在任意路径下执行，再将主题放到theme中，我这里用的是yihui的<a href="https://github.com/yihui/hugo-ivy">hugo-ivy</a>进行的修改，除了<a href="https://yihui.org">yihui</a>的字体好像经过优化了，其他基本类似.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hugo new site &lt;/path/to/site&gt;
+git clone https://github.com/yihui/hugo-ivy themes/hugo-ivy
+</code></pre></div><p>yihui的主题可以很好的支持行间公式(双美元符<code>$$</code>)，但是不能支持行内公式(单美元符<code>$</code>)，于是从<a href="https://note.qidong.name/2018/03/hugo-mathjax">这里</a>中找到解决方案，即在<code>layouts/partials/mathjax.html</code>中加入：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>
+        <span style="color:#a6e22e">async</span>
+        <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;</span>&gt;
+<span style="color:#a6e22e">MathJax</span>.<span style="color:#a6e22e">Hub</span>.<span style="color:#a6e22e">Config</span>({
+  <span style="color:#a6e22e">tex2jax</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">inlineMath</span><span style="color:#f92672">:</span> [[<span style="color:#e6db74">&#39;$&#39;</span>,<span style="color:#e6db74">&#39;$&#39;</span>], [<span style="color:#e6db74">&#39;\\(&#39;</span>,<span style="color:#e6db74">&#39;\\)&#39;</span>]],
+    <span style="color:#a6e22e">displayMath</span><span style="color:#f92672">:</span> [[<span style="color:#e6db74">&#39;$$&#39;</span>,<span style="color:#e6db74">&#39;$$&#39;</span>], [<span style="color:#e6db74">&#39;\[\[&#39;</span>,<span style="color:#e6db74">&#39;\]\]&#39;</span>]],
+    <span style="color:#a6e22e">processEscapes</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+    <span style="color:#a6e22e">processEnvironments</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+    <span style="color:#a6e22e">skipTags</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;script&#39;</span>, <span style="color:#e6db74">&#39;noscript&#39;</span>, <span style="color:#e6db74">&#39;style&#39;</span>, <span style="color:#e6db74">&#39;textarea&#39;</span>, <span style="color:#e6db74">&#39;pre&#39;</span>],
+    <span style="color:#a6e22e">TeX</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">equationNumbers</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">autoNumber</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;AMS&#34;</span> },
+         <span style="color:#a6e22e">extensions</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;AMSmath.js&#34;</span>, <span style="color:#e6db74">&#34;AMSsymbols.js&#34;</span>] }
+  }
+});
+
+<span style="color:#a6e22e">MathJax</span>.<span style="color:#a6e22e">Hub</span>.<span style="color:#a6e22e">Queue</span>(<span style="color:#66d9ef">function</span>() {
+    <span style="color:#75715e">// Fix &lt;code&gt; tags after MathJax finishes running. This is a
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// hack to overcome a shortcoming of Markdown. Discussion at
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// https://github.com/mojombo/jekyll/issues/199
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">all</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MathJax</span>.<span style="color:#a6e22e">Hub</span>.<span style="color:#a6e22e">getAllJax</span>(), <span style="color:#a6e22e">i</span>;
+    <span style="color:#66d9ef">for</span>(<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">all</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>) {
+        <span style="color:#a6e22e">all</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">SourceElement</span>().<span style="color:#a6e22e">parentNode</span>.<span style="color:#a6e22e">className</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#39; has-jax&#39;</span>;
+    }
+});
+&lt;/<span style="color:#f92672">script</span>&gt;
+
+&lt;<span style="color:#f92672">style</span>&gt;
+<span style="color:#f92672">code</span>.<span style="color:#a6e22e">has-jax</span> {
+    <span style="color:#66d9ef">font</span>: <span style="color:#66d9ef">inherit</span>;
+    <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>;
+    <span style="color:#66d9ef">background</span>: <span style="color:#66d9ef">inherit</span>;
+    <span style="color:#66d9ef">border</span>: <span style="color:#66d9ef">inherit</span>;
+    <span style="color:#66d9ef">color</span>: <span style="color:#ae81ff">#515151</span>;
+}
+&lt;/<span style="color:#f92672">style</span>&gt;
+</code></pre></div><p>最后在<code>partials/header_custom.html</code>中加入</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ partials &#34;mathjax.html&#34; }}
+</code></pre></div>
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/excelkks/excelkks.github.io/post/2020/01/10/%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88%E5%92%8C%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84/">数组指针和指针数组</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
