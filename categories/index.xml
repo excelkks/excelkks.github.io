@@ -2,57 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>分类 on excelkks</title>
-    <link>https://github.com/excelkks/excelkks.github.io/categories/</link>
+    <link>/categories/</link>
     <description>Recent content in 分类 on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 16 Dec 2019 14:23:35 +0000</lastBuildDate>
     
-	<atom:link href="https://github.com/excelkks/excelkks.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>数据结构</title>
-      <link>https://github.com/excelkks/excelkks.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+      <link>/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
       <pubDate>Mon, 16 Dec 2019 14:23:35 +0000</pubDate>
       
-      <guid>https://github.com/excelkks/excelkks.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+      <guid>/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
       <description></description>
     </item>
     
     <item>
       <title>工具</title>
-      <link>https://github.com/excelkks/excelkks.github.io/categories/%E5%B7%A5%E5%85%B7/</link>
+      <link>/categories/%E5%B7%A5%E5%85%B7/</link>
       <pubDate>Mon, 16 Dec 2019 11:09:38 +0000</pubDate>
       
-      <guid>https://github.com/excelkks/excelkks.github.io/categories/%E5%B7%A5%E5%85%B7/</guid>
+      <guid>/categories/%E5%B7%A5%E5%85%B7/</guid>
       <description></description>
     </item>
     
     <item>
       <title>free internet</title>
-      <link>https://github.com/excelkks/excelkks.github.io/categories/free-internet/</link>
+      <link>/categories/free-internet/</link>
       <pubDate>Thu, 12 Dec 2019 10:39:51 +0000</pubDate>
       
-      <guid>https://github.com/excelkks/excelkks.github.io/categories/free-internet/</guid>
+      <guid>/categories/free-internet/</guid>
       <description></description>
     </item>
     
     <item>
       <title>视频编解码</title>
-      <link>https://github.com/excelkks/excelkks.github.io/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81/</link>
+      <link>/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81/</link>
       <pubDate>Tue, 10 Dec 2019 19:09:17 +0000</pubDate>
       
-      <guid>https://github.com/excelkks/excelkks.github.io/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81/</guid>
+      <guid>/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81/</guid>
       <description></description>
     </item>
     
     <item>
       <title>机器学习法</title>
-      <link>https://github.com/excelkks/excelkks.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%B3%95/</link>
+      <link>/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%B3%95/</link>
       <pubDate>Tue, 10 Dec 2019 09:40:39 +0000</pubDate>
       
-      <guid>https://github.com/excelkks/excelkks.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%B3%95/</guid>
+      <guid>/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%B3%95/</guid>
       <description></description>
     </item>
     

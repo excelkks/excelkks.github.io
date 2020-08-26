@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>最小二乘法 on excelkks</title>
-    <link>https://github.com/excelkks/excelkks.github.io/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/</link>
+    <link>/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/</link>
     <description>Recent content in 最小二乘法 on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 18 Nov 2019 11:10:53 +0000</lastBuildDate>
     
-	<atom:link href="https://github.com/excelkks/excelkks.github.io/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>LK光流法</title>
-      <link>https://github.com/excelkks/excelkks.github.io/post/2019/11/18/lk%E5%85%89%E6%B5%81%E6%B3%95/</link>
+      <link>/post/2019/11/18/lk%E5%85%89%E6%B5%81%E6%B3%95/</link>
       <pubDate>Mon, 18 Nov 2019 11:10:53 +0000</pubDate>
       
-      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/11/18/lk%E5%85%89%E6%B5%81%E6%B3%95/</guid>
+      <guid>/post/2019/11/18/lk%E5%85%89%E6%B5%81%E6%B3%95/</guid>
       <description>1 超定方程组求解 1.1 超定方程组 超定方程组是指方程的个数大于未知数个数的方程组，例如
 $$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \ &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \
 a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} \

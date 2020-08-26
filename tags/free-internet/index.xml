@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>free internet on excelkks</title>
-    <link>https://github.com/excelkks/excelkks.github.io/tags/free-internet/</link>
+    <link>/tags/free-internet/</link>
     <description>Recent content in free internet on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 12 Dec 2019 10:39:51 +0000</lastBuildDate>
     
-	<atom:link href="https://github.com/excelkks/excelkks.github.io/tags/free-internet/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/free-internet/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>v2ray&#43;CDN</title>
-      <link>https://github.com/excelkks/excelkks.github.io/post/2019/12/12/v2ray-cdn/</link>
+      <link>/post/2019/12/12/v2ray-cdn/</link>
       <pubDate>Thu, 12 Dec 2019 10:39:51 +0000</pubDate>
       
-      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/12/12/v2ray-cdn/</guid>
+      <guid>/post/2019/12/12/v2ray-cdn/</guid>
       <description>搭建v2ray并使用CDN的方法，拯救被墙的IP，CDN + v2ray，安全的科学上网方法</description>
     </item>
     

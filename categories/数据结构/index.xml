@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>数据结构 on excelkks</title>
-    <link>https://github.com/excelkks/excelkks.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+    <link>/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
     <description>Recent content in 数据结构 on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 16 Dec 2019 14:23:35 +0000</lastBuildDate>
     
-	<atom:link href="https://github.com/excelkks/excelkks.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>(一)数据结构：顺序存储线性表</title>
-      <link>https://github.com/excelkks/excelkks.github.io/post/2019/12/16/%E4%B8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BA%BF%E6%80%A7%E8%A1%A8/</link>
+      <link>/post/2019/12/16/%E4%B8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BA%BF%E6%80%A7%E8%A1%A8/</link>
       <pubDate>Mon, 16 Dec 2019 14:23:35 +0000</pubDate>
       
-      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/12/16/%E4%B8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BA%BF%E6%80%A7%E8%A1%A8/</guid>
+      <guid>/post/2019/12/16/%E4%B8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BA%BF%E6%80%A7%E8%A1%A8/</guid>
       <description>顾名思义，顺序存储的线性表就是存储方式是在内存中安装先后顺序依次存储、逻辑结构为线性结构的一种数据结构。 其存储方式如下图所示： 各个储存单元都是顺序排放的。为了顺序存储数据，需要为一个顺序存储线性表指定长度。 下面是顺序存储的线性表结构代码
 #define LIST_LENGTH_MAX 20 struct listlinear_t { int data[LIST_LENGTH_MAX]; int length; }listlinear; 为了指示对线性表的操作后的返回状态，可以作如下定义
 #define OK 1 #define ERROR 0 #define TRUE 1 #define FALSE 0 线性表初始化 void InitList(listlinear *list) { for(int i=0; i&amp;lt;LIST_LENGTH_MAX; i++) list-&amp;gt;data[i] = 0; list-&amp;gt;length = 0; } 查询数据 查询线性表中的第loc个数据，由于顺序存储的线性表按照先后顺序存储在存储单元内，因此支持随机查询数据, 代码的实现如下

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>视频编码 on excelkks</title>
-    <link>https://github.com/excelkks/excelkks.github.io/tags/%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81/</link>
+    <link>/tags/%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81/</link>
     <description>Recent content in 视频编码 on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 10 Dec 2019 19:09:17 +0000</lastBuildDate>
     
-	<atom:link href="https://github.com/excelkks/excelkks.github.io/tags/%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>skip、merge、AMVP模式</title>
-      <link>https://github.com/excelkks/excelkks.github.io/post/2019/12/10/skipmergeamvp%E6%A8%A1%E5%BC%8F/</link>
+      <link>/post/2019/12/10/skipmergeamvp%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Tue, 10 Dec 2019 19:09:17 +0000</pubDate>
       
-      <guid>https://github.com/excelkks/excelkks.github.io/post/2019/12/10/skipmergeamvp%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>/post/2019/12/10/skipmergeamvp%E6%A8%A1%E5%BC%8F/</guid>
       <description>在H.265中，帧间预测模式包括Skip模式、Merge模式、AMVP模式，其中，Skip模式是一种特殊的Merge模式。它们所需要编码的信息如下
     MVP MVD 量化残差     Skip ✔ ❌ ❌   Merge ✔ ❌ ✔   AMVP ✔ ✔ ✔    MVP的获取方法都是通过在编解码端建立候选列表，但要注意的是Skip模式和Merge模式建立MVP列表的方法一样，而AMVP建立候选列表的方式与Merge模式建立候选列表的方式不一样</description>
     </item>
