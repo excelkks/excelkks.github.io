@@ -124,7 +124,7 @@ code.has-jax {
 
 
 
-<h1 id="博客环境搭建">博客环境搭建</h1>
+<h2 id="博客环境搭建">博客环境搭建</h2>
 <p>介于hexo框架太麻烦了，要安装nodejs，又要安装各种包，实在是难同步。由于电脑前段时间崩了，重新搭建hexo环境总是失败，实在浪费了很多时间，于是决定迁移到hugo。</p>
 <p>在mac搭建hugo环境非常简单，只需要用homebrew即可安装</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install hugo
@@ -169,7 +169,24 @@ git clone https://github.com/yihui/hugo-ivy themes/hugo-ivy
 &lt;/<span style="color:#f92672">style</span>&gt;
 </code></pre></div><p>最后在<code>partials/header_custom.html</code>中加入</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ partials &#34;mathjax.html&#34; }}
-</code></pre></div><h1 id="博客部署">博客部署</h1>
+</code></pre></div><h2 id="博客部署">博客部署</h2>
+<p>首先在github上创建部署文件仓库excelkks.github.io，再在github上创建一个仓库blog用于存放源文件。</p>
+<p>在hugo站点的路径blog下把hugo站点使用版本控制</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd blog
+git init
+</code></pre></div><p>最后在站点目录下添加子仓库excelkks.github.io</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git submodule add https://github.com/excelkks/excelkks.github.io
+</code></pre></div><p>最后进行部署，1.在blog站点下生成部署文件到excelkks.github.io，2.推送子仓库excelkks.github.io，3.推送站点源文件仓库blog</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hugo -d excelkks.github.io
+cd excelkks.github.io
+git add .
+git commit -m <span style="color:#e6db74">&#34;comment&#34;</span>
+git push
+cd ..
+git add .
+git commit -m <span style="color:#e6db74">&#34;comment&#34;</span>
+git push
+</code></pre></div><p>为了简化部署步骤，我写了一个<a href="https://https://raw.githubusercontent.com/excelkks/blog/master/deploy.py">脚本</a>将部署、推送步骤合并</p>
 
 
   <footer>
