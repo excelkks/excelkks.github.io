@@ -4,12 +4,37 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2020-08-26T17:06:33+08:00</lastmod>
+    <lastmod>2020-08-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/markdown/</loc>
+    <lastmod>2020-08-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020/08/27/pandocs-markdown/</loc>
+    <lastmod>2020-08-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2020-08-26T17:06:33+08:00</lastmod>
+    <lastmod>2020-08-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/%E5%86%99%E4%BD%9C/</loc>
+    <lastmod>2020-08-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2020-08-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-08-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -28,22 +53,12 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2019-12-16T14:23:35+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
     <lastmod>2019-12-16T14:23:35+00:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
-    <lastmod>2019-12-16T14:23:35+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2019-12-16T14:23:35+00:00</lastmod>
   </url>
   

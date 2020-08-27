@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>写作 on excelkks</title>
+    <link>/categories/%E5%86%99%E4%BD%9C/</link>
+    <description>Recent content in 写作 on excelkks</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 27 Aug 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/%E5%86%99%E4%BD%9C/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pandoc&#39;s markdown</title>
+      <link>/post/2020/08/27/pandocs-markdown/</link>
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2020/08/27/pandocs-markdown/</guid>
+      <description>段落 分段必须要用空行隔开，多个空行只当作1个空行。如果需要强制空行，可以用反斜杠符加换行符。例如
+段落1 段落2  段落3   段落4 \ 段落5 \ \ \ 段落6 段落1 段落2
+段落3
+段落4
+段落5
+段落6
+扩展名为escaped_line-breaks
+标题 ATX-style标题 标准markdown不要求标题的前面需要空行，而pandoc’s markdown要求在标题前要有空行，标题中可以有url符号和强调符号，例如
+# A level-one heading with a [link](/url) and *emphasis* 扩展名为blank_before_header
+标题属性 标题属性中的内容可以是
+{#identifier .class .class key=value key=value} 扩展为 header_attributes
+标题标识符 给标题添加一个标识符号，可以自己添加{#identifier}，如果自己不添加，将会自动设为{#标题}。例如：
+&amp;lt;!--手动添加--&amp;gt; # My heading {#foo}  &amp;lt;!--自动添加--&amp;gt; # 段落 跳转到[段落](#段落) 跳转到段落
+标题编号 如果指定了--number-sections，将会自动给各个标题编号，但是有些标题不想被编号，这时，在标题的标识符中添加-或.unnumbered即可，例如：
+# My heading {-} # My heading {.unnumbered} 代码块 缩进代码块 只需要4个空格或者一个TAB即可将接下来的内容变为代码块</description>
+    </item>
+    
+  </channel>
+</rss>

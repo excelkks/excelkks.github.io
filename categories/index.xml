@@ -6,10 +6,19 @@
     <description>Recent content in 分类 on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Dec 2019 14:23:35 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>写作</title>
+      <link>/categories/%E5%86%99%E4%BD%9C/</link>
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/%E5%86%99%E4%BD%9C/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>数据结构</title>

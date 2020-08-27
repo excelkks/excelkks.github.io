@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Pandoc&#39;s markdown - excelkks</title>
+    <meta property="og:title" content="Pandoc&#39;s markdown - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="分段必须要用空行隔开，多个空行只当作1个空行。如果需要强制空行，可以用反斜杠符加换行符。例如
+[&amp;hellip;] 段落1 段落2  段落3   段落4 \ 段落5 \ \ \ 段落6 段落1 段落2
+段落3
+段落4
+段落5
+段落6
+扩展名为escaped_line-breaks
+[&amp;hellip;] 标准markdown不要求标题的前面需要空行，而pandoc’s markdown要求在标题前要 &amp;hellip;">
+      <meta property="og:description" content="分段必须要用空行隔开，多个空行只当作1个空行。如果需要强制空行，可以用反斜杠符加换行符。例如
+[&amp;hellip;] 段落1 段落2  段落3   段落4 \ 段落5 \ \ \ 段落6 段落1 段落2
+段落3
+段落4
+段落5
+段落6
+扩展名为escaped_line-breaks
+[&amp;hellip;] 标准markdown不要求标题的前面需要空行，而pandoc’s markdown要求在标题前要 &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script>
+  (function(d) {
+    var config = {
+      kitId: 'hcr2dmn',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<link rel="icon" type="image/png" href="/images/favicon/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon/favicon.png" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">do it and just waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">主页</a></li>
+  
+  <li><a href="/about/">关于</a></li>
+  
+  <li><a href="/categories/">分类</a></li>
+  
+  <li><a href="/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Pandoc&#39;s markdown</h1>
+
+<h3>
+  2020-08-27</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="段落">段落</h1>
+<p>分段必须要用空行隔开，多个空行只当作1个空行。如果需要强制空行，可以用反斜杠符加换行符。例如</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>段落1</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>段落2</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>段落3</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>段落4 \</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>段落5 \</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>\</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>\</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>段落6</span></code></pre></div>
+<p>段落1 段落2</p>
+<p>段落3</p>
+<p>段落4<br />
+段落5<br />
+<br />
+<br />
+段落6</p>
+<p>扩展名为<code>escaped_line-breaks</code></p>
+<h1 id="标题">标题</h1>
+<h2 id="atx-style标题">ATX-style标题</h2>
+<p>标准markdown不要求标题的前面需要空行，而pandoc’s markdown要求在<strong>标题前要有空行</strong>，标题中可以有url符号和强调符号，例如</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fu"># A level-one heading with a [link](/url) and *emphasis*</span></span></code></pre></div>
+<p>扩展名为<code>blank_before_header</code></p>
+<h2 id="标题属性">标题属性</h2>
+<p>标题属性中的内容可以是</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>{#identifier .class .class key=value key=value}</span></code></pre></div>
+<p>扩展为 <code>header_attributes</code></p>
+<h3 id="标题标识符">标题标识符</h3>
+<p>给标题添加一个标识符号，可以自己添加<code>{#identifier}</code>，如果自己不添加，将会自动设为<code>{#标题}</code>。例如：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="co">&lt;!--手动添加--&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="fu"># My heading {#foo}</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="co">&lt;!--自动添加--&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="fu"># 段落</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>跳转到<span class="co">[</span><span class="ot">段落</span><span class="co">](#段落)</span></span></code></pre></div>
+<p>跳转到<a href="#段落">段落</a></p>
+<h3 id="标题编号">标题编号</h3>
+<p>如果指定了<code>--number-sections</code>，将会自动给各个标题编号，但是有些标题不想被编号，这时，在标题的标识符中添加<code>-</code>或<code>.unnumbered</code>即可，例如：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="fu"># My heading {-}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="fu"># My heading {.unnumbered}</span></span></code></pre></div>
+<h1 id="代码块">代码块</h1>
+<h2 id="缩进代码块">缩进代码块</h2>
+<p>只需要4个空格或者一个TAB即可将接下来的内容变为代码块</p>
+<pre><code>    if (a &gt; 3) {
+        moveShip(5 * gravity, DOWN);
+    }</code></pre>
+<h2 id="围栏代码块">围栏代码块</h2>
+<h3 id="波浪线型">波浪线型</h3>
+<p>可以添加多个属性，例如</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="in">~~~~ {#mycode .haskell .numberLines startFrom=&quot;100&quot;}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="in">qsort []     = []</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="in">qsort (x:xs) = qsort (filter (&lt; x) xs) ++ [x] ++</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a><span class="in">               qsort (filter (&gt;= x) xs)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="in">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></code></pre></div>
+<div class="sourceCode" id="mycode" data-startFrom="100"><pre class="sourceCode numberSource haskell numberLines"><code class="sourceCode haskell" style="counter-reset: source-line 99;"><span id="mycode-100"><a href="#mycode-100"></a>qsort []     <span class="ot">=</span> []</span>
+<span id="mycode-101"><a href="#mycode-101"></a>qsort (x<span class="op">:</span>xs) <span class="ot">=</span> qsort (<span class="fu">filter</span> (<span class="op">&lt;</span> x) xs) <span class="op">++</span> [x] <span class="op">++</span></span>
+<span id="mycode-102"><a href="#mycode-102"></a>               qsort (<span class="fu">filter</span> (<span class="op">&gt;=</span> x) xs)</span></code></pre></div>
+<p>扩展为 <code>fenced_code_blocks</code></p>
+<h3 id="行块">行块</h3>
+<p>行块主要应用于诗歌和地址，可以保留行内空格等空白符，只需要在行前加入<code>|</code>符号。例如：</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>| The limerick packs laughs anatomical</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>| In space that is quite economical.</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>|    But the good ones I&#39;ve seen</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>|    So seldom are clean</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>| And the clean ones so seldom are comical</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>| 200 Main St.</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>| Berkeley, CA 94718</span></code></pre></div>
+<div class="line-block">The limerick packs laughs anatomical<br />
+In space that is quite economical.<br />
+   But the good ones I’ve seen<br />
+   So seldom are clean<br />
+And the clean ones so seldom are comical</div>
+<div class="line-block">200 Main St.<br />
+Berkeley, CA 94718</div>
+<p>扩展为line_blocks</p>
+<h1 id="列表">列表</h1>
+<h2 id="无序列表">无序列表</h2>
+<p>在无序列表中包含其他段落或代码块的举例：</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="ss">* </span>First paragraph.</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>  Continued.</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="ss">* </span>Second paragraph. With a code block, which must be indented</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>  eight spaces:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a><span class="in">      { code }</span></span></code></pre></div>
+<ul>
+<li><p>First paragraph.</p>
+<p>Continued.</p></li>
+<li><p>Second paragraph. With a code block, which must be indented eight spaces:</p>
+<pre><code>{ code }</code></pre></li>
+</ul>
+<h2 id="有序列表">有序列表</h2>
+<p>序列的标识符可以是以下的任意一种：</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>#. #. #.</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="ss">1. </span>2. 3.</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>4) 5) 6)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>i. ii. iii.</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>(2) (5) (8)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>a. b. c.</span></code></pre></div>
+<h2 id="check列表">Check列表</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="ss">- </span><span class="va">[ ]</span> an unchecked task list item</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="ss">- </span><span class="va">[x]</span> checked item</span></code></pre></div>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+an unchecked task list item</li>
+<li><input type="checkbox" disabled="" checked="" />
+checked item</li>
+</ul>
+<p>扩展为 <code>task_lists</code></p>
+<h2 id="定义列表">定义列表</h2>
+<p>比较长的定义。</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>Term 1</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a>:   Definition 1</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true"></a>Term 2 with *inline markup*</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true"></a>:   Definition 2</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true"></a><span class="in">        { some code, part of Definition 2 }</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true"></a><span class="in">    Third paragraph of definition 2.</span></span></code></pre></div>
+<dl>
+<dt>Term 1</dt>
+<dd><p>Definition 1</p>
+</dd>
+<dt>Term 2 with <em>inline markup</em></dt>
+<dd><p>Definition 2</p>
+<pre><code>{ some code, part of Definition 2 }</code></pre>
+<p>Third paragraph of definition 2.</p>
+</dd>
+</dl>
+<p>短一点的定义可以见简化为</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a>Term 1</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a>  ~ Definition 1</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a>Term 2</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>  ~ Definition 2a</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a>  ~ Definition 2b</span></code></pre></div>
+<dl>
+<dt>Term 1</dt>
+<dd>Definition 1
+</dd>
+<dt>Term 2</dt>
+<dd>Definition 2a
+</dd>
+<dd>Definition 2b
+</dd>
+</dl>
+<p>扩展为<code>definition_lists</code></p>
+<h2 id="引用列表">引用列表</h2>
+<p>引用列表会根据<code>@</code>自动标号，如果<code>@</code>后面跟了标识符，则可以在其他地方用<code>(@标识符)</code>引用，例如</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>(@)  My first example will be numbered (1).</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true"></a>(@)  My second example will be numbered (2).</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true"></a>Explanation of examples.</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true"></a>(@)  My third example will be numbered (3).</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true"></a>(@good)  This is a good example.</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true"></a>As (@good) illustrates, ...</span></code></pre></div>
+<ol class="example" type="1">
+<li>My first example will be numbered (1).</li>
+<li>My second example will be numbered (2).</li>
+</ol>
+<p>Explanation of examples.</p>
+<ol start="3" class="example" type="1">
+<li><p>My third example will be numbered (3).</p></li>
+<li><p>This is a good example.</p></li>
+</ol>
+<p>As (4) illustrates, …</p>
+<p>扩展为<code>example_lists</code></p>
+<h1 id="表格">表格</h1>
+<div class="sourceCode" id="cb17"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>| Right | Left | Default | Center |</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true"></a>|------:|:-----|---------|:------:|</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true"></a>|   12  |  12  |    12   |    12  |</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true"></a>|  123  |  123 |   123   |   123  |</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true"></a>|    1  |    1 |     1   |     1  |</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true"></a>  : Demonstration of pipe table syntax.</span></code></pre></div>
+<table>
+<caption>Demonstration of pipe table syntax.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Right</th>
+<th style="text-align: left;">Left</th>
+<th>Default</th>
+<th style="text-align: center;">Center</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">12</td>
+<td>12</td>
+<td style="text-align: center;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">123</td>
+<td style="text-align: left;">123</td>
+<td>123</td>
+<td style="text-align: center;">123</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">1</td>
+<td>1</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<h1 id="元数据块">元数据块</h1>
+<div class="sourceCode" id="cb18"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="co">---</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true"></a><span class="an">title:</span><span class="co"> &#39;Pandoc&#39;s Markdown语法&#39;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true"></a><span class="an">author:</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true"></a><span class="co">- Perom</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true"></a><span class="co">- Huang</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true"></a><span class="an">date:</span><span class="co"> 2020/8/25</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true"></a><span class="an">keywords:</span><span class="co"> [noting, nothingness]</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true"></a><span class="an">abstract:</span><span class="co"> |</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true"></a><span class="co">  本文主要包含了pandoc&#39;s markdown的特殊语法。内容上(1)不含一般mardown的语法，(2)只含个人常用的特殊语法，为了最大的保证和一般mardkown的兼容性，只摘取了与一般markdown相似的用法的语法。</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true"></a><span class="co">...</span></span></code></pre></div>
+<h1 id="插件">插件</h1>
+<h2 id="交叉引用">交叉引用</h2>
+<p>开发者<a href="https://www.github.com/tomduck">tomduck</a>开发了几个用于交叉引用的插件，分别是：</p>
+<ol type="1">
+<li><a href="https://www.github.com/tomduck/pandoc-fignos">pandoc-fignos</a> 图片交叉引用</li>
+<li><a href="https://www.github.com/tomduck/pandoc-eqnos">pandoc-eqnos</a> 公式交叉引用</li>
+<li><a href="https://www.github.com/tomduck/pandoc-tablenos">pandoc-tablenos</a> 表格交叉引用</li>
+<li><a href="https://www.github.com/tomduck/pandoc-xnos">pandoc-xnos</a> 包含上面3个插件的集合</li>
+</ol>
+<p>这3个插件方法安装方法都类似，都是用pip安装，安装</p>
+<pre class="shell"><code>pip install pandoc-xxxxx --user</code></pre>
+<p>安装之后要把这几个插件的可执行文件的路径放到系统PATH，最后pandoc转换时加入<code>--filter pandoc-xxxxx</code>即可。</p>
+<h1 id="转换">转换</h1>
+<h2 id="pandocs-markdown-to-pdf">pandoc’s markdown to pdf</h2>
+<blockquote>
+<p>要求：pandoc, latex, 插件(可选), 模版(可选)</p>
+</blockquote>
+<p>这里个人常用<a href="https://github.com/Wandmalfarbe/pandoc-latex-template">eisvogel</a>模版</p>
+<pre class="shell"><code>pandoc --from markdown demo.md -o demo.pdf  --template eisvogel --listing --pdf-engine=xelatex --number-sections -V CJKmainfont=&quot;Songti SC&quot; --filter pandoc-eqnos pandoc-fignos pandoc-tablenos</code></pre>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2020/08/26/%E8%BD%AC%E7%A7%BB%E5%88%B0hugo/">转移到hugo</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
