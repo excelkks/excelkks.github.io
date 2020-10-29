@@ -1,0 +1,139 @@
+---
+title: "LaTeX的设置"
+date: 2020-10-28T11:02:29+08:00
+draft: true
+tags:
+- LaTeX
+- 写作
+categories:
+- LaTeX
+---
+
+最近思来想去，还是决定用LaTeX来写文档. 大概复习了一下基本的用法, 首先需要解决的就是中文支持的问题, 目前比较推荐的方式是用`CTEX`, 支持的`documentclass`有4种，分别是
+
+1. `ctexart` 对应`artical`
+
+2. `ctexrep` 对应`report`
+
+3. `ctexbook`对应`book`
+
+4. `ctexbeamer`对应`breamer`
+
+   以下是一个基本示例
+
+   ```latex
+   \documentclass[UTF8]{ctexart}
+   \begin{document}
+   中文文档类测试。你需要将所有的源文件保存为 UTF-8 编码。
+   
+   你可以使用 XeLaTeX 或 LuaLaTeX 编译。
+   \end{document}
+   ```
+
+具体的可以**查看宏包的文档**, 查看宏包文档的方式是在终端输入`texdoc  <package>`, 这里输入`texdoc ctex`即可打开ctex的说明文档. 
+
+## 字体设置
+
+你可以在导言区加入`\ctexset`控制命令来设置一些字体相关的内容, 例如可以设置摘要和参考文献的名称, 格式如下:
+
+```latex
+\ctexset{
+    abstractname = {本文概要},
+    bibname = {文\quad 献}
+}
+```
+
+ctex设置了一些默认的字体集, 基本上是根据操作系统来设置的, 默认情况下会根据当前操作系统来设置, 这些字体集的具体设置可以在ctex宏包的目录下的. 字体集的设置可以在`\documentclass`中设置, 也可以在`\ctexset`中设置, 下面是两种设置方式:
+
+```latex
+% fontset = <none | adobe | fondol | founder | mac |
+%            macnew | macold | ubuntu | windows | windowsnew |
+%            windowsold |...>
+% 查看具体的字体集设置目录
+% /usr/local/texlive/2020/texmf-dist/tex/latex/ctex/fontset
+%
+% 第一种
+\documentclass[UTF8, fontset=mac]{ctexart}
+\begin{document}
+中文测试
+\end{document}
+
+% 第二种
+\documentclass[UTF8]{ctexart}
+\ctexset{
+    fontset = mac
+}
+\begin{document}
+中文测试
+\end{document}
+```
+
+当然, 这些默认的字体可能并不能满足你的需求, 这时你应该自定义字体. 基本的步骤是查看字体->声明字体(->重命名字体)->使用字体. 
+
+首先是查看字体, 使用`fc-list :LANG=zh`即可列出所有的中文字体. 例如
+
+```shell
+>> fc-list :LANG=zh
+/Users/perom/Library/Fonts/SourceHanSerif.ttc: Source Han Serif TC,思源宋體,思源宋體 Light,Source Han Serif TC Light:style=Light,Regular
+```
+
+可以看到这个字体的名称为`Source Han Serif TC`.
+
+接下来是声明字体和重命名字体
+
+```latex
+% 本部分放入导言区
+\setCJKfamilyfont{sysong}{Source Han Serif TC}
+\newcommand{\sysong}{\CJKfamily{sysong}}    % 也可以不定义
+```
+
+最后是使用
+
+```latex
+\sysong{思源宋体，重命名后的用法}
+\CJKfamily{sysong}{思源宋体，未重命名的用法}
+```
+
+## 章节标题
+
+每个章节的标题格式可以统一设置, 包括名字, 字体格式等等, 示例如下:
+
+```latex
+\ctexset{
+    section = {
+        name = {第, 节},
+        number = \arabic{section},
+        format = {\raggedright\setmainfont{}\heiti\zihao{3}}
+    }
+}
+```
+
+以下是上面涉及到的几种设置的示例:
+
+```latex
+\documnetclass[UTF8]{ctexart}
+\setCJKfamilyfont{sysong}{Source Han Serif TC}
+\newcommand{\sysong}{\CJKfamily{sysong}}
+\setmainfont{Arial}
+\setCJKmainfont{Source Han Serif SC Light}
+
+\setCJKfamilyfont{sysong}{Source Han Serif SC Light}
+\newcommand{\sysong}{\CJKfamily{sysong}}
+
+\begin{document}
+\ctexset{
+    abstractname = {文本概要},
+    bibname = {文\quad 献},
+    section = {
+        name = {第,节},
+        number = \arabic{section},
+        format = {\raggedright\setmainfont{Arial}\heiti\zihao{-2}}
+    }
+}
+
+\section{中文测试}
+中文测试成功！
+
+\end{document}
+```
+
