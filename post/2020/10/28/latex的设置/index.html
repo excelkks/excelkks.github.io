@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>LaTeX的设置 - excelkks</title>
+    <meta property="og:title" content="LaTeX的设置 - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="最近思来想去，还是决定用LaTeX来写文档. 大概复习了一下基本的用法, 首先需要解决的就是中文支持的问题, 目前比较推荐的方式是用CTEX, 支持的documentclass有4种，分别是
+[&amp;hellip;] ctexart 对应artical
+[&amp;hellip;] ctexrep 对应report
+[&amp;hellip;] ctexbook对应book
+[&amp;hellip;] ctexbeamer &amp;hellip;">
+      <meta property="og:description" content="最近思来想去，还是决定用LaTeX来写文档. 大概复习了一下基本的用法, 首先需要解决的就是中文支持的问题, 目前比较推荐的方式是用CTEX, 支持的documentclass有4种，分别是
+[&amp;hellip;] ctexart 对应artical
+[&amp;hellip;] ctexrep 对应report
+[&amp;hellip;] ctexbook对应book
+[&amp;hellip;] ctexbeamer &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script>
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script>
+  (function(d) {
+    var config = {
+      kitId: 'hcr2dmn',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<link rel="icon" type="image/png" href="/images/favicon/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon/favicon.png" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">just do it and waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">主页</a></li>
+  
+  <li><a href="/about/">关于</a></li>
+  
+  <li><a href="/categories/">分类</a></li>
+  
+  <li><a href="/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>LaTeX的设置</h1>
+
+<h3>
+  2020-10-28</h3>
+<hr>
+
+
+      </header>
+
+
+
+<p>最近思来想去，还是决定用LaTeX来写文档. 大概复习了一下基本的用法, 首先需要解决的就是中文支持的问题, 目前比较推荐的方式是用<code>CTEX</code>, 支持的<code>documentclass</code>有4种，分别是</p>
+<ol>
+<li>
+<p><code>ctexart</code> 对应<code>artical</code></p>
+</li>
+<li>
+<p><code>ctexrep</code> 对应<code>report</code></p>
+</li>
+<li>
+<p><code>ctexbook</code>对应<code>book</code></p>
+</li>
+<li>
+<p><code>ctexbeamer</code>对应<code>breamer</code></p>
+<p>以下是一个基本示例</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span><span style="color:#a6e22e">[UTF8]</span>{ctexart}
+<span style="color:#66d9ef">\begin</span>{document}
+中文文档类测试。你需要将所有的源文件保存为 UTF-8 编码。
+   
+你可以使用 XeLaTeX 或 LuaLaTeX 编译。
+<span style="color:#66d9ef">\end</span>{document}
+</code></pre></div></li>
+</ol>
+<p>具体的可以<strong>查看宏包的文档</strong>, 查看宏包文档的方式是在终端输入<code>texdoc  &lt;package&gt;</code>, 这里输入<code>texdoc ctex</code>即可打开ctex的说明文档.</p>
+<h2 id="字体设置">字体设置</h2>
+<p>你可以在导言区加入<code>\ctexset</code>控制命令来设置一些字体相关的内容, 例如可以设置摘要和参考文献的名称, 格式如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\ctexset</span>{
+    abstractname = {本文概要},
+    bibname = {文<span style="color:#66d9ef">\quad</span> 献}
+}
+</code></pre></div><p>ctex设置了一些默认的字体集, 基本上是根据操作系统来设置的, 默认情况下会根据当前操作系统来设置, 这些字体集的具体设置可以在ctex宏包的目录下的. 字体集的设置可以在<code>\documentclass</code>中设置, 也可以在<code>\ctexset</code>中设置, 下面是两种设置方式:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#75715e">% fontset = &lt;none | adobe | fondol | founder | mac |
+</span><span style="color:#75715e">%            macnew | macold | ubuntu | windows | windowsnew |
+</span><span style="color:#75715e">%            windowsold |...&gt;
+</span><span style="color:#75715e">% 查看具体的字体集设置目录
+</span><span style="color:#75715e">% /usr/local/texlive/2020/texmf-dist/tex/latex/ctex/fontset
+</span><span style="color:#75715e">%
+</span><span style="color:#75715e">% 第一种
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\documentclass</span><span style="color:#a6e22e">[UTF8, fontset=mac]</span>{ctexart}
+<span style="color:#66d9ef">\begin</span>{document}
+中文测试
+<span style="color:#66d9ef">\end</span>{document}
+
+<span style="color:#75715e">% 第二种
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\documentclass</span><span style="color:#a6e22e">[UTF8]</span>{ctexart}
+<span style="color:#66d9ef">\ctexset</span>{
+    fontset = mac
+}
+<span style="color:#66d9ef">\begin</span>{document}
+中文测试
+<span style="color:#66d9ef">\end</span>{document}
+</code></pre></div><p>当然, 这些默认的字体可能并不能满足你的需求, 这时你应该自定义字体. 基本的步骤是查看字体-&gt;声明字体(-&gt;重命名字体)-&gt;使用字体.</p>
+<p>首先是查看字体, 使用<code>fc-list :LANG=zh</code>即可列出所有的中文字体. 例如</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt;&gt; fc-list :LANG<span style="color:#f92672">=</span>zh
+/Users/perom/Library/Fonts/SourceHanSerif.ttc: Source Han Serif TC,思源宋體,思源宋體 Light,Source Han Serif TC Light:style<span style="color:#f92672">=</span>Light,Regular
+</code></pre></div><p>可以看到这个字体的名称为<code>Source Han Serif TC</code>.</p>
+<p>接下来是声明字体和重命名字体</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#75715e">% 本部分放入导言区
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\setCJKfamilyfont</span>{sysong}{Source Han Serif TC}
+<span style="color:#66d9ef">\newcommand</span>{<span style="color:#66d9ef">\sysong</span>}{<span style="color:#66d9ef">\CJKfamily</span>{sysong}}    <span style="color:#75715e">% 也可以不定义
+</span></code></pre></div><p>最后是使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\sysong</span>{思源宋体，重命名后的用法}
+<span style="color:#66d9ef">\CJKfamily</span>{sysong}{思源宋体，未重命名的用法}
+</code></pre></div><h2 id="章节标题">章节标题</h2>
+<p>每个章节的标题格式可以统一设置, 包括名字, 字体格式等等, 示例如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\ctexset</span>{
+    section = {
+        name = {第, 节},
+        number = <span style="color:#66d9ef">\arabic</span>{section},
+        format = {<span style="color:#66d9ef">\raggedright\setmainfont</span>{}<span style="color:#66d9ef">\heiti\zihao</span>{3}}
+    }
+}
+</code></pre></div><p>以下是上面涉及到的几种设置的示例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documnetclass</span><span style="color:#a6e22e">[UTF8]</span>{ctexart}
+<span style="color:#66d9ef">\setCJKfamilyfont</span>{sysong}{Source Han Serif TC}
+<span style="color:#66d9ef">\newcommand</span>{<span style="color:#66d9ef">\sysong</span>}{<span style="color:#66d9ef">\CJKfamily</span>{sysong}}
+<span style="color:#66d9ef">\setmainfont</span>{Arial}
+<span style="color:#66d9ef">\setCJKmainfont</span>{Source Han Serif SC Light}
+
+<span style="color:#66d9ef">\setCJKfamilyfont</span>{sysong}{Source Han Serif SC Light}
+<span style="color:#66d9ef">\newcommand</span>{<span style="color:#66d9ef">\sysong</span>}{<span style="color:#66d9ef">\CJKfamily</span>{sysong}}
+
+<span style="color:#66d9ef">\begin</span>{document}
+<span style="color:#66d9ef">\ctexset</span>{
+    abstractname = {文本概要},
+    bibname = {文<span style="color:#66d9ef">\quad</span> 献},
+    section = {
+        name = {第,节},
+        number = <span style="color:#66d9ef">\arabic</span>{section},
+        format = {<span style="color:#66d9ef">\raggedright\setmainfont</span>{Arial}<span style="color:#66d9ef">\heiti\zihao</span>{-2}}
+    }
+}
+
+<span style="color:#66d9ef">\section</span>{中文测试}
+中文测试成功！
+
+<span style="color:#66d9ef">\end</span>{document}
+</code></pre></div>
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2020/09/10/%E5%8D%95%E8%AF%8D/">单词</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

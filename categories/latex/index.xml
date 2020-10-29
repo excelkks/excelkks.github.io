@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LaTeX on excelkks</title>
+    <link>/categories/latex/</link>
+    <description>Recent content in LaTeX on excelkks</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 28 Oct 2020 11:02:29 +0800</lastBuildDate>
+    
+	<atom:link href="/categories/latex/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LaTeX的设置</title>
+      <link>/post/2020/10/28/latex%E7%9A%84%E8%AE%BE%E7%BD%AE/</link>
+      <pubDate>Wed, 28 Oct 2020 11:02:29 +0800</pubDate>
+      
+      <guid>/post/2020/10/28/latex%E7%9A%84%E8%AE%BE%E7%BD%AE/</guid>
+      <description>最近思来想去，还是决定用LaTeX来写文档. 大概复习了一下基本的用法, 首先需要解决的就是中文支持的问题, 目前比较推荐的方式是用CTEX, 支持的documentclass有4种，分别是
+  ctexart 对应artical
+  ctexrep 对应report
+  ctexbook对应book
+  ctexbeamer对应breamer
+以下是一个基本示例
+\documentclass[UTF8]{ctexart} \begin{document} 中文文档类测试。你需要将所有的源文件保存为 UTF-8 编码。 你可以使用 XeLaTeX 或 LuaLaTeX 编译。 \end{document}   具体的可以查看宏包的文档, 查看宏包文档的方式是在终端输入texdoc &amp;lt;package&amp;gt;, 这里输入texdoc ctex即可打开ctex的说明文档.
+字体设置 你可以在导言区加入\ctexset控制命令来设置一些字体相关的内容, 例如可以设置摘要和参考文献的名称, 格式如下:
+\ctexset{ abstractname = {本文概要}, bibname = {文\quad 献} } ctex设置了一些默认的字体集, 基本上是根据操作系统来设置的, 默认情况下会根据当前操作系统来设置, 这些字体集的具体设置可以在ctex宏包的目录下的. 字体集的设置可以在\documentclass中设置, 也可以在\ctexset中设置, 下面是两种设置方式:
+% fontset = &amp;lt;none | adobe | fondol | founder | mac | % macnew | macold | ubuntu | windows | windowsnew | % windowsold |.</description>
+    </item>
+    
+  </channel>
+</rss>
