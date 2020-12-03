@@ -16,9 +16,13 @@
     
       
       <meta property="description" content="超定方程组是指方程的个数大于未知数个数的方程组，例如
-$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\ ... &amp;amp; ... &amp;amp; ... \\ a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} \\ \end{bmatrix}\times &amp;hellip;">
+$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\
+&amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \\
+a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} &amp;hellip;">
       <meta property="og:description" content="超定方程组是指方程的个数大于未知数个数的方程组，例如
-$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\ ... &amp;amp; ... &amp;amp; ... \\ a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} \\ \end{bmatrix}\times &amp;hellip;">
+$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\
+&amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \\
+a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} &amp;hellip;">
       
     
 
@@ -135,7 +139,19 @@ code.has-jax {
 <h2 id="1-超定方程组求解">1 超定方程组求解</h2>
 <h3 id="11-超定方程组">1.1 超定方程组</h3>
 <p>超定方程组是指方程的个数大于未知数个数的方程组，例如</p>
-<p><code>$$ \begin{bmatrix} a_{11} &amp; a_{12} &amp; a_{13} \\ a_{21} &amp; a_{22} &amp; a_{23} \\ ... &amp; ... &amp; ... \\ a_{n1} &amp; a_{n2} &amp; a_{n3} \\ \end{bmatrix}\times \begin{bmatrix}  x_1 \\ x_2 \\ x_3 \\ \end{bmatrix} =  \begin{bmatrix}  b_1 \\ b_2 \\ ... \\ b_n \\ \end{bmatrix} $$</code></p>
+<p>$$
+\begin{bmatrix} a_{11} &amp; a_{12} &amp; a_{13} \\
+a_{21} &amp; a_{22} &amp; a_{23} \\<br>
+&hellip; &amp; &hellip; &amp; &hellip; \\<br>
+a_{n1} &amp; a_{n2} &amp; a_{n3}
+\end{bmatrix} \times
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\<br>
+\end{bmatrix} =
+\begin{bmatrix}
+b_1 \\ b_2 \\ &hellip; \\ b_n \\<br>
+\end{bmatrix}
+$$</p>
 <p>其中，$n&gt;3$，将上述方程表示为$\boldsymbol{A}_{n\times 3}x_{3\times 1}=b_{n\times 1}$，该方程不能按照一般的求解方法求解，但可以求的最小二乘法的解。</p>
 <p>先给出结论，该超定方程组的最小二乘解为：
 $$x=(\boldsymbol{A}^{T}\boldsymbol{A})^{-1}\boldsymbol{A}^{T}b$$</p>
@@ -143,7 +159,14 @@ $$x=(\boldsymbol{A}^{T}\boldsymbol{A})^{-1}\boldsymbol{A}^{T}b$$</p>
 <p>对于无一般解的超定方程组$\boldsymbol{A}x=b$来说，假设$r=\boldsymbol{A}x -b$，使得$||r||^2_2=（\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$的值最小的解即为最小二乘解。于是，问题转变为最小化$(\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$，令
 $$J(x)=(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)$$
 对上式求导，可得</p>
-<p><code>$$ \begin{aligned} \frac{\partial J(x)}{\partial x} &amp; =\frac{\partial{(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)}}{\partial{x}} \\ &amp; =\frac{\partial(x^T\boldsymbol{A}^T\boldsymbol{A}x-x^T\boldsymbol{A}^Tb-b^T\boldsymbol{A}x+b^Tb)}{\partial{x}} \\ &amp; =(\boldsymbol{A}^T\boldsymbol{A}x)^T+x^T\boldsymbol{A}\boldsymbol{A}-b^T\boldsymbol{A}-b^T\boldsymbol{A} \\ &amp; =2(x^T\boldsymbol{A}^T\boldsymbol{A}-b^T\boldsymbol{A}) \end{aligned} $$</code></p>
+<p>$$
+\begin{aligned}
+\frac{\partial J(x)}{\partial x} &amp; =\frac{\partial{(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)}}{\partial{x}} \\<br>
+&amp; =\frac{\partial(x^T\boldsymbol{A}^T\boldsymbol{A}x-x^T\boldsymbol{A}^Tb-b^T\boldsymbol{A}x+b^Tb)}{\partial{x}} \\<br>
+&amp; =(\boldsymbol{A}^T\boldsymbol{A}x)^T+x^T\boldsymbol{A}\boldsymbol{A}-b^T\boldsymbol{A}-b^T\boldsymbol{A} \\<br>
+&amp; =2(x^T\boldsymbol{A}^T\boldsymbol{A}-b^T\boldsymbol{A})
+\end{aligned}
+$$</p>
 <p>令$\frac{\partial{J(x)}}{\partial{x}}=0$，那么，可以解得</p>
 <p>$$
 x=(\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^Tb
@@ -158,7 +181,12 @@ $$</p>
 <li>相同像素点移动前后像素强度不变（一般指亮度）</li>
 </ul>
 <p>现假设在时间$t$时，点$(x,y)$处像素点强度为$I(x,y,t)$，那么$\Delta{t}$时间后，该像素点将移动到$(x+\Delta{x},y+\Delta{y})$处，像素强度为$I(x+\Delta{x},y+\Delta{y},t+\Delta{t})$，对其进行泰勒级数展开得到：</p>
-<p><code>$$ \begin{aligned} &amp; I(x+\Delta{x},y+\Delta{y},t+\Delta{t}) \\ = &amp; I(x,y,t)+\frac{\partial{I}}{\partial{x}}\Delta{x}+\frac{\partial{I}}{\partial{y}}\Delta{y}+\frac{\partial{I}}{\partial{t}}\Delta{t}+H.O.T. \end{aligned} $$</code></p>
+<p>$$
+\begin{aligned}
+&amp; I(x+\Delta{x},y+\Delta{y},t+\Delta{t}) \\<br>
+= &amp; I(x,y,t)+\frac{\partial{I}}{\partial{x}}\Delta{x}+\frac{\partial{I}}{\partial{y}}\Delta{y}+\frac{\partial{I}}{\partial{t}}\Delta{t}+H.O.T.
+\end{aligned}
+$$</p>
 <p>基于假设条件，相同像素移动前后的强度不变，同时忽略$H.O.T$，可得：
 $$
 \frac{\partial{I}}{\partial{x}}\Delta{x}+\frac{\partial{I}}{\partial{y}}\Delta{y}+\frac{\partial{I}}{\partial{t}}\Delta{t}=0
@@ -179,11 +207,46 @@ $V_x$, $V_y$也即为$I(x,y,t)$的光流，$\frac{\partial{I}}{\partial{x}}$,$\f
 <li>假设光流在像素点的邻域是一个常数</li>
 </ul>
 <p>那么，假设研究领域大小为$N\times{N}$，那么在该区域内的光流均相等，根据光流的计算方法，该区域内有等式：</p>
-<p><code>$$ \begin{aligned} &amp; I_x(p_1)V_x+I_y(p_1)V_y = -I_t(p_1) \\ &amp; I_x(p_2)V_x+I_y(p_2)V_y = -I_t(p_2) \\ &amp; \cdots                              \\ &amp; I_x(p_n)V_x+I_y(p_n)V_y = -I_t(p_n) \end{aligned} $$</code></p>
+<p>$$
+\begin{aligned}
+&amp; I_x(p_1)V_x+I_y(p_1)V_y = -I_t(p_1) \\<br>
+&amp; I_x(p_2)V_x+I_y(p_2)V_y = -I_t(p_2) \\<br>
+&amp; \cdots                              \\<br>
+&amp; I_x(p_n)V_x+I_y(p_n)V_y = -I_t(p_n)
+\end{aligned}
+$$</p>
 <p>写成矩阵形式</p>
-<p><code>$$ \begin{bmatrix} I_x(p_1) &amp; I_y(p_1) \\ I_x(p_2) &amp; I_y(p_2) \\ \cdots \\ I_x(p_n) &amp; I_y(p_n) \end{bmatrix} \begin{bmatrix} V_x \\ V_y \end{bmatrix} =\begin{bmatrix} -I_t(p_1)\\ -I_t(p_2) \\ \cdots \\ -I_t(p_n) \end{bmatrix} $$</code></p>
+<p>$$
+\begin{bmatrix}
+I_x(p_1) &amp; I_y(p_1) \\<br>
+I_x(p_2) &amp; I_y(p_2) \\<br>
+\cdots \\<br>
+I_x(p_n) &amp; I_y(p_n)
+\end{bmatrix}
+\begin{bmatrix}
+V_x \\ V_y
+\end{bmatrix}
+=\begin{bmatrix}
+-I_t(p_1)\\<br>
+-I_t(p_2) \\<br>
+\cdots \\<br>
+-I_t(p_n)
+\end{bmatrix}
+$$</p>
 <p>根据最小二乘法求解超定方程$Ax=b$方法，$x=(\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^Tb$，上述矩阵解为
-<code>$$ \begin{bmatrix} V_x \\ V_y \end{bmatrix} =\begin{bmatrix} \sum_iI_x(p_i)^2 &amp; \sum_iI_x(p_i)I_y(p_i) \\ \sum_iI_y(p_i)I_x(p_i) &amp; \sum_iI_y(p_i)^2 \\ \end{bmatrix}^{-1} \begin{bmatrix} -\sum_iI_x(p_i)I_t(p_i) \\ -\sum_iI_y(p_i)I_t(p_i) \end{bmatrix} $$</code></p>
+$$
+\begin{bmatrix}
+V_x \\ V_y
+\end{bmatrix}
+=\begin{bmatrix}
+\sum_iI_x(p_i)^2 &amp; \sum_iI_x(p_i)I_y(p_i) \\<br>
+\sum_iI_y(p_i)I_x(p_i) &amp; \sum_iI_y(p_i)^2 \\<br>
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+-\sum_iI_x(p_i)I_t(p_i) \\<br>
+-\sum_iI_y(p_i)I_t(p_i)
+\end{bmatrix}
+$$</p>
 <p>最终求的该区域内的光流为$V_x,V_y$。</p>
 <p>总结:</p>
 <ul>

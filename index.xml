@@ -6,10 +6,23 @@
     <description>Recent content in Home on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 Oct 2020 11:02:29 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 03 Dec 2020 14:13:46 +0800</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>修复latex公式矩阵换行在hugo下的渲染问题</title>
+      <link>/post/2020/12/03/%E4%BF%AE%E5%A4%8Dlatex%E5%85%AC%E5%BC%8F%E7%9F%A9%E9%98%B5%E6%8D%A2%E8%A1%8C%E5%9C%A8hugo%E4%B8%8B%E7%9A%84%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Thu, 03 Dec 2020 14:13:46 +0800</pubDate>
+      
+      <guid>/post/2020/12/03/%E4%BF%AE%E5%A4%8Dlatex%E5%85%AC%E5%BC%8F%E7%9F%A9%E9%98%B5%E6%8D%A2%E8%A1%8C%E5%9C%A8hugo%E4%B8%8B%E7%9A%84%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/</guid>
+      <description>目前我已经从hexo迁移到hugo写博客，我个人非常喜欢hugo的轻快，但是还有一个非常困扰我的问题就是latex矩阵的渲染。我在hugo使用的渲染公式的方案是用mathjax，由于hugo解析backslash\先用mathjax，这就会导致公式中的double backslash\\（在latex中表现为换行）会被解析为single backslash，从而导致mathjax解析换行失败，最后造成无法渲染矩阵。
+在网上搜了一圈后，普遍给出的方案都是把 double backslash 换为quadruple backslash\\\\，这样确实可以解决问题，但是问题也很明显，就是无法与其他的 Markdown 编辑器兼容，特别是我平时喜欢用 Tyopra 编辑markdown文件。
+我的最终方案是在hugo博客的根目录下建立一个data路径用于存放原始的markdown文件，平时的编辑，更改都在data/post路径下的mardown文件进行，写好后再用脚本将data/post文章的公式中的double backslash改为quadraple backslash后放入content/post中。这样平时只需要在data/post中编辑，编辑完后在用脚本renew一下就可以了。这应该是我能想到的最不折腾的方案了。
+我的写作流程基本上可以归结为如下：
+ blog -n &amp;quot;post title&amp;quot; 基于hugo的hugo new post/post_title 创建post并放到data/post路径下 在data/post路径下写作 blog -r 更新所有post，即处理\\ blog -d &amp;quot;comment&amp;quot; 提交到仓库，更新博客网站  </description>
+    </item>
     
     <item>
       <title>LaTeX的设置</title>
@@ -147,15 +160,16 @@ $$ \theta^{(k+1)} = \theta^{(k)}-\eta \nabla J(\theta)|_{\theta = \theta^{(k)}} 
       <pubDate>Thu, 05 Dec 2019 16:37:21 +0000</pubDate>
       
       <guid>/post/2019/12/05/ycbcr%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
-      <description>YCbCr格式的理解 YUV格式 YUV格式有别于传统的RGB三原色格式，YUV是将亮度分量Y和两个色度分量U、V分开，其中Y表示灰阶值，U表示蓝色与亮度值之间的差异，V表示红色与亮度之间的差异，于是对亮度分量的处理Y并不影响U、V分量，此外单独传输Y分量可向后兼容老式黑白电视。YCbCr格式与YUV格式类似，YCbCr主要应用于图像、视频压缩的数字彩色信息表示，是YUV压缩和偏移的版本。RGB与YCbCr的转换如下： $$ \begin{bmatrix} Y \
-Cb \
-Cr \end{bmatrix} = \begin{bmatrix} 0.299 &amp;amp; 0.587&amp;amp; 0.114 \
--0.169&amp;amp; -0.331&amp;amp; 0.449 \
-0.449 &amp;amp; -0.418&amp;amp; -0.0813 \
-\end{bmatrix} \begin{bmatrix} R \ G \ B \end{bmatrix}+ \begin{bmatrix} 0 \ 128 \ 128 \end{bmatrix} $$
-$$ \begin{bmatrix} R \ G \ B \end{bmatrix} = \begin{bmatrix} 1.0 &amp;amp; 0.0 &amp;amp; 1.402 \
-1.0 &amp;amp; -0.344 &amp;amp; -0.714 \
-1.0 &amp;amp; 1.772 &amp;amp; 0.0 \end{bmatrix} \begin{bmatrix} Y \ Cb-128 \ Cr-128 \end{bmatrix} $$</description>
+      <description>YCbCr格式的理解 YUV格式 YUV格式有别于传统的RGB三原色格式，YUV是将亮度分量Y和两个色度分量U、V分开，其中Y表示灰阶值，U表示蓝色与亮度值之间的差异，V表示红色与亮度之间的差异，于是对亮度分量的处理Y并不影响U、V分量，此外单独传输Y分量可向后兼容老式黑白电视。YCbCr格式与YUV格式类似，YCbCr主要应用于图像、视频压缩的数字彩色信息表示，是YUV压缩和偏移的版本。RGB与YCbCr的转换如下：
+$$ \begin{bmatrix} Y \\
+Cb \\
+Cr \end{bmatrix} = \begin{bmatrix} 0.299 &amp;amp; 0.587&amp;amp; 0.114 \\
+-0.169&amp;amp; -0.331&amp;amp; 0.449 \\
+0.449 &amp;amp; -0.418&amp;amp; -0.0813 \\
+\end{bmatrix} \begin{bmatrix} R \\ G \\ B \end{bmatrix}+ \begin{bmatrix} 0 \\ 128 \\ 128 \end{bmatrix} $$
+$$ \begin{bmatrix} R \\ G \\ B \end{bmatrix} = \begin{bmatrix} 1.0 &amp;amp; 0.0 &amp;amp; 1.402 \\
+1.0 &amp;amp; -0.344 &amp;amp; -0.714 \\
+1.0 &amp;amp; 1.772 &amp;amp; 0.0 \end{bmatrix} \begin{bmatrix} Y \\ Cb-128 \\ Cr-128 \end{bmatrix} $$</description>
     </item>
     
     <item>
@@ -184,11 +198,15 @@ $$ \begin{bmatrix} R \ G \ B \end{bmatrix} = \begin{bmatrix} 1.0 &amp;amp; 0.0 &
       
       <guid>/post/2019/11/18/lk%E5%85%89%E6%B5%81%E6%B3%95/</guid>
       <description>1 超定方程组求解 1.1 超定方程组 超定方程组是指方程的个数大于未知数个数的方程组，例如
-$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\ ... &amp;amp; ... &amp;amp; ... \\ a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} \\ \end{bmatrix}\times \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ \end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \\ ... \\ b_n \\ \end{bmatrix} $$
+$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\
+&amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \\
+a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} \end{bmatrix} \times \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\
+\end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \\ &amp;hellip; \\ b_n \\
+\end{bmatrix} $$
 其中，$n&amp;gt;3$，将上述方程表示为$\boldsymbol{A}_{n\times 3}x_{3\times 1}=b_{n\times 1}$，该方程不能按照一般的求解方法求解，但可以求的最小二乘法的解。
 先给出结论，该超定方程组的最小二乘解为： $$x=(\boldsymbol{A}^{T}\boldsymbol{A})^{-1}\boldsymbol{A}^{T}b$$
 1.2 超定方程组的最小二乘解 对于无一般解的超定方程组$\boldsymbol{A}x=b$来说，假设$r=\boldsymbol{A}x -b$，使得$||r||^2_2=（\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$的值最小的解即为最小二乘解。于是，问题转变为最小化$(\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$，令 $$J(x)=(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)$$ 对上式求导，可得
-$$ \begin{aligned} \frac{\partial J(x)}{\partial x} &amp;amp; =\frac{\partial{(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)}}{\partial{x}} \\ &amp;amp; =\frac{\partial(x^T\boldsymbol{A}^T\boldsymbol{A}x-x^T\boldsymbol{A}^Tb-b^T\boldsymbol{A}x+b^Tb)}{\partial{x}} \\ &amp;amp; =(\boldsymbol{A}^T\boldsymbol{A}x)^T+x^T\boldsymbol{A}\boldsymbol{A}-b^T\boldsymbol{A}-b^T\boldsymbol{A} \\ &amp;amp; =2(x^T\boldsymbol{A}^T\boldsymbol{A}-b^T\boldsymbol{A}) \end{aligned} $$</description>
+$$ \begin{aligned} \frac{\partial J(x)}{\partial x} &amp;amp; =\frac{\partial{(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)}}{\partial{x}} \\</description>
     </item>
     
     <item>
