@@ -6,10 +6,21 @@
     <description>Recent content in Posts on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 03 Dec 2020 14:13:46 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 03 Dec 2020 16:47:55 +0800</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>深度学习</title>
+      <link>/post/2020/12/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Thu, 03 Dec 2020 16:47:55 +0800</pubDate>
+      
+      <guid>/post/2020/12/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
+      <description>1. 避免tensorflow占用全部GPU 使用tensorflow时，启用GPU支持会占用所有的GPU，虽然每个GPU都只占用了一点，GPU占用情况可以用如下命令查看：
+nvidia-msi 解决GPU全占的办法是加入以下代码
+os.environ[&amp;#39;CUDA_DEVICES_ORDER&amp;#39;] = &amp;#39;PCI_BUS_ID&amp;#39; os.environ[&amp;#39;CUDA_VISIBLE_DEVICES&amp;#39;] = &amp;#39;0&amp;#39; # 使用 0 GPU config = tf.ConfigProto() #config.gpu_options.per_process_gpu_memory_fraction = 0.9 # 控制使用每个GPU的大小 config.gpu_options.allow_growth = True </description>
+    </item>
     
     <item>
       <title>修复latex公式矩阵换行在hugo下的渲染问题</title>

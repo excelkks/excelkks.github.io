@@ -3,17 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
-    <lastmod>2020-12-03T14:13:46+08:00</lastmod>
+    <loc>/tags/deeplearning/</loc>
+    <lastmod>2020-12-03T16:47:55+08:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/markdown/</loc>
-    <lastmod>2020-12-03T14:13:46+08:00</lastmod>
+    <loc>/</loc>
+    <lastmod>2020-12-03T16:47:55+08:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
+    <lastmod>2020-12-03T16:47:55+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-12-03T16:47:55+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2020/12/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2020-12-03T16:47:55+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/markdown/</loc>
     <lastmod>2020-12-03T14:13:46+08:00</lastmod>
   </url>
   
@@ -29,11 +44,6 @@
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2020-12-03T14:13:46+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-12-03T14:13:46+08:00</lastmod>
   </url>
   
