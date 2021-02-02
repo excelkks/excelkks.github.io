@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Pytorch Sequential - excelkks</title>
+    <meta property="og:title" content="Pytorch Sequential - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="快速构建一个neural network可以通过torch.nn.Module构建类，也可通过设计一个torch.nn.Sequential来构建网络计算过程。实际上，只需要将网络上的各个计算过程都堆叠在Sequential中既可以了，例如：
+[&amp;hellip;] model = torch.nn.Sequential( torch.nn.Linear(3, 1), &amp;hellip;">
+      <meta property="og:description" content="快速构建一个neural network可以通过torch.nn.Module构建类，也可通过设计一个torch.nn.Sequential来构建网络计算过程。实际上，只需要将网络上的各个计算过程都堆叠在Sequential中既可以了，例如：
+[&amp;hellip;] model = torch.nn.Sequential( torch.nn.Linear(3, 1), &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script>
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script>
+  (function(d) {
+    var config = {
+      kitId: 'hcr2dmn',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<link rel="icon" type="image/png" href="/images/favicon/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon/favicon.png" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">just do it and waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">主页</a></li>
+  
+  <li><a href="/about/">关于</a></li>
+  
+  <li><a href="/categories/">分类</a></li>
+  
+  <li><a href="/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Pytorch Sequential</h1>
+
+<h3>
+  2020-12-18</h3>
+<hr>
+
+
+      </header>
+
+
+
+<h2 id="torchnnsequential"><code>torch.nn.Sequential</code></h2>
+<p>快速构建一个neural network可以通过<code>torch.nn.Module</code>构建类，也可通过设计一个<code>torch.nn.Sequential</code>来构建网络计算过程。实际上，只需要将网络上的各个计算过程都堆叠在Sequential中既可以了，例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
+        torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>),
+        torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Flatten(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>))
+</code></pre></div><p>Sequential是一个容器，一般来说，可以用多个Sequential来构建Module. 例如LeNet-5网络的构建</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LeNet5</span>(torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Module):
+    <span style="color:#66d9ef">def</span> __init__(self):
+        super(LeNet5,self)<span style="color:#f92672">.</span>__init__()
+        self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
+            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>),
+            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ReLU(),
+            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>MaxPool2d(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)
+        )
+        self<span style="color:#f92672">.</span>conv2 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
+            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">5</span>),
+            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ReLU(),
+            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>MaxPool2d(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)
+        )
+        self<span style="color:#f92672">.</span>conv3 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
+            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">120</span>,<span style="color:#ae81ff">5</span>),
+            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ReLU()
+        )
+        self<span style="color:#f92672">.</span>fc <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
+            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">120</span>,<span style="color:#ae81ff">84</span>),
+            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ReLU(),
+            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">84</span>,<span style="color:#ae81ff">10</span>),
+            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>LogSoftmax(dim<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>)
+        )
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, image):
+        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>conv1(image)
+        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>conv2(output)
+        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>conv3(output)
+        output <span style="color:#f92672">=</span> output<span style="color:#f92672">.</span>view(image<span style="color:#f92672">.</span>size(<span style="color:#ae81ff">0</span>),<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc(output)
+        <span style="color:#66d9ef">return</span> output
+</code></pre></div>
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2020/12/18/pytorch-nn-module/">Pytorch nn-Module</a></span>
+  <span class="nav-next"><a href="/post/2020/12/18/%E6%88%AA%E6%96%AD%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/">截断正态分布</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

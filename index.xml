@@ -6,10 +6,191 @@
     <description>Recent content in Home on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 03 Dec 2020 16:47:55 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 06 Jan 2021 14:32:55 +0800</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>在linux中开启samba服务</title>
+      <link>/post/2021/01/06/%E5%9C%A8linux%E4%B8%AD%E5%BC%80%E5%90%AFsamba%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Wed, 06 Jan 2021 14:32:55 +0800</pubDate>
+      
+      <guid>/post/2021/01/06/%E5%9C%A8linux%E4%B8%AD%E5%BC%80%E5%90%AFsamba%E6%9C%8D%E5%8A%A1/</guid>
+      <description>linux中samba的应用 服务器端 在linux中开启samba共享服务，首先安装samba服务
+# ubuntu apt install samba 配置文件的路径在/etc/samba/smb.conf，如果需要添加共享，需要添加如下内容
+[share] comment = comments path = /path/to/share browseable = yes writeable = yes public = yes # create mask = 0775 # 创建文件的权限 # directory mask = 0775 # 创建目录的权限 # valid users = heijunma,root #允许访问该共享的用户 # write list = heijunma,root #可写入共享的用户列表 重启smb服务
+service smbd restart service nmb restart 在linux中访问samba共享 首先需要安装cifs，再进行挂载，samba的默认端口为445和139
+apt install cifs-utils mount.cifs -o username=user,password=passwd,port=&amp;lt;port&amp;gt; //ip/share/path/ /mount/point </description>
+    </item>
+    
+    <item>
+      <title>omv搭建一</title>
+      <link>/post/2021/01/06/omv%E6%90%AD%E5%BB%BA%E4%B8%80/</link>
+      <pubDate>Wed, 06 Jan 2021 14:21:43 +0800</pubDate>
+      
+      <guid>/post/2021/01/06/omv%E6%90%AD%E5%BB%BA%E4%B8%80/</guid>
+      <description>omv配置网络 在面板上设置了静态网络发现无法上网，因此这里直接编辑netplan的配置文件实现静态ipv4.
+编辑文件/etc/netplan/10-openmediavault-eno1.yaml
+network: ethernets: eno1: match: macaddress: xx:xx:xx:xx:xx:xx dhcp4: false dhcp6: false addresses: [192.168.2.222/24] gateway4: 192.168.2.1 nameservers: addresses: [114.114.114.114, 8.8.8.8] link-local: [] 最后执行
+netplan apply 上面编辑的配置文件中相当于没有启用ipv6，如果要启用ipv6，可以把 dhcp6: false 改为dhcp6: true .
+docker安装 wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash ipv6 ddns 首先要有一个域名，可以使用常见的阿里云域名、cloudflare 或者是godaddy。由于我之前已经有了一个godaddy的域名，我这里直接用godaddy。关于阿里云域名的教程在网上很多，可以更容易解决。
+关于申请域名部分比较简单，这里不赘述。
+增加AAAA记录 打开管理域名页面.
+创建API Key 进入管理API页面，创建api key
+Next后得到 Key和Secret.
+创建脚本 将上面的到的Key和Secret填入下方
+#!/bin/bash  #这里是你购买的域名 mydomain=&amp;#34;domain.xyz&amp;#34; #这里是dns配置中的名称 myhostname=&amp;#34;router&amp;#34; #这里key和Secret之间注意有个冒号 gdapikey=&amp;#34;你的key:你的Secret&amp;#34; logdest=&amp;#34;local7.info&amp;#34; #另外注意，我这里的ipv6地址，所以使用的是AAAA类型解析，如果是ipv4那么下面所有的AAAA需改为A setNewIp(){ #这里的地址也是为ipv6服务，ipv4地址为https://api.ipify.org myip=`curl -s &amp;#34;https://api6.ipify.org&amp;#34;` dnsdata=`curl -s -X GET -H &amp;#34;Authorization: sso-key ${gdapikey}&amp;#34; &amp;#34;https://api.</description>
+    </item>
+    
+    <item>
+      <title>systemd开机启动服务</title>
+      <link>/post/2021/01/06/systemd%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Wed, 06 Jan 2021 14:18:40 +0800</pubDate>
+      
+      <guid>/post/2021/01/06/systemd%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/</guid>
+      <description>systemd开机运行服务 [Unit] Description=renew ipv6 (ddns) After=network.target # needed service [Service] Type=oneshot # start once ExecStart=/bin/bash /etc/scripts # what to execute [Install] WantedBy=multi-user.target # startup execute 参考How to write startup script for systemd</description>
+    </item>
+    
+    <item>
+      <title>Ssh黑名单</title>
+      <link>/post/2021/01/06/ssh%E9%BB%91%E5%90%8D%E5%8D%95/</link>
+      <pubDate>Wed, 06 Jan 2021 14:16:18 +0800</pubDate>
+      
+      <guid>/post/2021/01/06/ssh%E9%BB%91%E5%90%8D%E5%8D%95/</guid>
+      <description>linux 服务器防止ssh暴力登录 最近折腾nas的时候意识到linux服务器安全性问题，这里主要是防止利用ssh暴力登录。ssh登录记录一般在/var/log/auth.log(debian系)或者/var/log/secure(centos系)中，可以通过这个文件查看ssh的登录记录，包括登录失败，拒绝登录，登录成功等信息。
+参看登录失败IP
+cat /var/log/auth.log | awk &amp;#39;/Failed/{print $(NF-3)}&amp;#39; | sort | uniq -c | awk &amp;#39;{print $2&amp;#34; = &amp;#34;$1;}&amp;#39; 参看登录成功IP
+cat /var/log/auth.log | awk &amp;#39;/Accepted/{print $(NF-3)}&amp;#39; | sort | uniq -c | awk &amp;#39;{print $2&amp;#34; = &amp;#34;$1;}&amp;#39; 参考拒绝登录IP
+cat /var/log/auth.log | awk &amp;#39;/refused/{print $(NF -1)}&amp;#39; | sort |uniq -c | awk &amp;#39;{print $2&amp;#34; = &amp;#34;$1}&amp;#39; 加入黑名单 将3次登录失败的IP加入/etc/hostd.deny黑名单，禁止其通过sshd登录。这里每10分钟检查一次log文件。脚本文件/scripts/host_block.sh如下：
+#!/bin/bash # -*- coding: UTF-8 -*- # Filename: host_block.sh # Description: 将SSH多次登录失败的IP加入黑名单 # Date: 2021-01-06 block_ip(){ cat /var/log/auth.</description>
+    </item>
+    
+    <item>
+      <title>交叉熵损失函数</title>
+      <link>/post/2020/12/18/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Fri, 18 Dec 2020 11:50:44 +0800</pubDate>
+      
+      <guid>/post/2020/12/18/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</guid>
+      <description>交叉熵损失函数 信息量 根据字面意思，信息量就是事件携带的信息量。比如你们宿舍有1个人大家都认为他几乎不可能找到女朋友，你们说他90%的概率是找不到女朋友的，那么他找到女朋友的概率为10%，他每天回到宿舍都对你们说，今天没有找到女朋友，此时的你们的内心毫无波澜，因为这在你们看来这几乎是板上钉钉的事(他90%的概率找不到女朋友)，他找不到女朋友这件事几乎没啥信息量。但是有一天，他回到宿舍突然告诉你们有女孩接受了他的表白，你们宿舍的人惊得把下巴都掉了，这们会惊呼“这信息量太大了”，并纷纷向他来难以置信的目光。可见，概率越小的事件携带信息量越大，这就是信息量的通俗解释，可以用定义为 $$ I = -\log_2(p) $$ 假设你的室友找不到女朋友记作$p=0.9$，可以找到女朋友则是$\hat{p} = 1-0.9=0.1$，那么，你室友找不到女朋友的信息量为$-\log_2(p)=0.15200$，找得到女朋友的信息量为$-\log_2(\hat{p})=3.32193$
+信息熵 熵表述的是系统的混乱程度，在这里用信息量的期望来描述，一个包含$n$种可能性的事件的熵为 $$ H = \sum\limits_{i=1}^n-p_i\log_2p_i = \sum\limits_{i=1}^np_i\log_2(\frac{1}{p_i}) $$ 在上面这个例子中，如果你的室友是否找到女朋友的概率都是50%，那么他是否找到女朋友的概率是一样的（也就是信息量是一样的），所有这件事是很整齐的，表现得一点也不混乱，信息熵为$0.5\log_20.5 + 0.5\log_20.5=1$。如果概率分别为90%，10%，则信息熵为$0.9*\log_20.9+0.1*\log_20.1 = 0.468$，这就说明信息量很混乱，信息熵很小。
+相对熵 相对熵也称为KL散度，表述的是同一个随机变量$X$的不同概率分布$P(X)$和$Q(X)$的相似程度，相对熵越小，表示分布越相近。相对熵计算方法为： $$ D_{KL}(p||q) = \sum\limits_{i=1}^np_i\log{\frac{p_i}{q_i}} $$ 例如你的室友A找到女朋友的概率为$p=0.1$，室友B找到女朋友的概率为$q=0.2$。那么，相对熵为 $$ 0.1\log_2\frac{0.1}{0.2}+0.9\log_2\frac{0.9}{0.8}=0.0529 $$
+交叉熵 铺垫了这么多，终于讲到交叉熵了。将相对熵$D_{KL}$稍微变形一下： $$ D_{KL}(p||q)=\sum\limits_{i=1}^np_i\log\frac{p_i}{q_i}=\sum\limits_{i=1}^np_i\log p_i - \sum\limits_{i = 1}^np_i\log q_i $$ 如果我们的关注点只在q和b的相似程度，由于前部分$\sum\limits_{i=1}^np_i\log p_i$是恒定的，只需要关注后部分$-\sum\limits_{i=1}^np_i\log q_i$，这部分便是交叉熵，可以用于描述分布$q$离分布$p$的距离。因此在机器学习中的交叉熵损失函数便是用于描述lable和prediction之间的差距。 $$ H(p,q)=\sum\limits_{i=1}^np_i\log \frac{1}{q_i} $$</description>
+    </item>
+    
+    <item>
+      <title>Projection</title>
+      <link>/post/2020/12/18/projection/</link>
+      <pubDate>Fri, 18 Dec 2020 11:45:23 +0800</pubDate>
+      
+      <guid>/post/2020/12/18/projection/</guid>
+      <description>projection $p = \hat{x}a$
+$e = b - \hat{x}a$
+$a\perp e \to a^T(b-\hat{x}a)=a^Tb - \hat{x}a^Ta = 0 \to \hat{x}=\frac{a^Tb}{a^Ta}$
+$p = \hat{x}a = a\frac{a^Tb}{a^Ta}$
+$p = Pb = \frac{aa^T}{a^Ta}b \to P = \frac{aa^T}{a^Ta}$
+$P = P^T$, $P = P^2$
+$P$ is a line trough $a$.
+why projection? Because $Ax = b$ may have no solution. So we may find a $p$ closest to $b$ that makes $A\hat{x} = p$ do have solution.</description>
+    </item>
+    
+    <item>
+      <title>截断正态分布</title>
+      <link>/post/2020/12/18/%E6%88%AA%E6%96%AD%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/</link>
+      <pubDate>Fri, 18 Dec 2020 11:41:55 +0800</pubDate>
+      
+      <guid>/post/2020/12/18/%E6%88%AA%E6%96%AD%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/</guid>
+      <description>截断正态分布 要理解截断正态分布(truncated normal distribution)，需要先理解截断分布(truncated distribution)。所谓截断分布就是对原本分布中随机变量进行前后截断取值，在随机变量取值被改变的情况下，概率分布需要根据阶段的概率分布重新归一化到$[0,1]$。假设$X$的概率密度函数为$f(x)$，累计概率分布为$F(x)$，如果随机变量$X$的取值截断为$[a,b]$，那么，截断后的概率密度函数应该为 $$ g(x;a,b) = \frac{f(x)}{F(b)-F(a)} $$ 接下来，截断正态分布就很好理解了，假设$X\sim N(\mu, \delta)$，则$X$的概率密度函数为$\frac{1}{\delta}\phi(x)$，累计概率分布函数为$\Phi(x)$，那么，$X$截断为$[a,b]$的概率密度分布函数为 $$ g(x;\mu,\delta,a,b) = \frac{\frac{1}{\delta}\phi(\frac{x-\mu}{\delta })}{\Phi(\frac{b-\mu}{\delta})-\Phi(\frac{a-\mu}{\delta})} $$ 其中，$\phi(x)$，$\Phi(x)$分别为标准正态分布的概率密度函数和累积概率函数 $$ \phi(x) =\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2} $$
+$$ \Phi(x) = \int_{-\infty}^x \frac{1}{\sqrt{2\pi}}e^{-\frac{-t^2}{2}}dt $$</description>
+    </item>
+    
+    <item>
+      <title>Pytorch Sequential</title>
+      <link>/post/2020/12/18/pytorch-sequential/</link>
+      <pubDate>Fri, 18 Dec 2020 11:39:33 +0800</pubDate>
+      
+      <guid>/post/2020/12/18/pytorch-sequential/</guid>
+      <description>torch.nn.Sequential 快速构建一个neural network可以通过torch.nn.Module构建类，也可通过设计一个torch.nn.Sequential来构建网络计算过程。实际上，只需要将网络上的各个计算过程都堆叠在Sequential中既可以了，例如：
+model = torch.nn.Sequential( torch.nn.Linear(3, 1), torch.nn.Flatten(0,1)) Sequential是一个容器，一般来说，可以用多个Sequential来构建Module. 例如LeNet-5网络的构建
+class LeNet5(torch.nn.Module): def __init__(self): super(LeNet5,self).__init__() self.conv1 = torch.nn.Sequential( torch.nn.Conv2d(1,6,5), torch.nn.ReLU(), torch.nn.MaxPool2d(2,2) ) self.conv2 = torch.nn.Sequential( torch.nn.Conv2d(6,16,5), torch.nn.ReLU(), torch.nn.MaxPool2d(2,2) ) self.conv3 = torch.nn.Sequential( torch.nn.Conv2d(16,120,5), torch.nn.ReLU() ) self.fc = torch.nn.Sequential( torch.nn.Linear(120,84), torch.nn.ReLU(), torch.nn.Linear(84,10), torch.nn.LogSoftmax(dim=-1) ) def forward(self, image): output = self.conv1(image) output = self.conv2(output) output = self.conv3(output) output = output.view(image.size(0),-1) output = self.fc(output) return output </description>
+    </item>
+    
+    <item>
+      <title>Pytorch nn-Module</title>
+      <link>/post/2020/12/18/pytorch-nn-module/</link>
+      <pubDate>Fri, 18 Dec 2020 11:35:09 +0800</pubDate>
+      
+      <guid>/post/2020/12/18/pytorch-nn-module/</guid>
+      <description>[toc]
+nn.Module 继承nn.Module类 在nn(neural network)模块中，有一个nn.Module类，这是一个快速构建神经网络的基类。你可以通过继承这个类，并重写forward(input)方法，来创建一个自定义各个网络层的神经网络类。例如下面这个Net	类定义了一个LeNet-5网络。
+import torch import torch.nn as nn import torch.nn.functional as F class Net(nn.Module): def __init__(self): super(Net, self).__init__() # 1 input image channel, 6 output channels, 3x3 square convolution # kernel self.conv1 = nn.Conv2d(1, 6, 3) self.conv2 = nn.Conv2d(6, 16, 3) # an affine operation: y = Wx + b self.fc1 = nn.Linear(16 * 6 * 6, 120) # 6*6 from image dimension self.fc2 = nn.Linear(120, 84) self.</description>
+    </item>
+    
+    <item>
+      <title>Pytorch自定义函数</title>
+      <link>/post/2020/12/18/pytorch%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Fri, 18 Dec 2020 11:33:36 +0800</pubDate>
+      
+      <guid>/post/2020/12/18/pytorch%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/</guid>
+      <description>[toc]
+torch.autograd.Function 自定义一个计算过程，并且定义其反向传播过程。例如计算 $y = a+bx+cx^2+dx^3$时，用两步替代该过程 $y= a+b\times P_3(c+dx), P_3(x) = \frac{1}{2}(5x^3-3x)$
+那么可以通过torch.autograd.Function定义$P_3(x)$，过程如下：
+# -*- coding: utf-8 -*- import torch import math class LegendrePolynomial3(torch.autograd.Function): &amp;#34;&amp;#34;&amp;#34; We can implement our own custom autograd Functions by subclassing torch.autograd.Function and implementing the forward and backward passes which operate on Tensors. &amp;#34;&amp;#34;&amp;#34; @staticmethod def forward(ctx, input): &amp;#34;&amp;#34;&amp;#34; In the forward pass we receive a Tensor containing the input and return a Tensor containing the output.</description>
+    </item>
+    
+    <item>
+      <title>Pytorch基础</title>
+      <link>/post/2020/12/18/pytorch%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Fri, 18 Dec 2020 11:30:07 +0800</pubDate>
+      
+      <guid>/post/2020/12/18/pytorch%E5%9F%BA%E7%A1%80/</guid>
+      <description>[toc]
+Tensor的创建 tensor是基本的数据类型，基本的创建方式有
+ torch.empty(5, 3) 未初始化的tensor, 里面的值为内存中原有的值 torch.randn(5,3) 创建tensor，并随机初始化 torch.zeros(5, 3, dtype=torch.long) 创建tensor，并初始化为0，指定数据类型 torch.tensor([5.5, 3])创建tensor，并直接值初始化  除了上述的创建方式，还有可以利用已经存在的tensor来创建，假设现有x = torch.zeros(5,3, dtype=torch.float32)，那么，可以根据以下方式创建
+ x.new_ones(5,3) 创建tensor，并值初始化为0，除了shape外，其他属性与x一致 torch.randn_like(x, dtype=torch.float) 创建tensor，随机初始化值，除了明确指定的属性type=torch.float外，其他属性与x一致  Operations 加法   直接加
+x = torch.randn(5, 3) y = torch.randn(5, 3) # 直接加 result1 = x + y   函数方法
+# 结果赋值到result2 result2 = torch.add(x, y) # 预先指定结果保存到变量 torch.add(x, y, out=result3)   立地加(in-place)
+# 立地(in-place)加，结果直接加到被加数中, 一般立地加的函数都以_结束， # 例如x.copy_(y), x.</description>
+    </item>
+    
+    <item>
+      <title>os模块</title>
+      <link>/post/2020/12/11/os%E6%A8%A1%E5%9D%97/</link>
+      <pubDate>Fri, 11 Dec 2020 10:49:06 +0800</pubDate>
+      
+      <guid>/post/2020/12/11/os%E6%A8%A1%E5%9D%97/</guid>
+      <description>os.walk os.walk(path)用于遍历目录。返回值是一个遍历器，需要用for循环不断遍历，每次遍历得到长度为3的tuple，分别为(目录, [目录下的子目录], [目录下的文件])。 使用方法示例:
+for root, dirs, files in os.walk(&amp;#39;.&amp;#39;): for file in files: print(os.path.join(root, file)) for dir in dirs: print(os.path.join(root, dir)) ./directory_2 ./directory_1 ./directory_2/file_2_1 ./directory_2/directory_2_1 ./directory_2/directory_2_1/file_2_1_1 ./directory_1/directory_1_1 ./directory_1/directory_1_2 ./directory_1/directory_1_1/file_1_1_2 ./directory_1/directory_1_1/file_1_1_1 ./directory_1/directory_1_2/file_1_2_1 glob模块 glob.glob glob.glob用于以shell-style的方式匹配目录下的文件, 例如shell匹配所有jpg图片
+*.jpg 在python中用glob.glob的方式为
+files = glob.glob(&amp;#39;*.py&amp;#39;) numpy模块 random.get_state numpy.random.get_state()一般与numpy.random.set_state()和numpy.random.shuffle()一起使用，用于打乱numpy数组的顺序。例如打乱数据集
+state = np.random.get_state() np.random.shuffle(dataset_images) # 保证打乱的顺序与之前一致 np.random.set_state(state) np.random.shuffle(dataset_labels) </description>
+    </item>
+    
+    <item>
+      <title>Jupyter Notebook</title>
+      <link>/post/2020/12/09/jupyter-notebook/</link>
+      <pubDate>Wed, 09 Dec 2020 10:00:18 +0800</pubDate>
+      
+      <guid>/post/2020/12/09/jupyter-notebook/</guid>
+      <description>在本地使用服务器上的jupyter-notebook
+ 在服务器端开启  jupyter notebook --no-browser --port=9009 在本地端  ssh -N -f -L localhost:9008:localhost:9009 user@server-ip </description>
+    </item>
+    
+    <item>
+      <title>Tensorflow</title>
+      <link>/post/2020/12/09/tensorflow/</link>
+      <pubDate>Wed, 09 Dec 2020 09:58:47 +0800</pubDate>
+      
+      <guid>/post/2020/12/09/tensorflow/</guid>
+      <description>使用GPU 为了避免占用全部GPU，需要加上
+import os os.environ[&amp;#39;CUDA_DEVICES_ORDER&amp;#39;] = &amp;#39;PCI_BUS_ID&amp;#39; os.environ[&amp;#39;CUDA_VISIBLE_DEVICES&amp;#39;] = &amp;#39;0&amp;#39; config = tf.ConfigProto() #config.gpu_options.per_process_gpu_memory_fraction = 0.9 config.gpu_options.allow_growth = True tf.truncated_normal_initializer
+生成截断正态分布的初始化器类
+ 参数  mean: 分布的均值 stddev: standard deviation，标准差 seed: 随机种子 dtype: 数据类型，只能是float的类型，可选位数    tf.get_variable()
+获取一个变量或者创建一个新的变量
+ 重要参数  shape: list类型，是指变量的shape Initializer: 用于生成变量的初始化器    tf.nn.conv2d()
+2维卷积函数，列举主要参数tf.nn.conv2d(input, filter=None, strides=None, paddig=None, data_format=&#39;NHWC&amp;rsquo;)。
+ 重要参数  input: 输入4-D的Tensor，数据格式只能是half,bfloat16,float32,float64 filter: 卷积核，也是一个4-D tensor，数据格式必须与input一样 strides: 移动步长，可以是长度为1,2,4的list，长度为1时，表示宽高方向的移动步长，并且一致。长度为2时，分别指定宽高方向的移动步长。长度为4时，设定根据data_format指定的位置对应方向移动步长。 padding: &amp;lsquo;VALID&amp;rsquo;表示不填充， SAME&amp;rsquo;表示填充。填充方式根据filter而定，如果filter的一个维度上的长度为奇数，则在该维度起始处和结束处填充0，如果为偶数则在结束处填充0。    一般来说，input的各个维度为[batch, in_height, in_width, in_channels]，filter的各个维度为 [filter_height, filter_width, in_channels, out_channels]</description>
+    </item>
     
     <item>
       <title>深度学习</title>

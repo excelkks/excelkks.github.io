@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on excelkks</title>
+    <link>/tags/linux/</link>
+    <description>Recent content in linux on excelkks</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 06 Jan 2021 14:16:18 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ssh黑名单</title>
+      <link>/post/2021/01/06/ssh%E9%BB%91%E5%90%8D%E5%8D%95/</link>
+      <pubDate>Wed, 06 Jan 2021 14:16:18 +0800</pubDate>
+      
+      <guid>/post/2021/01/06/ssh%E9%BB%91%E5%90%8D%E5%8D%95/</guid>
+      <description>linux 服务器防止ssh暴力登录 最近折腾nas的时候意识到linux服务器安全性问题，这里主要是防止利用ssh暴力登录。ssh登录记录一般在/var/log/auth.log(debian系)或者/var/log/secure(centos系)中，可以通过这个文件查看ssh的登录记录，包括登录失败，拒绝登录，登录成功等信息。
+参看登录失败IP
+cat /var/log/auth.log | awk &amp;#39;/Failed/{print $(NF-3)}&amp;#39; | sort | uniq -c | awk &amp;#39;{print $2&amp;#34; = &amp;#34;$1;}&amp;#39; 参看登录成功IP
+cat /var/log/auth.log | awk &amp;#39;/Accepted/{print $(NF-3)}&amp;#39; | sort | uniq -c | awk &amp;#39;{print $2&amp;#34; = &amp;#34;$1;}&amp;#39; 参考拒绝登录IP
+cat /var/log/auth.log | awk &amp;#39;/refused/{print $(NF -1)}&amp;#39; | sort |uniq -c | awk &amp;#39;{print $2&amp;#34; = &amp;#34;$1}&amp;#39; 加入黑名单 将3次登录失败的IP加入/etc/hostd.deny黑名单，禁止其通过sshd登录。这里每10分钟检查一次log文件。脚本文件/scripts/host_block.sh如下：
+#!/bin/bash # -*- coding: UTF-8 -*- # Filename: host_block.sh # Description: 将SSH多次登录失败的IP加入黑名单 # Date: 2021-01-06 block_ip(){ cat /var/log/auth.</description>
+    </item>
+    
+  </channel>
+</rss>

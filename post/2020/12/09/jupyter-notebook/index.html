@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>分类 - excelkks</title>
-    <meta property="og:title" content="分类 - excelkks">
+    <title>Jupyter Notebook - excelkks</title>
+    <meta property="og:title" content="Jupyter Notebook - excelkks">
     
     <meta name="twitter:card" content="summary">
 
@@ -15,6 +15,11 @@
 
     
       
+      <meta property="description" content="在本地使用服务器上的jupyter-notebook
+">
+      <meta property="og:description" content="在本地使用服务器上的jupyter-notebook
+">
+      
     
 
     
@@ -23,9 +28,12 @@
     
 
     
-    <link href="/categories/index.xml" rel="alternate" type="application/rss+xml" title="excelkks" />
     
-    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
 
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
@@ -85,7 +93,7 @@ code.has-jax {
   </head>
 
   
-  <body class="categories">
+  <body class="post">
     <header class="masthead">
       <h1><a href="/"><img src="/images/favicon/favicon.png" /></a></h1>
 
@@ -105,7 +113,7 @@ code.has-jax {
   
   <li><a href="/about/">关于</a></li>
   
-  <li class="active"><a href="/categories/">分类</a></li>
+  <li><a href="/categories/">分类</a></li>
   
   <li><a href="/tags/">标签</a></li>
   
@@ -118,81 +126,33 @@ code.has-jax {
     <article class="main">
       <header class="title">
       
-<h1>分类</h1>
+<h1>Jupyter Notebook</h1>
 
 <h3>
-</h3>
+  2020-12-09</h3>
 <hr>
 
 
       </header>
 
 
-<ul class="terms">
-  
-  <li>
-    <a href="/categories/free-internet">
-      free-internet
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/latex">
-      latex
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/pytorch">
-      pytorch
-    </a>
-    (4)
-  </li>
-  
-  <li>
-    <a href="/categories/%E5%86%99%E4%BD%9C">
-      写作
-    </a>
-    (2)
-  </li>
-  
-  <li>
-    <a href="/categories/%E5%B7%A5%E5%85%B7">
-      工具
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">
-      数据结构
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%B3%95">
-      机器学习法
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81">
-      视频编解码
-    </a>
-    (3)
-  </li>
-  
-</ul>
+
+<p>在本地使用服务器上的jupyter-notebook</p>
+<ol>
+<li>在服务器端开启</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">jupyter notebook --no-browser --port<span style="color:#f92672">=</span><span style="color:#ae81ff">9009</span>
+</code></pre></div><ol start="2">
+<li>在本地端</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ssh -N -f -L localhost:9008:localhost:9009 user@server-ip
+</code></pre></div>
 
   <footer>
   
 <nav class="post-nav">
-  <span class="nav-prev"></span>
-  <span class="nav-next"></span>
+  <span class="nav-prev">&larr; <a href="/post/2020/12/09/tensorflow/">Tensorflow</a></span>
+  <span class="nav-next"><a href="/post/2020/12/11/os%E6%A8%A1%E5%9D%97/">os模块</a> &rarr;</span>
 </nav>
 
 
@@ -205,6 +165,24 @@ code.has-jax {
 <script async src="//yihui.org/js/center-img.js"></script>
 
   
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
 
   
   <hr>

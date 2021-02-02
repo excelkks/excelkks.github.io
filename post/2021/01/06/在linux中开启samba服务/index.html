@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>深度学习 - excelkks</title>
-    <meta property="og:title" content="深度学习 - excelkks">
+    <title>在linux中开启samba服务 - excelkks</title>
+    <meta property="og:title" content="在linux中开启samba服务 - excelkks">
     
     <meta name="twitter:card" content="summary">
 
@@ -15,12 +15,12 @@
 
     
       
-      <meta property="description" content="使用tensorflow时，启用GPU支持会占用所有的GPU，虽然每个GPU都只占用了一点，GPU占用情况可以用如下命令查看：
-[&amp;hellip;] nvidia-msi 解决GPU全占的办法是加入以下代码
-">
-      <meta property="og:description" content="使用tensorflow时，启用GPU支持会占用所有的GPU，虽然每个GPU都只占用了一点，GPU占用情况可以用如下命令查看：
-[&amp;hellip;] nvidia-msi 解决GPU全占的办法是加入以下代码
-">
+      <meta property="description" content="在linux中开启samba共享服务，首先安装samba服务
+[&amp;hellip;] # ubuntu apt install samba 配置文件的路径在/etc/samba/smb.conf，如果需要添加共享，需要添加如下内容
+[&amp;hellip;] [share] comment = comments path = /path/to/share browseable = yes &amp;hellip;">
+      <meta property="og:description" content="在linux中开启samba共享服务，首先安装samba服务
+[&amp;hellip;] # ubuntu apt install samba 配置文件的路径在/etc/samba/smb.conf，如果需要添加共享，需要添加如下内容
+[&amp;hellip;] [share] comment = comments path = /path/to/share browseable = yes &amp;hellip;">
       
     
 
@@ -128,10 +128,10 @@ code.has-jax {
     <article class="main">
       <header class="title">
       
-<h1>深度学习</h1>
+<h1>在linux中开启samba服务</h1>
 
 <h3>
-  2020-12-03</h3>
+  2021-01-06</h3>
 <hr>
 
 
@@ -139,22 +139,36 @@ code.has-jax {
 
 
 
-<h3 id="1-避免tensorflow占用全部gpu">1. 避免tensorflow占用全部GPU</h3>
-<p>使用tensorflow时，启用GPU支持会占用所有的GPU，虽然每个GPU都只占用了一点，GPU占用情况可以用如下命令查看：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nvidia-msi
-</code></pre></div><p>解决GPU全占的办法是加入以下代码</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;CUDA_DEVICES_ORDER&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;PCI_BUS_ID&#39;</span>
-os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;CUDA_VISIBLE_DEVICES&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0&#39;</span>  <span style="color:#75715e"># 使用 0 GPU</span>
-config <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>ConfigProto()
-<span style="color:#75715e">#config.gpu_options.per_process_gpu_memory_fraction = 0.9 # 控制使用每个GPU的大小</span>
-config<span style="color:#f92672">.</span>gpu_options<span style="color:#f92672">.</span>allow_growth <span style="color:#f92672">=</span> True
+<h2 id="linux中samba的应用">linux中samba的应用</h2>
+<h3 id="服务器端">服务器端</h3>
+<p>在linux中开启samba共享服务，首先安装samba服务</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># ubuntu</span>
+apt install samba
+</code></pre></div><p>配置文件的路径在<code>/etc/samba/smb.conf</code>，如果需要添加共享，需要添加如下内容</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>share<span style="color:#f92672">]</span>
+  comment <span style="color:#f92672">=</span> comments
+  path <span style="color:#f92672">=</span> /path/to/share
+  browseable <span style="color:#f92672">=</span> yes
+  writeable <span style="color:#f92672">=</span> yes
+  public <span style="color:#f92672">=</span> yes
+  <span style="color:#75715e"># create mask = 0775   # 创建文件的权限</span>
+  <span style="color:#75715e"># directory mask = 0775  # 创建目录的权限</span>
+  <span style="color:#75715e"># valid users = heijunma,root  #允许访问该共享的用户</span>
+  <span style="color:#75715e"># write list = heijunma,root  #可写入共享的用户列表</span>
+</code></pre></div><p>重启smb服务</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">service smbd restart
+service nmb restart
+</code></pre></div><h3 id="在linux中访问samba共享">在linux中访问samba共享</h3>
+<p>首先需要安装<code>cifs</code>，再进行挂载，samba的默认端口为445和139</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">apt install cifs-utils
+mount.cifs -o username<span style="color:#f92672">=</span>user,password<span style="color:#f92672">=</span>passwd,port<span style="color:#f92672">=</span>&lt;port&gt; //ip/share/path/ /mount/point
 </code></pre></div>
 
   <footer>
   
 <nav class="post-nav">
-  <span class="nav-prev">&larr; <a href="/post/2020/12/03/%E4%BF%AE%E5%A4%8Dlatex%E5%85%AC%E5%BC%8F%E7%9F%A9%E9%98%B5%E6%8D%A2%E8%A1%8C%E5%9C%A8hugo%E4%B8%8B%E7%9A%84%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/">修复latex公式矩阵换行在hugo下的渲染问题</a></span>
-  <span class="nav-next"><a href="/post/2020/12/09/tensorflow/">Tensorflow</a> &rarr;</span>
+  <span class="nav-prev">&larr; <a href="/post/2021/01/06/omv%E6%90%AD%E5%BB%BA%E4%B8%80/">omv搭建一</a></span>
+  <span class="nav-next"></span>
 </nav>
 
 

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Pytorch基础 - excelkks</title>
+    <meta property="og:title" content="Pytorch基础 - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="[toc]
+[&amp;hellip;] tensor是基本的数据类型，基本的创建方式有
+[&amp;hellip;] 除了上述的创建方式，还有可以利用已经存在的tensor来创建，假设现有x = torch.zeros(5,3, dtype=torch.float32)，那么，可以根据以下方式创建
+[&amp;hellip;] 直接加
+[&amp;hellip;] x = torch.randn(5, 3) y = &amp;hellip;">
+      <meta property="og:description" content="[toc]
+[&amp;hellip;] tensor是基本的数据类型，基本的创建方式有
+[&amp;hellip;] 除了上述的创建方式，还有可以利用已经存在的tensor来创建，假设现有x = torch.zeros(5,3, dtype=torch.float32)，那么，可以根据以下方式创建
+[&amp;hellip;] 直接加
+[&amp;hellip;] x = torch.randn(5, 3) y = &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script>
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script>
+  (function(d) {
+    var config = {
+      kitId: 'hcr2dmn',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<link rel="icon" type="image/png" href="/images/favicon/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon/favicon.png" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">just do it and waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">主页</a></li>
+  
+  <li><a href="/about/">关于</a></li>
+  
+  <li><a href="/categories/">分类</a></li>
+  
+  <li><a href="/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Pytorch基础</h1>
+
+<h3>
+  2020-12-18</h3>
+<hr>
+
+
+      </header>
+
+
+
+<p>[toc]</p>
+<h2 id="tensor的创建">Tensor的创建</h2>
+<p><code>tensor</code>是基本的数据类型，基本的创建方式有</p>
+<ul>
+<li><code>torch.empty(5, 3)</code> 未初始化的tensor, 里面的值为内存中原有的值</li>
+<li><code>torch.randn(5,3)</code> 创建tensor，并随机初始化</li>
+<li><code>torch.zeros(5, 3, dtype=torch.long)</code> 创建tensor，并初始化为0，指定数据类型</li>
+<li><code>torch.tensor([5.5, 3])</code>创建tensor，并直接值初始化</li>
+</ul>
+<p>除了上述的创建方式，还有可以利用已经存在的tensor来创建，假设现有<code>x = torch.zeros(5,3, dtype=torch.float32)</code>，那么，可以根据以下方式创建</p>
+<ul>
+<li><code>x.new_ones(5,3)</code> 创建tensor，并值初始化为0，除了shape外，其他属性与x一致</li>
+<li><code>torch.randn_like(x, dtype=torch.float)</code> 创建tensor，随机初始化值，除了明确指定的属性<code>type=torch.float</code>外，其他属性与x一致</li>
+</ul>
+<h2 id="operations">Operations</h2>
+<h3 id="加法">加法</h3>
+<ul>
+<li>
+<p>直接加</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">3</span>)
+y <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">3</span>)
+<span style="color:#75715e"># 直接加</span>
+result1 <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> y 
+</code></pre></div></li>
+<li>
+<p>函数方法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 结果赋值到result2</span>
+result2 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>add(x, y)
+<span style="color:#75715e"># 预先指定结果保存到变量</span>
+torch<span style="color:#f92672">.</span>add(x, y, out<span style="color:#f92672">=</span>result3)
+</code></pre></div></li>
+<li>
+<p>立地加(in-place)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 立地(in-place)加，结果直接加到被加数中, 一般立地加的函数都以_结束，</span>
+<span style="color:#75715e"># 例如x.copy_(y), x.t_()</span>
+y<span style="color:#f92672">.</span>add_(x)
+</code></pre></div></li>
+</ul>
+<h3 id="索引">索引</h3>
+<p>可以使用标准的类似<code>numpy</code>的索引。例如<code>x[:, 1]</code></p>
+<h3 id="resize">resize</h3>
+<p>resize或者reshape一个tensor，可以使用函数<code>torch.view</code>，例如</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>)
+y <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>view(<span style="color:#ae81ff">16</span>)
+z <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>view(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">8</span>) <span style="color:#75715e"># -1 表示该维度的值由其他维度推断，这里这个维度的值16/8 = 2</span>
+<span style="color:#66d9ef">print</span>(x<span style="color:#f92672">.</span>size(), y<span style="color:#f92672">.</span>size(), z<span style="color:#f92672">.</span>size)
+<span style="color:#75715e"># out</span>
+<span style="color:#75715e"># &gt;&gt; torch.Size([4, 4]) torch.Size([16]) torch.Size([2, 8])</span>
+</code></pre></div><p>更多操作可以<a href="https://pytorch.org/docs/stable/torch.html">参考这里</a></p>
+<h2 id="与numpy连接">与numpy连接</h2>
+<p>事实上，tensor的大多数操作都和numpy类似。这里简单介绍tensor与numpy的互相转换</p>
+<h3 id="tensor---numpy">tensor -&gt; numpy</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">5</span>) <span style="color:#75715e"># a: tensor([1., 1., 1., 1., 1.])</span>
+b <span style="color:#f92672">=</span> a<span style="color:#f92672">.</span>numpy() <span style="color:#75715e"># b: [1. 1. 1. 1. 1.]</span>
+</code></pre></div><p>注意tensor改变后，numpy数组的变化</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a<span style="color:#f92672">.</span>add_(<span style="color:#ae81ff">1</span>) 
+<span style="color:#75715e"># a: tensor([2., 2., 2., 2., 2.])</span>
+<span style="color:#75715e"># b: [2. 2. 2. 2. 2.]</span>
+<span style="color:#75715e"># tensor改变的同时也会改变numpy数组</span>
+</code></pre></div><h3 id="numpy---tensor">numpy -&gt; tensor</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+a <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">5</span>)
+b <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>from_numpy(a)
+np<span style="color:#f92672">.</span>add(a, <span style="color:#ae81ff">1</span>, out<span style="color:#f92672">=</span>a)
+<span style="color:#75715e"># a: [2. 2. 2. 2. 2.]</span>
+<span style="color:#75715e"># b: tensor([2., 2., 2., 2., 2.])</span>
+</code></pre></div><h2 id="自动梯度">自动梯度</h2>
+<h3 id="tensor的requires_grad属性">tensor的<code>requires_grad</code>属性</h3>
+<p>每一个tensor有一个<code>requires_grad</code>的属性，如果这个属性设置为<code>True</code>，那么程序将会跟踪与这个tensor所有有关的计算过程，以此来在后续计算它的梯度，计算完的梯度<strong>累加</strong>在tensor的<code>grad</code>属性中。例如$y=f(x)=a+bx$，$z = g(y)=c+dy$，$f(x), g(y)$均会被跟踪，因为计算$x$的梯度为$\frac{\partial z}{\partial x}=\frac{\partial z}{\partial y}\frac{\partial y}{\partial x}$</p>
+<h4 id="requires_grad"><code>requires_grad</code></h4>
+<p>用于指定是否需要加入跟踪以计算梯度，例如</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, requires_grad<span style="color:#f92672">=</span>True)
+<span style="color:#75715e"># x: tensor([[1., 1.],</span>
+<span style="color:#75715e">#            [1., 1.]], requires_grad=True)</span>
+y <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>
+<span style="color:#75715e"># y: tensor([3., 3.],</span>
+<span style="color:#75715e">#           [3., 3.], grad_fn=&lt;AddBackward0&gt;)</span>
+</code></pre></div><h4 id="临时暂停跟踪">临时暂停跟踪</h4>
+<p>有时，$x$ 参与的一些计算并不需要加入跟踪，也即不需要用于计算梯度，比如临时计算精准度，那么这时需要暂停跟踪。方法如下</p>
+<h5 id="detach"><code>detach</code></h5>
+<p>直接在需要暂停的变量后执行<code>detach()</code>获得一个不被跟踪的tensor以替代x</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x_detached <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>detach()
+<span style="color:#75715e"># do someting here using x_detached</span>
+</code></pre></div><h5 id="with-torchno_grad"><code>with torch.no_grad():</code></h5>
+<p>除了detach创建变量，还可通过上下文管理器<code>torch.no_grad()</code>用于指示接下来的操作都不跟踪，例如</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">with</span> torch<span style="color:#f92672">.</span>no_grad():
+  <span style="color:#75715e"># do someting here using x</span>
+  <span style="color:#75715e"># 这里的操作都不会被跟踪</span>
+<span style="color:#75715e"># 上下文管理器外的操作又会继续跟踪</span>
+</code></pre></div><h4 id="更改requires_grad属性">更改requires_grad属性</h4>
+<p>对于<code>requires_grad</code>属性为<code>False</code>的tensor，可以通过<code>requires_grad_(True)</code>改变属性。例如</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+a<span style="color:#f92672">.</span>requires_grad(True)
+<span style="color:#75715e"># 改变requires_grad属性</span>
+</code></pre></div><h3 id="function">Function</h3>
+<p>function说明了tensor的计算过程，tensor的<code>grad_fn</code>属性与一个function绑定，用于说明这个tensor如果计算传递过来的。例如</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, requires_grad<span style="color:#f92672">=</span>True)
+y <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>
+<span style="color:#75715e"># y: tensor([[3., 3.],</span>
+<span style="color:#75715e">#            [3., 3.]], grad_fn=&lt;AddBackward0&gt;)</span>
+z <span style="color:#f92672">=</span> y<span style="color:#f92672">*</span>y<span style="color:#f92672">*</span><span style="color:#ae81ff">3</span>
+out <span style="color:#f92672">=</span> z<span style="color:#f92672">.</span>mean()
+<span style="color:#75715e"># out: tensor(27., grad_fn=&lt;MeanBackward0&gt;)</span>
+</code></pre></div><h3 id="梯度计算">梯度计算</h3>
+<p>带有<code>grad_fn</code>属性的<code>tensor</code>，调用<code>backward()</code>可以根据该tensor的<code>grad_fn</code>属性向前计算各个tensor的梯度，并存在各个tensor的<code>grad</code>属性中。例如</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">out<span style="color:#f92672">.</span>backward()
+<span style="color:#66d9ef">print</span>(x<span style="color:#f92672">.</span>grad)
+<span style="color:#75715e"># &gt;&gt; tensor([[4.5, 4.5],</span>
+<span style="color:#75715e">#            [4.5, 4.5]])</span>
+</code></pre></div><h3 id="其他方法">其他方法</h3>
+<h4 id="item"><code>item()</code></h4>
+<p>对于一个只含有一个数的<code>tensor</code>可以使用<code>item()</code>方法获取这个数值，但如果<code>tensor</code>中的数据不止1个，则会报错，例如</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>])
+a<span style="color:#f92672">.</span>item()  <span style="color:#75715e"># 1</span>
+b <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>])
+b<span style="color:#f92672">.</span>item() <span style="color:#75715e"># ValueError: only one element tensors can be converted to Python scalars</span>
+</code></pre></div>
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2020/12/11/os%E6%A8%A1%E5%9D%97/">os模块</a></span>
+  <span class="nav-next"><a href="/post/2020/12/18/pytorch%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/">Pytorch自定义函数</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

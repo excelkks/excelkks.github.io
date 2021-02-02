@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Tensorflow - excelkks</title>
+    <meta property="og:title" content="Tensorflow - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="为了避免占用全部GPU，需要加上
+[&amp;hellip;] import os os.environ[&amp;#39;CUDA_DEVICES_ORDER&amp;#39;] = &amp;#39;PCI_BUS_ID&amp;#39; os.environ[&amp;#39;CUDA_VISIBLE_DEVICES&amp;#39;] = &amp;#39;0&amp;#39; config = tf.ConfigProto() &amp;hellip;">
+      <meta property="og:description" content="为了避免占用全部GPU，需要加上
+[&amp;hellip;] import os os.environ[&amp;#39;CUDA_DEVICES_ORDER&amp;#39;] = &amp;#39;PCI_BUS_ID&amp;#39; os.environ[&amp;#39;CUDA_VISIBLE_DEVICES&amp;#39;] = &amp;#39;0&amp;#39; config = tf.ConfigProto() &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script>
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script>
+  (function(d) {
+    var config = {
+      kitId: 'hcr2dmn',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<link rel="icon" type="image/png" href="/images/favicon/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon/favicon.png" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">just do it and waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">主页</a></li>
+  
+  <li><a href="/about/">关于</a></li>
+  
+  <li><a href="/categories/">分类</a></li>
+  
+  <li><a href="/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Tensorflow</h1>
+
+<h3>
+  2020-12-09</h3>
+<hr>
+
+
+      </header>
+
+
+
+<h3 id="使用gpu">使用GPU</h3>
+<p>为了避免占用全部GPU，需要加上</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;CUDA_DEVICES_ORDER&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;PCI_BUS_ID&#39;</span>
+os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;CUDA_VISIBLE_DEVICES&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0&#39;</span>
+config <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>ConfigProto()
+<span style="color:#75715e">#config.gpu_options.per_process_gpu_memory_fraction = 0.9</span>
+config<span style="color:#f92672">.</span>gpu_options<span style="color:#f92672">.</span>allow_growth <span style="color:#f92672">=</span> True
+</code></pre></div><p><code>tf.truncated_normal_initializer</code></p>
+<p>生成截断正态分布的初始化器<strong>类</strong></p>
+<ul>
+<li>参数
+<ul>
+<li>mean: 分布的均值</li>
+<li>stddev: standard deviation，标准差</li>
+<li>seed: 随机种子</li>
+<li>dtype: 数据类型，只能是float的类型，可选位数</li>
+</ul>
+</li>
+</ul>
+<p><code>tf.get_variable()</code></p>
+<p>获取一个变量或者创建一个新的变量</p>
+<ul>
+<li>重要参数
+<ul>
+<li>shape: list类型，是指变量的shape</li>
+<li>Initializer: 用于生成变量的初始化器</li>
+</ul>
+</li>
+</ul>
+<p><code>tf.nn.conv2d()</code></p>
+<p>2维卷积函数，列举主要参数tf.nn.conv2d(input, filter=None, strides=None, paddig=None, data_format='NHWC&rsquo;)。</p>
+<ul>
+<li>重要参数
+<ul>
+<li>input: 输入4-D的Tensor，数据格式只能是<code>half</code>,<code>bfloat16</code>,<code>float32</code>,<code>float64</code></li>
+<li>filter: 卷积核，也是一个4-D tensor，数据格式必须与input一样</li>
+<li>strides: 移动步长，可以是长度为1,2,4的list，长度为1时，表示宽高方向的移动步长，并且一致。长度为2时，分别指定宽高方向的移动步长。长度为4时，设定根据data_format指定的位置对应方向移动步长。</li>
+<li>padding: &lsquo;VALID&rsquo;表示不填充， SAME&rsquo;表示填充。填充方式根据filter而定，如果filter的一个维度上的长度为奇数，则在该维度起始处和结束处填充0，如果为偶数则在结束处填充0。</li>
+</ul>
+</li>
+</ul>
+<p>一般来说，input的各个维度为<code>[batch, in_height, in_width, in_channels]</code>，filter的各个维度为 <code>[filter_height, filter_width, in_channels, out_channels]</code></p>
+<h2 id="初始化变量">初始化变量</h2>
+<p>变量需要初始化，初始化方法有单独初始化和全局初始化。</p>
+<h3 id="单独初始化">单独初始化</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">v1 <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Variable(tf<span style="color:#f92672">.</span>random_normal([<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>], stddev<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>))
+v2 <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Variable(tf<span style="color:#f92672">.</span>random_normal([<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>], stddev<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>))
+
+sess <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Session()
+sess<span style="color:#f92672">.</span>run(v1<span style="color:#f92672">.</span>initializer)
+sess<span style="color:#f92672">.</span>run(v2<span style="color:#f92672">.</span>initializer)
+</code></pre></div><h3 id="全局初始化">全局初始化</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">v1 <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Variable(tf<span style="color:#f92672">.</span>random_normal([<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>], stddev<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>))
+v2 <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Variable(tf<span style="color:#f92672">.</span>random_normal([<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>], stddev<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>))
+
+sess <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Session()
+init_op <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>global_variable_initializer()
+sess<span style="color:#f92672">.</span>run(init_op) <span style="color:#75715e"># initialize all varibles</span>
+</code></pre></div><p>变量的维度一般不变，但也可以在运行时改变，例如</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">w1 <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Variable(tf<span style="color:#f92672">.</span>random_normal([<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>], stddev<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>), name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;w1&#34;</span>)
+w2 <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Variable(tf<span style="color:#f92672">.</span>random_normal([<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>], stddev<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>), name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;w2&#34;</span>)
+
+tf<span style="color:#f92672">.</span>assign(w1, w2)  <span style="color:#75715e"># error, shapes not match</span>
+tf<span style="color:#f92672">.</span>assign(w1, w2, validate_shape<span style="color:#f92672">=</span>False) <span style="color:#75715e"># normally eval</span>
+</code></pre></div><p><code>tf.reduce_mean()</code>: 默认将所有数放到一维空间计算均值，可指定计算的维度。</p>
+<h2 id="梯度下降">梯度下降</h2>
+<ul>
+<li>全局梯度下降：会陷入局部最优解，且耗时</li>
+<li>随机梯度下降：速度提升了，但只在部分数据上优化，达不到全局最优，甚至达不到全局最优</li>
+<li>mini-batch随机梯度下降：速度提升了，不易陷入局部最优</li>
+</ul>
+<h3 id="softmax">softmax</h3>
+<p><code>tf.nn.softmax_cross_entropy_with_logits_v2（label=y_, logits=y)</code> 用于计算对y经过softmax之后的结果与标签y_的交叉熵。也就是
+$$
+\sum\limits_{i=1}^ny_i\log\frac{e^{y_i}}{\sum_{j=1}^ne^{y_j}}
+$$
+对于只有一个正确答案的分类问题，也就是标签都形如$y_i=[\cdots,0,0,1,0,0,\cdots]$，可以用<code>tf.nn.sparse_softmax_cross_entropy_with_logits</code>来加快运算。</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2020/12/03/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span>
+  <span class="nav-next"><a href="/post/2020/12/09/jupyter-notebook/">Jupyter Notebook</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>分类 - excelkks</title>
-    <meta property="og:title" content="分类 - excelkks">
+    <title>systemd开机启动服务 - excelkks</title>
+    <meta property="og:title" content="systemd开机启动服务 - excelkks">
     
     <meta name="twitter:card" content="summary">
 
@@ -15,6 +15,9 @@
 
     
       
+      <meta property="description" content="[Unit] Description=renew ipv6 (ddns) After=network.target # needed service [Service] Type=oneshot # start once ExecStart=/bin/bash /etc/scripts # what to execute [Install] WantedBy=multi-user.target # &amp;hellip;">
+      <meta property="og:description" content="[Unit] Description=renew ipv6 (ddns) After=network.target # needed service [Service] Type=oneshot # start once ExecStart=/bin/bash /etc/scripts # what to execute [Install] WantedBy=multi-user.target # &amp;hellip;">
+      
     
 
     
@@ -23,9 +26,12 @@
     
 
     
-    <link href="/categories/index.xml" rel="alternate" type="application/rss+xml" title="excelkks" />
     
-    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
 
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
@@ -85,7 +91,7 @@ code.has-jax {
   </head>
 
   
-  <body class="categories">
+  <body class="post">
     <header class="masthead">
       <h1><a href="/"><img src="/images/favicon/favicon.png" /></a></h1>
 
@@ -105,7 +111,7 @@ code.has-jax {
   
   <li><a href="/about/">关于</a></li>
   
-  <li class="active"><a href="/categories/">分类</a></li>
+  <li><a href="/categories/">分类</a></li>
   
   <li><a href="/tags/">标签</a></li>
   
@@ -118,81 +124,36 @@ code.has-jax {
     <article class="main">
       <header class="title">
       
-<h1>分类</h1>
+<h1>systemd开机启动服务</h1>
 
 <h3>
-</h3>
+  2021-01-06</h3>
 <hr>
 
 
       </header>
 
 
-<ul class="terms">
-  
-  <li>
-    <a href="/categories/free-internet">
-      free-internet
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/latex">
-      latex
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/pytorch">
-      pytorch
-    </a>
-    (4)
-  </li>
-  
-  <li>
-    <a href="/categories/%E5%86%99%E4%BD%9C">
-      写作
-    </a>
-    (2)
-  </li>
-  
-  <li>
-    <a href="/categories/%E5%B7%A5%E5%85%B7">
-      工具
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">
-      数据结构
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%B3%95">
-      机器学习法
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81">
-      视频编解码
-    </a>
-    (3)
-  </li>
-  
-</ul>
+
+<h1 id="systemd开机运行服务">systemd开机运行服务</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+Description<span style="color:#f92672">=</span>renew ipv6 <span style="color:#f92672">(</span>ddns<span style="color:#f92672">)</span>
+After<span style="color:#f92672">=</span>network.target <span style="color:#75715e"># needed service</span>
+
+<span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+Type<span style="color:#f92672">=</span>oneshot  <span style="color:#75715e"># start once</span>
+ExecStart<span style="color:#f92672">=</span>/bin/bash /etc/scripts  <span style="color:#75715e"># what to execute</span>
+
+<span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+WantedBy<span style="color:#f92672">=</span>multi-user.target  <span style="color:#75715e"># startup execute</span>
+</code></pre></div><p>参考<a href="https://unix.stackexchange.com/questions/47695/how-to-write-startup-script-for-systemd">How to write startup script for systemd</a></p>
+
 
   <footer>
   
 <nav class="post-nav">
-  <span class="nav-prev"></span>
-  <span class="nav-next"></span>
+  <span class="nav-prev">&larr; <a href="/post/2021/01/06/ssh%E9%BB%91%E5%90%8D%E5%8D%95/">Ssh黑名单</a></span>
+  <span class="nav-next"><a href="/post/2021/01/06/omv%E6%90%AD%E5%BB%BA%E4%B8%80/">omv搭建一</a> &rarr;</span>
 </nav>
 
 
@@ -205,6 +166,24 @@ code.has-jax {
 <script async src="//yihui.org/js/center-img.js"></script>
 
   
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
 
   
   <hr>

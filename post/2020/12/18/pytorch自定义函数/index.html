@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Pytorch自定义函数 - excelkks</title>
+    <meta property="og:title" content="Pytorch自定义函数 - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="[toc]
+[&amp;hellip;] 自定义一个计算过程，并且定义其反向传播过程。例如计算 $y = a&#43;bx&#43;cx^2&#43;dx^3$时，用两步替代该过程 $y= a&#43;b\times P_3(c&#43;dx), P_3(x) = \frac{1}{2}(5x^3-3x)$
+那么可以通过torch.autograd.Function定义$P_3(x)$，过程如下：
+[&amp;hellip;] # -*- &amp;hellip;">
+      <meta property="og:description" content="[toc]
+[&amp;hellip;] 自定义一个计算过程，并且定义其反向传播过程。例如计算 $y = a&#43;bx&#43;cx^2&#43;dx^3$时，用两步替代该过程 $y= a&#43;b\times P_3(c&#43;dx), P_3(x) = \frac{1}{2}(5x^3-3x)$
+那么可以通过torch.autograd.Function定义$P_3(x)$，过程如下：
+[&amp;hellip;] # -*- &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script>
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script>
+  (function(d) {
+    var config = {
+      kitId: 'hcr2dmn',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<link rel="icon" type="image/png" href="/images/favicon/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon/favicon.png" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">just do it and waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">主页</a></li>
+  
+  <li><a href="/about/">关于</a></li>
+  
+  <li><a href="/categories/">分类</a></li>
+  
+  <li><a href="/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Pytorch自定义函数</h1>
+
+<h3>
+  2020-12-18</h3>
+<hr>
+
+
+      </header>
+
+
+
+<p>[toc]</p>
+<h2 id="torchautogradfunction"><code>torch.autograd.Function</code></h2>
+<p>自定义一个计算过程，并且定义其反向传播过程。例如计算 $y = a+bx+cx^2+dx^3$时，用两步替代该过程 $y= a+b\times P_3(c+dx), P_3(x) = \frac{1}{2}(5x^3-3x)$</p>
+<p>那么可以通过<code>torch.autograd.Function</code>定义$P_3(x)$，过程如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
+<span style="color:#f92672">import</span> torch
+<span style="color:#f92672">import</span> math
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LegendrePolynomial3</span>(torch<span style="color:#f92672">.</span>autograd<span style="color:#f92672">.</span>Function):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    We can implement our own custom autograd Functions by subclassing
+</span><span style="color:#e6db74">    torch.autograd.Function and implementing the forward and backward passes
+</span><span style="color:#e6db74">    which operate on Tensors.
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+
+    <span style="color:#a6e22e">@staticmethod</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(ctx, input):
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        In the forward pass we receive a Tensor containing the input and return
+</span><span style="color:#e6db74">        a Tensor containing the output. ctx is a context object that can be used
+</span><span style="color:#e6db74">        to stash information for backward computation. You can cache arbitrary
+</span><span style="color:#e6db74">        objects for use in the backward pass using the ctx.save_for_backward method.
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        ctx<span style="color:#f92672">.</span>save_for_backward(input)
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> (<span style="color:#ae81ff">5</span> <span style="color:#f92672">*</span> input <span style="color:#f92672">**</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> input)
+
+    <span style="color:#a6e22e">@staticmethod</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">backward</span>(ctx, grad_output):
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        In the backward pass we receive a Tensor containing the gradient of the loss
+</span><span style="color:#e6db74">        with respect to the output, and we need to compute the gradient of the loss
+</span><span style="color:#e6db74">        with respect to the input.
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        input, <span style="color:#f92672">=</span> ctx<span style="color:#f92672">.</span>saved_tensors
+        <span style="color:#66d9ef">return</span> grad_output <span style="color:#f92672">*</span> <span style="color:#ae81ff">1.5</span> <span style="color:#f92672">*</span> (<span style="color:#ae81ff">5</span> <span style="color:#f92672">*</span> input <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</code></pre></div><h3 id="apply方法"><code>apply</code>方法</h3>
+<p><code>torch.autograd.Function</code>定义的计算过程通过<code>apples</code>来调用。例如</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">P3 <span style="color:#f92672">=</span> LegendrePolynomial3<span style="color:#f92672">.</span>apply
+y_pred <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b<span style="color:#f92672">*</span>P3(c<span style="color:#f92672">+</span>d<span style="color:#f92672">*</span>x)
+</code></pre></div>
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2020/12/18/pytorch%E5%9F%BA%E7%A1%80/">Pytorch基础</a></span>
+  <span class="nav-next"><a href="/post/2020/12/18/pytorch-nn-module/">Pytorch nn-Module</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Ssh黑名单 - excelkks</title>
+    <meta property="og:title" content="Ssh黑名单 - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="最近折腾nas的时候意识到linux服务器安全性问题，这里主要是防止利用ssh暴力登录。ssh登录记录一般在/var/log/auth.log(debian系)或者/var/log/secure(centos系)中，可以通过这个文件查看ssh的登录记录，包括登录失败，拒绝登录，登录成功等信息。
+参看登录失败IP
+[&amp;hellip;] cat /var/log/auth.log | awk &amp;hellip;">
+      <meta property="og:description" content="最近折腾nas的时候意识到linux服务器安全性问题，这里主要是防止利用ssh暴力登录。ssh登录记录一般在/var/log/auth.log(debian系)或者/var/log/secure(centos系)中，可以通过这个文件查看ssh的登录记录，包括登录失败，拒绝登录，登录成功等信息。
+参看登录失败IP
+[&amp;hellip;] cat /var/log/auth.log | awk &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script>
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script>
+  (function(d) {
+    var config = {
+      kitId: 'hcr2dmn',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<link rel="icon" type="image/png" href="/images/favicon/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon/favicon.png" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">just do it and waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">主页</a></li>
+  
+  <li><a href="/about/">关于</a></li>
+  
+  <li><a href="/categories/">分类</a></li>
+  
+  <li><a href="/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Ssh黑名单</h1>
+
+<h3>
+  2021-01-06</h3>
+<hr>
+
+
+      </header>
+
+
+
+<h2 id="linux-服务器防止ssh暴力登录">linux 服务器防止ssh暴力登录</h2>
+<p>最近折腾nas的时候意识到linux服务器安全性问题，这里主要是防止利用ssh暴力登录。ssh登录记录一般在<code>/var/log/auth.log</code>(debian系)或者<code>/var/log/secure</code>(centos系)中，可以通过这个文件查看ssh的登录记录，包括登录失败，拒绝登录，登录成功等信息。</p>
+<p>参看登录失败IP</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /var/log/auth.log | awk <span style="color:#e6db74">&#39;/Failed/{print $(NF-3)}&#39;</span> | sort | uniq -c | awk <span style="color:#e6db74">&#39;{print $2&#34; = &#34;$1;}&#39;</span>
+</code></pre></div><p>参看登录成功IP</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /var/log/auth.log | awk <span style="color:#e6db74">&#39;/Accepted/{print $(NF-3)}&#39;</span> | sort | uniq -c | awk <span style="color:#e6db74">&#39;{print $2&#34; = &#34;$1;}&#39;</span>
+</code></pre></div><p>参考拒绝登录IP</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /var/log/auth.log | awk <span style="color:#e6db74">&#39;/refused/{print $(NF -1)}&#39;</span> | sort |uniq -c | awk <span style="color:#e6db74">&#39;{print $2&#34; = &#34;$1}&#39;</span>
+</code></pre></div><h3 id="加入黑名单">加入黑名单</h3>
+<p>将3次登录失败的IP加入<code>/etc/hostd.deny</code>黑名单，禁止其通过sshd登录。这里每10分钟检查一次log文件。脚本文件<code>/scripts/host_block.sh</code>如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span><span style="color:#75715e"># -*- coding: UTF-8 -*-</span>
+<span style="color:#75715e"># Filename: host_block.sh</span>
+<span style="color:#75715e"># Description: 将SSH多次登录失败的IP加入黑名单</span>
+<span style="color:#75715e"># Date: 2021-01-06</span>
+
+block_ip<span style="color:#f92672">(){</span>
+        cat /var/log/auth.log | awk <span style="color:#e6db74">&#39;/Failed/{print $(NF-3)}&#39;</span> | sort | uniq -c | awk <span style="color:#e6db74">&#39;{print $2&#34;=&#34;$1}&#39;</span> &gt; /tmp/black
+        list<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>cat /tmp/black<span style="color:#e6db74">`</span>
+
+        <span style="color:#66d9ef">for</span> i in $list; <span style="color:#66d9ef">do</span>
+                ip<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>echo $i | awk -F<span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;{print $1}&#39;</span><span style="color:#e6db74">`</span>
+                num<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>echo $i | awk -F<span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;{print $2}&#39;</span><span style="color:#e6db74">`</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> $num -gt <span style="color:#ae81ff">3</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+                        grep $ip /etc/hosts.deny &amp;&gt; /dev/null
+                        <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> $? -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+                                echo <span style="color:#e6db74">&#34;sshd:</span>$ip<span style="color:#e6db74">&#34;</span> &gt;&gt; /etc/hosts.deny
+                        <span style="color:#66d9ef">fi</span>
+                <span style="color:#66d9ef">fi</span>
+        <span style="color:#66d9ef">done</span>
+
+        cp /dev/null /tmp/black
+<span style="color:#f92672">}</span>
+<span style="color:#75715e"># 10分钟一次</span>
+<span style="color:#66d9ef">while</span><span style="color:#f92672">(</span>true<span style="color:#f92672">)</span>
+<span style="color:#66d9ef">do</span>
+        block_ip
+        sleep <span style="color:#ae81ff">600</span>
+<span style="color:#66d9ef">done</span>
+</code></pre></div><h3 id="开机启动">开机启动</h3>
+<p>通过systemd服务开机启动脚本，在<code>/etc/systemd/system</code>中创建一个服务<code>host_block.service</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+Description<span style="color:#f92672">=</span>prevent unknow ip to log in by ssh
+
+<span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+Type<span style="color:#f92672">=</span>oneshot
+ExecStart<span style="color:#f92672">=</span>/bin/bash /scripts/host_block.sh
+
+<span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+WantedBy<span style="color:#f92672">=</span>multi-user.target
+</code></pre></div><p>最后执行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 开机启动脚本</span>
+systemctl enable host_block.service
+<span style="color:#75715e"># 不重新启动，开机本次服务</span>
+nohup systemctl start host_block.service &gt; /dev/null <span style="color:#ae81ff">2</span> &gt; &amp;<span style="color:#ae81ff">1</span> &amp;
+</code></pre></div><h3 id="修改端口opt">修改端口（opt）</h3>
+<p>ssh的默认端口是22，所以攻击者一般攻击22端口，我们可以修改一下ssh的端口，可以降低被暴力破解的风险。修改文件<code>/etc/ssh/sshd_config</code>文件中的<code>port</code>参数，并重启ssh服务。需要注意的是我们一般先取消<code>#port 22</code>注释，再添一行<code>port xxxx</code>，然后尝试用新的端口登录，如果新端口能登录成功再注释掉<code>port 22</code>。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># port 22</span>
+</code></pre></div><p>反注释并添加新端口</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">port <span style="color:#ae81ff">22</span>
+port <span style="color:#ae81ff">1234</span>
+</code></pre></div><p>尝试新端口登录，登录成功后，注释掉22端口</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># port 22</span>
+port <span style="color:#ae81ff">1234</span>
+</code></pre></div>
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2020/12/18/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/">交叉熵损失函数</a></span>
+  <span class="nav-next"><a href="/post/2021/01/06/systemd%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/">systemd开机启动服务</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

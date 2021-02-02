@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>分类 - excelkks</title>
-    <meta property="og:title" content="分类 - excelkks">
+    <title>Projection - excelkks</title>
+    <meta property="og:title" content="Projection - excelkks">
     
     <meta name="twitter:card" content="summary">
 
@@ -15,6 +15,17 @@
 
     
       
+      <meta property="description" content="$p = \hat{x}a$
+$e = b - \hat{x}a$
+$a\perp e \to a^T(b-\hat{x}a)=a^Tb - \hat{x}a^Ta = 0 \to \hat{x}=\frac{a^Tb}{a^Ta}$
+$p = \hat{x}a = a\frac{a^Tb}{a^Ta}$
+$p = Pb = \frac{aa^T}{a^Ta}b \to P = &amp;hellip;">
+      <meta property="og:description" content="$p = \hat{x}a$
+$e = b - \hat{x}a$
+$a\perp e \to a^T(b-\hat{x}a)=a^Tb - \hat{x}a^Ta = 0 \to \hat{x}=\frac{a^Tb}{a^Ta}$
+$p = \hat{x}a = a\frac{a^Tb}{a^Ta}$
+$p = Pb = \frac{aa^T}{a^Ta}b \to P = &amp;hellip;">
+      
     
 
     
@@ -22,8 +33,6 @@
 
     
 
-    
-    <link href="/categories/index.xml" rel="alternate" type="application/rss+xml" title="excelkks" />
     
     
 
@@ -85,7 +94,7 @@ code.has-jax {
   </head>
 
   
-  <body class="categories">
+  <body class="post">
     <header class="masthead">
       <h1><a href="/"><img src="/images/favicon/favicon.png" /></a></h1>
 
@@ -105,7 +114,7 @@ code.has-jax {
   
   <li><a href="/about/">关于</a></li>
   
-  <li class="active"><a href="/categories/">分类</a></li>
+  <li><a href="/categories/">分类</a></li>
   
   <li><a href="/tags/">标签</a></li>
   
@@ -118,81 +127,48 @@ code.has-jax {
     <article class="main">
       <header class="title">
       
-<h1>分类</h1>
+<h1>Projection</h1>
 
 <h3>
-</h3>
+  2020-12-18</h3>
 <hr>
 
 
       </header>
 
 
-<ul class="terms">
-  
-  <li>
-    <a href="/categories/free-internet">
-      free-internet
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/latex">
-      latex
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/pytorch">
-      pytorch
-    </a>
-    (4)
-  </li>
-  
-  <li>
-    <a href="/categories/%E5%86%99%E4%BD%9C">
-      写作
-    </a>
-    (2)
-  </li>
-  
-  <li>
-    <a href="/categories/%E5%B7%A5%E5%85%B7">
-      工具
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">
-      数据结构
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%B3%95">
-      机器学习法
-    </a>
-    (1)
-  </li>
-  
-  <li>
-    <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81">
-      视频编解码
-    </a>
-    (3)
-  </li>
-  
-</ul>
+
+<h1 id="projection">projection</h1>
+<p>$p = \hat{x}a$</p>
+<p>$e = b - \hat{x}a$</p>
+<p>$a\perp e \to a^T(b-\hat{x}a)=a^Tb - \hat{x}a^Ta = 0 \to \hat{x}=\frac{a^Tb}{a^Ta}$</p>
+<p>$p = \hat{x}a = a\frac{a^Tb}{a^Ta}$</p>
+<p>$p = Pb = \frac{aa^T}{a^Ta}b \to P = \frac{aa^T}{a^Ta}$</p>
+<p>$P = P^T$, $P = P^2$</p>
+<p>$P$ is a line trough $a$.</p>
+<h2 id="why-projection">why projection?</h2>
+<p>Because $Ax = b$ may have no solution. So we may find a $p$ closest to $b$ that makes  $A\hat{x} = p$ do have solution. Here $p$ is the projection of $b$ onto the column space.</p>
+<p>Let $a_1, a_2\in R^2$ independent, then $a_1, a_2$ consist a plane.</p>
+<p>$\hat{x}_1a_1 + \hat{x}_2a_2 = p = A\hat{x}$</p>
+<p>$e = b - A\hat{x}$</p>
+<p>$e\perp column space$, so, $a_1^T(b-A\hat{x}) = 0$, and $a_2^T(b-A\hat{x})=0$, that is $A^T(b-A\hat{x}) = 0$</p>
+<p>$A^Te = 0$, so $e$ is in $N(A^T)$, $e \perp C(A)$</p>
+<p><strong>KEY EQUATION</strong> $A^TA\hat{x} = A^Tb$</p>
+<p>solution: $\hat{x} = (A^TA)^{-1}A^Tb$</p>
+<p>projection: $p = A\hat{x} = A(A^TA)^{-1}A^Tb$</p>
+<p>projection matrix: $P = A(A^TA)^{-1}A^T$</p>
+<p>$P^2 = A(A^TA)^{-1}A^TA(A^TA)^{-1}A^T = A(A^TA)^{-1}A^T$</p>
+<h2 id="least-squares">least squares</h2>
+<p>Given batch of points close to but not on the line. Suppose those points are $(1, 1)$, $ (2,2)$, $(3,2)$. Find $C, D$ makes those points closest to the line $C+Dt = b$.</p>
+<p>$\left[\matrix{1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3}\right]\left[\matrix{C\\D}\right]=\left[\matrix{1\\2\\3}\right] \to A\left[\matrix{C\\D}\right]=b$</p>
+<p>No solution to this equation. So we Minimize the $||Ax - b||^2 = ||e||^2$, $||e||^2 = e_1^2+e_2^2+e_3^2$</p>
+
 
   <footer>
   
 <nav class="post-nav">
-  <span class="nav-prev"></span>
-  <span class="nav-next"></span>
+  <span class="nav-prev">&larr; <a href="/post/2020/12/18/%E6%88%AA%E6%96%AD%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/">截断正态分布</a></span>
+  <span class="nav-next"><a href="/post/2020/12/18/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/">交叉熵损失函数</a> &rarr;</span>
 </nav>
 
 

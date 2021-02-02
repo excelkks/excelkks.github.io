@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linear algbra on excelkks</title>
+    <link>/tags/linear-algbra/</link>
+    <description>Recent content in linear algbra on excelkks</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 18 Dec 2020 11:45:23 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/linear-algbra/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Projection</title>
+      <link>/post/2020/12/18/projection/</link>
+      <pubDate>Fri, 18 Dec 2020 11:45:23 +0800</pubDate>
+      
+      <guid>/post/2020/12/18/projection/</guid>
+      <description>projection $p = \hat{x}a$
+$e = b - \hat{x}a$
+$a\perp e \to a^T(b-\hat{x}a)=a^Tb - \hat{x}a^Ta = 0 \to \hat{x}=\frac{a^Tb}{a^Ta}$
+$p = \hat{x}a = a\frac{a^Tb}{a^Ta}$
+$p = Pb = \frac{aa^T}{a^Ta}b \to P = \frac{aa^T}{a^Ta}$
+$P = P^T$, $P = P^2$
+$P$ is a line trough $a$.
+why projection? Because $Ax = b$ may have no solution. So we may find a $p$ closest to $b$ that makes $A\hat{x} = p$ do have solution.</description>
+    </item>
+    
+  </channel>
+</rss>

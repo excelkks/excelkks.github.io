@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>machine learning on excelkks</title>
+    <link>/tags/machine-learning/</link>
+    <description>Recent content in machine learning on excelkks</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 18 Dec 2020 11:50:44 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>交叉熵损失函数</title>
+      <link>/post/2020/12/18/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Fri, 18 Dec 2020 11:50:44 +0800</pubDate>
+      
+      <guid>/post/2020/12/18/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</guid>
+      <description>交叉熵损失函数 信息量 根据字面意思，信息量就是事件携带的信息量。比如你们宿舍有1个人大家都认为他几乎不可能找到女朋友，你们说他90%的概率是找不到女朋友的，那么他找到女朋友的概率为10%，他每天回到宿舍都对你们说，今天没有找到女朋友，此时的你们的内心毫无波澜，因为这在你们看来这几乎是板上钉钉的事(他90%的概率找不到女朋友)，他找不到女朋友这件事几乎没啥信息量。但是有一天，他回到宿舍突然告诉你们有女孩接受了他的表白，你们宿舍的人惊得把下巴都掉了，这们会惊呼“这信息量太大了”，并纷纷向他来难以置信的目光。可见，概率越小的事件携带信息量越大，这就是信息量的通俗解释，可以用定义为 $$ I = -\log_2(p) $$ 假设你的室友找不到女朋友记作$p=0.9$，可以找到女朋友则是$\hat{p} = 1-0.9=0.1$，那么，你室友找不到女朋友的信息量为$-\log_2(p)=0.15200$，找得到女朋友的信息量为$-\log_2(\hat{p})=3.32193$
+信息熵 熵表述的是系统的混乱程度，在这里用信息量的期望来描述，一个包含$n$种可能性的事件的熵为 $$ H = \sum\limits_{i=1}^n-p_i\log_2p_i = \sum\limits_{i=1}^np_i\log_2(\frac{1}{p_i}) $$ 在上面这个例子中，如果你的室友是否找到女朋友的概率都是50%，那么他是否找到女朋友的概率是一样的（也就是信息量是一样的），所有这件事是很整齐的，表现得一点也不混乱，信息熵为$0.5\log_20.5 + 0.5\log_20.5=1$。如果概率分别为90%，10%，则信息熵为$0.9*\log_20.9+0.1*\log_20.1 = 0.468$，这就说明信息量很混乱，信息熵很小。
+相对熵 相对熵也称为KL散度，表述的是同一个随机变量$X$的不同概率分布$P(X)$和$Q(X)$的相似程度，相对熵越小，表示分布越相近。相对熵计算方法为： $$ D_{KL}(p||q) = \sum\limits_{i=1}^np_i\log{\frac{p_i}{q_i}} $$ 例如你的室友A找到女朋友的概率为$p=0.1$，室友B找到女朋友的概率为$q=0.2$。那么，相对熵为 $$ 0.1\log_2\frac{0.1}{0.2}+0.9\log_2\frac{0.9}{0.8}=0.0529 $$
+交叉熵 铺垫了这么多，终于讲到交叉熵了。将相对熵$D_{KL}$稍微变形一下： $$ D_{KL}(p||q)=\sum\limits_{i=1}^np_i\log\frac{p_i}{q_i}=\sum\limits_{i=1}^np_i\log p_i - \sum\limits_{i = 1}^np_i\log q_i $$ 如果我们的关注点只在q和b的相似程度，由于前部分$\sum\limits_{i=1}^np_i\log p_i$是恒定的，只需要关注后部分$-\sum\limits_{i=1}^np_i\log q_i$，这部分便是交叉熵，可以用于描述分布$q$离分布$p$的距离。因此在机器学习中的交叉熵损失函数便是用于描述lable和prediction之间的差距。 $$ H(p,q)=\sum\limits_{i=1}^np_i\log \frac{1}{q_i} $$</description>
+    </item>
+    
+  </channel>
+</rss>

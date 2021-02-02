@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>深度学习 - excelkks</title>
-    <meta property="og:title" content="深度学习 - excelkks">
+    <title>os模块 - excelkks</title>
+    <meta property="og:title" content="os模块 - excelkks">
     
     <meta name="twitter:card" content="summary">
 
@@ -15,12 +15,10 @@
 
     
       
-      <meta property="description" content="使用tensorflow时，启用GPU支持会占用所有的GPU，虽然每个GPU都只占用了一点，GPU占用情况可以用如下命令查看：
-[&amp;hellip;] nvidia-msi 解决GPU全占的办法是加入以下代码
-">
-      <meta property="og:description" content="使用tensorflow时，启用GPU支持会占用所有的GPU，虽然每个GPU都只占用了一点，GPU占用情况可以用如下命令查看：
-[&amp;hellip;] nvidia-msi 解决GPU全占的办法是加入以下代码
-">
+      <meta property="description" content="os.walk(path)用于遍历目录。返回值是一个遍历器，需要用for循环不断遍历，每次遍历得到长度为3的tuple，分别为(目录, [目录下的子目录], [目录下的文件])。 使用方法示例:
+[&amp;hellip;] for root, dirs, files in os.walk(&amp;#39;.&amp;#39;): for file in files: print(os.path.join(root, &amp;hellip;">
+      <meta property="og:description" content="os.walk(path)用于遍历目录。返回值是一个遍历器，需要用for循环不断遍历，每次遍历得到长度为3的tuple，分别为(目录, [目录下的子目录], [目录下的文件])。 使用方法示例:
+[&amp;hellip;] for root, dirs, files in os.walk(&amp;#39;.&amp;#39;): for file in files: print(os.path.join(root, &amp;hellip;">
       
     
 
@@ -128,10 +126,10 @@ code.has-jax {
     <article class="main">
       <header class="title">
       
-<h1>深度学习</h1>
+<h1>os模块</h1>
 
 <h3>
-  2020-12-03</h3>
+  2020-12-11</h3>
 <hr>
 
 
@@ -139,22 +137,45 @@ code.has-jax {
 
 
 
-<h3 id="1-避免tensorflow占用全部gpu">1. 避免tensorflow占用全部GPU</h3>
-<p>使用tensorflow时，启用GPU支持会占用所有的GPU，虽然每个GPU都只占用了一点，GPU占用情况可以用如下命令查看：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nvidia-msi
-</code></pre></div><p>解决GPU全占的办法是加入以下代码</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;CUDA_DEVICES_ORDER&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;PCI_BUS_ID&#39;</span>
-os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;CUDA_VISIBLE_DEVICES&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0&#39;</span>  <span style="color:#75715e"># 使用 0 GPU</span>
-config <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>ConfigProto()
-<span style="color:#75715e">#config.gpu_options.per_process_gpu_memory_fraction = 0.9 # 控制使用每个GPU的大小</span>
-config<span style="color:#f92672">.</span>gpu_options<span style="color:#f92672">.</span>allow_growth <span style="color:#f92672">=</span> True
+<h3 id="oswalk">os.walk</h3>
+<p><code>os.walk(path)</code>用于遍历目录。返回值是一个遍历器，需要用<code>for</code>循环不断遍历，每次遍历得到长度为3的tuple，分别为(目录, [目录下的子目录], [目录下的文件])。
+使用方法示例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> root, dirs, files <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>walk(<span style="color:#e6db74">&#39;.&#39;</span>):
+    <span style="color:#66d9ef">for</span> file <span style="color:#f92672">in</span> files:
+        <span style="color:#66d9ef">print</span>(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(root, file))
+    <span style="color:#66d9ef">for</span> dir <span style="color:#f92672">in</span> dirs:
+        <span style="color:#66d9ef">print</span>(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(root, dir))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./directory_2
+./directory_1
+./directory_2/file_2_1
+./directory_2/directory_2_1
+./directory_2/directory_2_1/file_2_1_1
+./directory_1/directory_1_1
+./directory_1/directory_1_2
+./directory_1/directory_1_1/file_1_1_2
+./directory_1/directory_1_1/file_1_1_1
+./directory_1/directory_1_2/file_1_2_1
+</code></pre></div><h3 id="glob模块">glob模块</h3>
+<h4 id="globglob">glob.glob</h4>
+<p><code>glob.glob</code>用于以shell-style的方式匹配目录下的文件, 例如shell匹配所有jpg图片</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">*.jpg
+</code></pre></div><p>在python中用<code>glob.glob</code>的方式为</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">files <span style="color:#f92672">=</span> glob<span style="color:#f92672">.</span>glob(<span style="color:#e6db74">&#39;*.py&#39;</span>)
+</code></pre></div><h3 id="numpy模块">numpy模块</h3>
+<h4 id="randomget_state">random.get_state</h4>
+<p><code>numpy.random.get_state()</code>一般与<code>numpy.random.set_state()</code>和<code>numpy.random.shuffle()</code>一起使用，用于打乱numpy数组的顺序。例如打乱数据集</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">state <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>get_state()
+np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>shuffle(dataset_images)
+<span style="color:#75715e"># 保证打乱的顺序与之前一致</span>
+np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>set_state(state)
+np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>shuffle(dataset_labels)
 </code></pre></div>
 
   <footer>
   
 <nav class="post-nav">
-  <span class="nav-prev">&larr; <a href="/post/2020/12/03/%E4%BF%AE%E5%A4%8Dlatex%E5%85%AC%E5%BC%8F%E7%9F%A9%E9%98%B5%E6%8D%A2%E8%A1%8C%E5%9C%A8hugo%E4%B8%8B%E7%9A%84%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/">修复latex公式矩阵换行在hugo下的渲染问题</a></span>
-  <span class="nav-next"><a href="/post/2020/12/09/tensorflow/">Tensorflow</a> &rarr;</span>
+  <span class="nav-prev">&larr; <a href="/post/2020/12/09/jupyter-notebook/">Jupyter Notebook</a></span>
+  <span class="nav-next"><a href="/post/2020/12/18/pytorch%E5%9F%BA%E7%A1%80/">Pytorch基础</a> &rarr;</span>
 </nav>
 
 
