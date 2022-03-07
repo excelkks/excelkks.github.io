@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>https on excelkks</title>
+    <link>/tags/https/</link>
+    <description>Recent content in https on excelkks</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 05 Oct 2021 08:14:44 +0800</lastBuildDate><atom:link href="/tags/https/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>给群晖添加ssl证书</title>
+      <link>/post/2021/10/05/%E7%BB%99%E7%BE%A4%E6%99%96%E6%B7%BB%E5%8A%A0ssl%E8%AF%81%E4%B9%A6/</link>
+      <pubDate>Tue, 05 Oct 2021 08:14:44 +0800</pubDate>
+      
+      <guid>/post/2021/10/05/%E7%BB%99%E7%BE%A4%E6%99%96%E6%B7%BB%E5%8A%A0ssl%E8%AF%81%E4%B9%A6/</guid>
+      <description>acme.sh已经把申请默认证书从Let&amp;rsquo;s Encrypt改为了ZeroSSL了. 本文利用acme.sh给群晖申请ZeroSSL证书, 并自动续期, 步骤包括:
+ 获取DNS的API用以后续验证域名属于你. 申请zerossl帐户. 利用acme.sh申请证书. 安装证书 自动续期证书.   获取DNS服务商的API 在申请证书的时候需要验证DNS属于是属于你的, 所以要先获取dns服务商的API以便在利用acme.sh申请时自动验证. 我这里使用的是godaddy的域名服务商自带的dns, 所以这里以godaddy举例.
+首先打开godaddy的开发者网页, 点击API Keys
+根据提示申请一个Production的API Key
+之后获得Key和Secret
+其他服务商获取方法大同小异.
+申请ZeroSSL帐户 打开ZeroSSL官网, 根据提示申请帐户, 这里需要提供一个邮箱, 这个邮箱在acme.sh申请证书时需要用到. 这里多说一句, 利用ZeroSSL官网就已经可以通过图形界面来申请证书了, 并不一定需要acme.sh, 但是我们可以利用acme.sh来自动化续签, 所以还是采用acme.sh的方法来申请证书.
+acme.sh申请证书 首先下载acme.sh
+# 下载并解压acme.sh wget https://github.com/acmesh-official/acme.sh/archive/master.tar.gz tar xvf master.tar.gz cd acme.sh-master/ chmod a+x acme.sh 在acme.sh的目录下, 有一个dnsapi的目录, 里面存放的是修改各个DNS服务商的API的样本文件, 我这里使用的godaddy, 所以编辑dnsapi/dns_gd.sh, 修改GD_Key和GD_Secret为之前申请的值.
+#!/usr/bin/env sh  #Godaddy domain api # #GD_Key=&amp;#34;这里修改为申请到的GD_Key&amp;#34; # #GD_Secret=&amp;#34;这里修改为申请到的GD_Secret&amp;#34; GD_Api=&amp;#34;https://api.godaddy.com/v1&amp;#34; 申请证书, --email参数为申请ZeroSSL时所用的邮箱, --dns为dns服务商</description>
+    </item>
+    
+  </channel>
+</rss>

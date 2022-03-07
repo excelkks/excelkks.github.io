@@ -142,14 +142,14 @@ code.has-jax {
 <h2 id="linux-服务器防止ssh暴力登录">linux 服务器防止ssh暴力登录</h2>
 <p>最近折腾nas的时候意识到linux服务器安全性问题，这里主要是防止利用ssh暴力登录。ssh登录记录一般在<code>/var/log/auth.log</code>(debian系)或者<code>/var/log/secure</code>(centos系)中，可以通过这个文件查看ssh的登录记录，包括登录失败，拒绝登录，登录成功等信息。</p>
 <p>参看登录失败IP</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /var/log/auth.log | awk <span style="color:#e6db74">&#39;/Failed/{print $(NF-3)}&#39;</span> | sort | uniq -c | awk <span style="color:#e6db74">&#39;{print $2&#34; = &#34;$1;}&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /var/log/auth.log | awk <span style="color:#e6db74">&#39;/Failed/{print $(NF-3)}&#39;</span> | sort | uniq -c | awk <span style="color:#e6db74">&#39;{print $2&#34; = &#34;$1;}&#39;</span>
 </code></pre></div><p>参看登录成功IP</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /var/log/auth.log | awk <span style="color:#e6db74">&#39;/Accepted/{print $(NF-3)}&#39;</span> | sort | uniq -c | awk <span style="color:#e6db74">&#39;{print $2&#34; = &#34;$1;}&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /var/log/auth.log | awk <span style="color:#e6db74">&#39;/Accepted/{print $(NF-3)}&#39;</span> | sort | uniq -c | awk <span style="color:#e6db74">&#39;{print $2&#34; = &#34;$1;}&#39;</span>
 </code></pre></div><p>参考拒绝登录IP</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /var/log/auth.log | awk <span style="color:#e6db74">&#39;/refused/{print $(NF -1)}&#39;</span> | sort |uniq -c | awk <span style="color:#e6db74">&#39;{print $2&#34; = &#34;$1}&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /var/log/auth.log | awk <span style="color:#e6db74">&#39;/refused/{print $(NF -1)}&#39;</span> | sort |uniq -c | awk <span style="color:#e6db74">&#39;{print $2&#34; = &#34;$1}&#39;</span>
 </code></pre></div><h3 id="加入黑名单">加入黑名单</h3>
 <p>将3次登录失败的IP加入<code>/etc/hostd.deny</code>黑名单，禁止其通过sshd登录。这里每10分钟检查一次log文件。脚本文件<code>/scripts/host_block.sh</code>如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash
 </span><span style="color:#75715e"></span><span style="color:#75715e"># -*- coding: UTF-8 -*-</span>
 <span style="color:#75715e"># Filename: host_block.sh</span>
 <span style="color:#75715e"># Description: 将SSH多次登录失败的IP加入黑名单</span>
@@ -180,7 +180,7 @@ block_ip<span style="color:#f92672">(){</span>
 <span style="color:#66d9ef">done</span>
 </code></pre></div><h3 id="开机启动">开机启动</h3>
 <p>通过systemd服务开机启动脚本，在<code>/etc/systemd/system</code>中创建一个服务<code>host_block.service</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
 Description<span style="color:#f92672">=</span>prevent unknow ip to log in by ssh
 
 <span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
@@ -190,18 +190,18 @@ ExecStart<span style="color:#f92672">=</span>/bin/bash /scripts/host_block.sh
 <span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
 WantedBy<span style="color:#f92672">=</span>multi-user.target
 </code></pre></div><p>最后执行</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 开机启动脚本</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 开机启动脚本</span>
 systemctl enable host_block.service
 <span style="color:#75715e"># 不重新启动，开机本次服务</span>
 nohup systemctl start host_block.service &gt; /dev/null <span style="color:#ae81ff">2</span> &gt; &amp;<span style="color:#ae81ff">1</span> &amp;
 </code></pre></div><h3 id="修改端口opt">修改端口（opt）</h3>
 <p>ssh的默认端口是22，所以攻击者一般攻击22端口，我们可以修改一下ssh的端口，可以降低被暴力破解的风险。修改文件<code>/etc/ssh/sshd_config</code>文件中的<code>port</code>参数，并重启ssh服务。需要注意的是我们一般先取消<code>#port 22</code>注释，再添一行<code>port xxxx</code>，然后尝试用新的端口登录，如果新端口能登录成功再注释掉<code>port 22</code>。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># port 22</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># port 22</span>
 </code></pre></div><p>反注释并添加新端口</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">port <span style="color:#ae81ff">22</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">port <span style="color:#ae81ff">22</span>
 port <span style="color:#ae81ff">1234</span>
 </code></pre></div><p>尝试新端口登录，登录成功后，注释掉22端口</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># port 22</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># port 22</span>
 port <span style="color:#ae81ff">1234</span>
 </code></pre></div>
 

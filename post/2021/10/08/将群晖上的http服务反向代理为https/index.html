@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>将群晖上的http服务反向代理为https - excelkks</title>
+    <meta property="og:title" content="将群晖上的http服务反向代理为https - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="在文章给群晖添加ssl证书中已经讲诉了如何添加ssl证书, 这对群晖默认端口的服务是直接生效的, 但是对其他如docker等的服务是无效的, 对此, 只需要利用群晖自带的反向代理就可以完成ssl加密. 需要完成反向代理和路由器端口映射. 本文以设置jellyfin反向代理为例. ## 前提
+[&amp;hellip;] 假设已经架设好jellyfin服务了, 我使用的是docker中jellyfin服务, &amp;hellip;">
+      <meta property="og:description" content="在文章给群晖添加ssl证书中已经讲诉了如何添加ssl证书, 这对群晖默认端口的服务是直接生效的, 但是对其他如docker等的服务是无效的, 对此, 只需要利用群晖自带的反向代理就可以完成ssl加密. 需要完成反向代理和路由器端口映射. 本文以设置jellyfin反向代理为例. ## 前提
+[&amp;hellip;] 假设已经架设好jellyfin服务了, 我使用的是docker中jellyfin服务, &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script>
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script>
+  (function(d) {
+    var config = {
+      kitId: 'hcr2dmn',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<link rel="icon" type="image/png" href="/images/favicon/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon/favicon.png" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">just do it and waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">主页</a></li>
+  
+  <li><a href="/about/">关于</a></li>
+  
+  <li><a href="/categories/">分类</a></li>
+  
+  <li><a href="/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>将群晖上的http服务反向代理为https</h1>
+
+<h3>
+  2021-10-08</h3>
+<hr>
+
+
+      </header>
+
+
+
+<blockquote>
+<p>在文章<a href="%E7%BB%99%E7%BE%A4%E6%99%96%E6%B7%BB%E5%8A%A0ssl%E8%AF%81%E4%B9%A6.md">给群晖添加ssl证书</a>中已经讲诉了如何添加ssl证书, 这对群晖默认端口的服务是直接生效的, 但是对其他如docker等的服务是无效的, 对此, 只需要利用群晖自带的反向代理就可以完成ssl加密. 需要完成反向代理和路由器端口映射. 本文以设置jellyfin反向代理为例.  ## 前提</p>
+</blockquote>
+<p>假设已经架设好jellyfin服务了, 我使用的是docker中<a href="https://hub.docker.com/r/linuxserver/jellyfin">jellyfin</a>服务, 也可以是其他方式, 主要目的是架设好jellyfin服务. 假设架设好的jellyfin服务后的端口号为8096, 此时已经可以通过8096端口访问jellyfin的http服务了, 以上为前提条件.</p>
+<h2 id="反向代理">反向代理</h2>
+<p>打开群晖的<code>控制面板-&gt;应用程序门户-&gt;反向代理服务规则</code>, 像下图一样填写, 表示将来自于https的18096端口的服务代理到http的8096端口, 完成后, 即可通过https的18096访问jellyfin了, 但是此时还未添加证书.</p>
+<p><img src="/images/ssl/revert.png" alt="反向代理"></p>
+<h2 id="为反向代理添加证书">为反向代理添加证书</h2>
+<p>打开群晖的<code>控制面板-&gt;安全性-&gt;证书-&gt;配置</code>, 如下图, 给10896端口的服务选择你的证书.</p>
+<p><img src="/images/ssl/certsettings.png" alt="设置证书"></p>
+<p>此时, 已经通过ssl加密了. 下一步需要在路由器上设置防火墙.</p>
+<h2 id="防火墙设置">防火墙设置</h2>
+<p>在防火墙中放行18096端口即可.</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2021/10/05/%E7%BB%99%E7%BE%A4%E6%99%96%E6%B7%BB%E5%8A%A0ssl%E8%AF%81%E4%B9%A6/">给群晖添加ssl证书</a></span>
+  <span class="nav-next"><a href="/post/2021/10/08/%E5%9C%A8%E7%BE%A4%E6%99%96docker%E4%B8%AD%E5%AE%89%E8%A3%85jellyfin/">在群晖docker中安装jellyfin</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

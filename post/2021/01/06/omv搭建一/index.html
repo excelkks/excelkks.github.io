@@ -142,7 +142,7 @@ code.has-jax {
 <h1 id="omv配置网络">omv配置网络</h1>
 <p>在面板上设置了静态网络发现无法上网，因此这里直接编辑netplan的配置文件实现静态ipv4.</p>
 <p>编辑文件<code>/etc/netplan/10-openmediavault-eno1.yaml</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">network:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">network:
   ethernets:
     eno1:
       match:
@@ -155,10 +155,10 @@ code.has-jax {
         addresses: <span style="color:#f92672">[</span>114.114.114.114, 8.8.8.8<span style="color:#f92672">]</span>
       link-local: <span style="color:#f92672">[]</span>
 </code></pre></div><p>最后执行</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netplan apply
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netplan apply
 </code></pre></div><p>上面编辑的配置文件中相当于没有启用ipv6，如果要启用ipv6，可以把 <code>dhcp6: false</code> 改为<code>dhcp6: true</code> .</p>
 <h3 id="docker安装">docker安装</h3>
-<pre><code class="language-shel" data-lang="shel">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash
+<pre tabindex="0"><code class="language-shel" data-lang="shel">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash
 </code></pre><h2 id="ipv6-ddns">ipv6 ddns</h2>
 <p>首先要有一个域名，可以使用常见的<a href="wanwang.aliyun.com">阿里云域名</a>、<a href="www.cloudflare.com">cloudflare </a>或者是<a href="www.godaddy.com">godaddy</a>。由于我之前已经有了一个godaddy的域名，我这里直接用godaddy。关于阿里云域名的教程在网上很多，可以更容易解决。</p>
 <p>关于申请域名部分比较简单，这里不赘述。</p>
@@ -176,7 +176,7 @@ code.has-jax {
 <p><img src="/images/nas/created.png" alt="created"></p>
 <h3 id="创建脚本">创建脚本</h3>
 <p>将上面的到的Key和Secret填入下方</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">#这里是你购买的域名</span>
 mydomain<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;domain.xyz&#34;</span>
@@ -208,7 +208,7 @@ setNewIp<span style="color:#f92672">(){</span>
 <span style="color:#66d9ef">done</span>
 </code></pre></div><h3 id="开机执行脚本">开机执行脚本</h3>
 <p>将上面的脚本命名为<code>ddnsipv6.sh</code>放如路径<code>/etc/scripts</code>中，利用systemd开机启动脚本，在<code>/etc/systemd/system</code>中创建服务<code>renewip.service</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
 Description<span style="color:#f92672">=</span>renew ipv6 <span style="color:#f92672">(</span>ddns<span style="color:#f92672">)</span>
 After<span style="color:#f92672">=</span>network.target
 

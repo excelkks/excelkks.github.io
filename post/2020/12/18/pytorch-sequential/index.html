@@ -139,11 +139,11 @@ code.has-jax {
 
 <h2 id="torchnnsequential"><code>torch.nn.Sequential</code></h2>
 <p>快速构建一个neural network可以通过<code>torch.nn.Module</code>构建类，也可通过设计一个<code>torch.nn.Sequential</code>来构建网络计算过程。实际上，只需要将网络上的各个计算过程都堆叠在Sequential中既可以了，例如：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
         torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>),
         torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Flatten(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>))
 </code></pre></div><p>Sequential是一个容器，一般来说，可以用多个Sequential来构建Module. 例如LeNet-5网络的构建</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LeNet5</span>(torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Module):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LeNet5</span>(torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Module):
     <span style="color:#66d9ef">def</span> __init__(self):
         super(LeNet5,self)<span style="color:#f92672">.</span>__init__()
         self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(

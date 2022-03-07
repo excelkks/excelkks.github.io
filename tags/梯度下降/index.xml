@@ -6,11 +6,7 @@
     <description>Recent content in 梯度下降 on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 10 Dec 2019 09:40:39 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 10 Dec 2019 09:40:39 +0000</lastBuildDate><atom:link href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>梯度下降法原理</title>
       <link>/post/2019/12/10/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8E%9F%E7%90%86/</link>
@@ -18,7 +14,7 @@
       
       <guid>/post/2019/12/10/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8E%9F%E7%90%86/</guid>
       <description>在机器学习中，梯度下降法是首先接触的到的最优求解方法，特别是在线性回归中，目标函数往往是一个凸函数(convex)，可以通过梯度下降法求得全局最优解。梯度下降法的公式比较简单。例如，优化函数$J(\theta)$的梯度为$\nabla J(\theta)$，那么其梯度下降过程为：
-$$ \theta^{(k+1)} = \theta^{(k)}-\eta \nabla J(\theta)|_{\theta = \theta^{(k)}} $$ 也可以写成： $$ \theta_i^{(k+1)} = \theta_i^{(k)}-\eta \frac{\partial J(\theta_i)}{\partial \theta_i}|_{\theta_i = \theta_i^{(k)}} $$ 梯度下降法的推导方法如下：
+$$ \theta^{(k+1)} = \theta^{(k)}-\eta \nabla J(\theta)|{\theta = \theta^{(k)}} $$ 也可以写成： $$ \theta_i^{(k+1)} = \theta_i^{(k)}-\eta \frac{\partial J(\theta_i)}{\partial \theta_i}|{\theta_i = \theta_i^{(k)}} $$ 梯度下降法的推导方法如下：
 假设待优化函数为$J(\theta)$，根据一阶泰勒展开，得到 $$ J(\theta) = J(\theta^{(k)})+\nabla J(\theta^{(k)})(\theta-\theta^{(k)}) $$ 假设当前位置$\theta^{(k)}$的下一步更新位置为$\theta^{(k+1)}$，那么 $$ J(\theta^{(k+1)}) = J(\theta^{(k)})+\nabla J(\theta^{(k)})(\theta^{(k+1)}-\theta^{(k)}) $$ 也就是： $$ J(\theta^{(k+1)})-J(\theta^{(k)})=\nabla J(\theta^{(k)})(\theta^{(k+1)}-\theta^{(k)}) $$ 我们的目标是求的使$J(\theta)$的值取得最小的$\theta$，那么每次更新应该保证$J(\theta^{(k+1)})-J(\theta^{(k)})&amp;lt;0$，并且越小越好。可以观察上式中$\nabla J(\theta^{(k)})$和$\theta^{(k+1)}-\theta^{(k)}$表示的是两个向量的乘积。 $$ \nabla J(\theta^{(k)})(\theta^{(k+1)}-\theta^{(k)})=||\nabla J(\theta^{(k)})||\cdot||(\theta^{(k+1)}-\theta^{(k)}||\cdot cos\alpha $$ 回顾向量的乘法，$J(\theta^{(k+1)})-J(\theta^{(k)})$的值取决于$||\nabla J(\theta^{(k)})||$,$||(\theta^{(k+1)}-\theta^{(k)}||$以及$cos\alpha$的大小，对于给定目标函数$J(\theta)$，结果只与$\theta^{(k+1)}$和与之相关的$cos\alpha$如何取值有关。当$||(\theta^{(k+1)}-\theta^{(k)}||$确定时，可使$cos\alpha=-1$来使得向量乘积负得最大（即值最小），也就是两个向量的夹角为$180^{\circ}$，此时有 $$ \frac{(\theta^{(k+1)}-\theta^{(k)})}{||(\theta^{(k+1)}-\theta^{(k)})||}=-\frac{\nabla J(\theta^{(k)})}{||\nabla J(\theta^{(k)})||} $$ 也就是: $$ \theta^{(k+1)} = \theta^{(k)} -\frac{||(\theta^{(k+1)}-\theta^{(k)})||}{||\nabla J(\theta^{(k)})||} \nabla J(\theta^{(k)}) $$ 令$\eta=\frac{||(\theta^{(k+1)}-\theta^{(k)})||}{||\nabla J(\theta^{(k)})||}$，上式可写成: $$ \theta^{(k+1)} = \theta^{(k)} -\eta\nabla J(\theta^{(k)}) $$ 或写成： $$ \theta_i^{(k+1)} = \theta_i^{(k)} -\eta\frac{\partial J(\theta_i)}{\partial\theta_i} |_{\theta_i=\theta_i^{(k)}} $$</description>
     </item>
     

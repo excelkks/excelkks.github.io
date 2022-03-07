@@ -134,11 +134,11 @@ code.has-jax {
 
 <p>在机器学习中，梯度下降法是首先接触的到的最优求解方法，特别是在线性回归中，目标函数往往是一个凸函数(convex)，可以通过梯度下降法求得全局最优解。梯度下降法的公式比较简单。例如，优化函数$J(\theta)$的梯度为$\nabla J(\theta)$，那么其梯度下降过程为：</p>
 <p>$$
-\theta^{(k+1)} = \theta^{(k)}-\eta \nabla J(\theta)|_{\theta = \theta^{(k)}}
+\theta^{(k+1)} = \theta^{(k)}-\eta \nabla J(\theta)|<em>{\theta = \theta^{(k)}}
 $$
 也可以写成：
 $$
-\theta_i^{(k+1)} = \theta_i^{(k)}-\eta \frac{\partial J(\theta_i)}{\partial \theta_i}|_{\theta_i = \theta_i^{(k)}}
+\theta_i^{(k+1)} = \theta_i^{(k)}-\eta \frac{\partial J(\theta_i)}{\partial \theta_i}|</em>{\theta_i = \theta_i^{(k)}}
 $$
 梯度下降法的推导方法如下：</p>
 <p>假设待优化函数为$J(\theta)$，根据一阶泰勒展开，得到

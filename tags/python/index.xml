@@ -6,11 +6,7 @@
     <description>Recent content in python on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 11 Dec 2020 10:49:06 +0800</lastBuildDate>
-    
-	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 11 Dec 2020 10:49:06 +0800</lastBuildDate><atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>os模块</title>
       <link>/post/2020/12/11/os%E6%A8%A1%E5%9D%97/</link>

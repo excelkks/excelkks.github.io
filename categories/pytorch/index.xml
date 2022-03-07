@@ -6,11 +6,7 @@
     <description>Recent content in pytorch on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 Dec 2020 11:39:33 +0800</lastBuildDate>
-    
-	<atom:link href="/categories/pytorch/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 18 Dec 2020 11:39:33 +0800</lastBuildDate><atom:link href="/categories/pytorch/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Pytorch Sequential</title>
       <link>/post/2020/12/18/pytorch-sequential/</link>

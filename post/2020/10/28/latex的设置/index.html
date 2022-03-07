@@ -157,10 +157,10 @@ code.has-jax {
 <li>
 <p><code>ctexbeamer</code>对应<code>breamer</code></p>
 <p>以下是一个基本示例</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span><span style="color:#a6e22e">[UTF8]</span>{ctexart}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span><span style="color:#a6e22e">[UTF8]</span>{ctexart}
 <span style="color:#66d9ef">\begin</span>{document}
 中文文档类测试。你需要将所有的源文件保存为 UTF-8 编码。
-   
+
 你可以使用 XeLaTeX 或 LuaLaTeX 编译。
 <span style="color:#66d9ef">\end</span>{document}
 </code></pre></div></li>
@@ -168,12 +168,12 @@ code.has-jax {
 <p>具体的可以<strong>查看宏包的文档</strong>, 查看宏包文档的方式是在终端输入<code>texdoc  &lt;package&gt;</code>, 这里输入<code>texdoc ctex</code>即可打开ctex的说明文档.</p>
 <h2 id="字体设置">字体设置</h2>
 <p>你可以在导言区加入<code>\ctexset</code>控制命令来设置一些字体相关的内容, 例如可以设置摘要和参考文献的名称, 格式如下:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\ctexset</span>{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\ctexset</span>{
     abstractname = {本文概要},
     bibname = {文<span style="color:#66d9ef">\quad</span> 献}
 }
 </code></pre></div><p>ctex设置了一些默认的字体集, 基本上是根据操作系统来设置的, 默认情况下会根据当前操作系统来设置, 这些字体集的具体设置可以在ctex宏包的目录下的. 字体集的设置可以在<code>\documentclass</code>中设置, 也可以在<code>\ctexset</code>中设置, 下面是两种设置方式:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#75715e">% fontset = &lt;none | adobe | fondol | founder | mac |
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#75715e">% fontset = &lt;none | adobe | fondol | founder | mac |
 </span><span style="color:#75715e">%            macnew | macold | ubuntu | windows | windowsnew |
 </span><span style="color:#75715e">%            windowsold |...&gt;
 </span><span style="color:#75715e">% 查看具体的字体集设置目录
@@ -195,19 +195,19 @@ code.has-jax {
 <span style="color:#66d9ef">\end</span>{document}
 </code></pre></div><p>当然, 这些默认的字体可能并不能满足你的需求, 这时你应该自定义字体. 基本的步骤是查看字体-&gt;声明字体(-&gt;重命名字体)-&gt;使用字体.</p>
 <p>首先是查看字体, 使用<code>fc-list :LANG=zh</code>即可列出所有的中文字体. 例如</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt;&gt; fc-list :LANG<span style="color:#f92672">=</span>zh
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt;&gt; fc-list :LANG<span style="color:#f92672">=</span>zh
 /Users/perom/Library/Fonts/SourceHanSerif.ttc: Source Han Serif TC,思源宋體,思源宋體 Light,Source Han Serif TC Light:style<span style="color:#f92672">=</span>Light,Regular
 </code></pre></div><p>可以看到这个字体的名称为<code>Source Han Serif TC</code>.</p>
 <p>接下来是声明字体和重命名字体</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#75715e">% 本部分放入导言区
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#75715e">% 本部分放入导言区
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">\setCJKfamilyfont</span>{sysong}{Source Han Serif TC}
 <span style="color:#66d9ef">\newcommand</span>{<span style="color:#66d9ef">\sysong</span>}{<span style="color:#66d9ef">\CJKfamily</span>{sysong}}    <span style="color:#75715e">% 也可以不定义
 </span></code></pre></div><p>最后是使用</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\sysong</span>{思源宋体，重命名后的用法}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\sysong</span>{思源宋体，重命名后的用法}
 <span style="color:#66d9ef">\CJKfamily</span>{sysong}{思源宋体，未重命名的用法}
 </code></pre></div><h2 id="章节标题">章节标题</h2>
 <p>每个章节的标题格式可以统一设置, 包括名字, 字体格式等等, 示例如下:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\ctexset</span>{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\ctexset</span>{
     section = {
         name = {第, 节},
         number = <span style="color:#66d9ef">\arabic</span>{section},
@@ -215,7 +215,7 @@ code.has-jax {
     }
 }
 </code></pre></div><p>以下是上面涉及到的几种设置的示例:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documnetclass</span><span style="color:#a6e22e">[UTF8]</span>{ctexart}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documnetclass</span><span style="color:#a6e22e">[UTF8]</span>{ctexart}
 <span style="color:#66d9ef">\setCJKfamilyfont</span>{sysong}{Source Han Serif TC}
 <span style="color:#66d9ef">\newcommand</span>{<span style="color:#66d9ef">\sysong</span>}{<span style="color:#66d9ef">\CJKfamily</span>{sysong}}
 <span style="color:#66d9ef">\setmainfont</span>{Arial}

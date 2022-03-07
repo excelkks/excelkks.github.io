@@ -144,9 +144,9 @@ code.has-jax {
 <h3 id="继承nnmodule类">继承<code>nn.Module</code>类</h3>
 <p>在nn(neural network)模块中，有一个<code>nn.Module</code>类，这是一个快速构建神经网络的基类。你可以通过继承这个类，并重写<code>forward(input)</code>方法，来创建一个自定义各个网络层的神经网络类。例如下面这个<code>Net</code>	类定义了一个LeNet-5网络。</p>
 <p><img src="/images/pytorch/LeNet-5.png" alt="LeNet-5"></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch
-<span style="color:#f92672">import</span> torch.nn <span style="color:#f92672">as</span> nn
-<span style="color:#f92672">import</span> torch.nn.functional <span style="color:#f92672">as</span> F
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch
+<span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+<span style="color:#f92672">import</span> torch.nn.functional <span style="color:#66d9ef">as</span> F
 
 
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Net</span>(nn<span style="color:#f92672">.</span>Module):
@@ -185,25 +185,25 @@ net <span style="color:#f92672">=</span> Net()
 </code></pre></div><p>上面用到的<code>nn.Conv2d</code>计算的对象是4维的，维度依次为(nSamples, nChannels, Height, Width)，也就是input需要按照这个顺序排列。如果传入的是单个Sample，可以通过<code>input.unsqueeze(0)</code>增加一个sample维度。<a href="#%60unsqueeze%60">参考<code>unsqueeze</code></a></p>
 <h3 id="nnmodule继承类的调用"><code>nn.Module</code>继承类的调用</h3>
 <p><code>nn.Module</code>类通过方法<code>__call__()</code>来使类的以函数调用方式返回<code>forward</code>的计算结果，为了说明，下面是<code>nn.Module</code>有关的最简定义：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Module</span>(object):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Module</span>(object):
   <span style="color:#66d9ef">def</span> __call__(self, <span style="color:#f92672">*</span>input, <span style="color:#f92672">**</span>kargs):
     <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>forward(<span style="color:#f92672">*</span>input, <span style="color:#f92672">**</span>kargs)
 </code></pre></div><p>因此，当执行<code>out = net(input)</code>时，实际上返回的是<code>forward</code>方法的返回值，是一个带<code>grad_fn</code>属性的<code>tensor</code>。</p>
 <h3 id="parameters方法"><code>parameters()</code>方法</h3>
 <p><code>parameters()</code>方法可以返回遍历这个网络的所有参数的迭代器，一般使用<code>for</code>来遍历。例如:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> param <span style="color:#f92672">in</span> net<span style="color:#f92672">.</span>parameters():
-  <span style="color:#66d9ef">print</span>(param<span style="color:#f92672">.</span>size())
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> param <span style="color:#f92672">in</span> net<span style="color:#f92672">.</span>parameters():
+  print(param<span style="color:#f92672">.</span>size())
 
 <span style="color:#75715e"># &gt;&gt; torch.Size([6, 1, 3, 3])</span>
 <span style="color:#75715e"># &gt;&gt; torch.Size([6, 16, 3, 3])</span>
 <span style="color:#75715e"># &gt;&gt; ...</span>
 </code></pre></div><h3 id="zero_grad方法"><code>zero_grad()</code>方法</h3>
 <p>net的反向传播过程的梯度累加的，所以每次<code>backward()</code>都会将新的梯度累加到<code>grad</code>中，因此，除非必要，我们应该在每次反向传播前都进行一次梯度清0，也就是调用</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 清除网络中所有参数的梯度</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 清除网络中所有参数的梯度</span>
 net<span style="color:#f92672">.</span>zero_grad()
 </code></pre></div><h3 id="loss-function">loss function</h3>
 <p>neural network的损失函数可以参考<a href="https://pytorch.org/docs/stable/nn.html#loss-functions">这里</a>，以MSE损失函数为例，过程只需要分两步，1. 定义损失函数， 2. 调用损失函数。例如</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">output <span style="color:#f92672">=</span> net(input)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">output <span style="color:#f92672">=</span> net(input)
 target <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">10</span>)
 target <span style="color:#f92672">=</span> target<span style="color:#f92672">.</span>view(<span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
 criterion <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>MSELoss()
@@ -215,14 +215,14 @@ loss <span style="color:#f92672">=</span> criterion(output, target)
 <li>
 <p>手动更新</p>
 <p>以SGD为例，遍历网络中的每个参数，并更新，示例如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">learning_rate <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">learning_rate <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>
 <span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> net<span style="color:#f92672">.</span>parameters():
   f<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>sub_(f<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>data <span style="color:#f92672">*</span> learning_rate)
 </code></pre></div></li>
 <li>
 <p>优化package</p>
 <p>torch的优化package包含多种定义好的优化方法，使用方法也很简单，1. 定义优化方法，2. 调用优化方法<code>step()</code>进行一次更新。例如</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">optimizer <span style="color:#f92672">=</span> optim<span style="color:#f92672">.</span>SGD(net<span style="color:#f92672">.</span>parameters(), lr<span style="color:#f92672">=</span><span style="color:#ae81ff">0.01</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">optimizer <span style="color:#f92672">=</span> optim<span style="color:#f92672">.</span>SGD(net<span style="color:#f92672">.</span>parameters(), lr<span style="color:#f92672">=</span><span style="color:#ae81ff">0.01</span>)
 optimizer<span style="color:#f92672">.</span>zero_grad()  <span style="color:#75715e"># 与nn.Module中的nn.Module.zero_grad() 一样</span>
 output <span style="color:#f92672">=</span> net(input)
 loss <span style="color:#f92672">=</span> criterion(output, target)
@@ -231,9 +231,9 @@ optimizer<span style="color:#f92672">.</span>step()
 </code></pre></div></li>
 </ul>
 <h2 id="一个典型的nnmodule神经网络的训练过程">一个典型的<code>nn.Module</code>神经网络的训练过程</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch.nn <span style="color:#f92672">as</span> nn
-<span style="color:#f92672">import</span> torch.nn.functional <span style="color:#f92672">as</span> F
-<span style="color:#f92672">import</span> torch.optim <span style="color:#f92672">as</span> optim
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
+<span style="color:#f92672">import</span> torch.nn.functional <span style="color:#66d9ef">as</span> F
+<span style="color:#f92672">import</span> torch.optim <span style="color:#66d9ef">as</span> optim
 
 <span style="color:#75715e"># ----------------- 定义网络 ----------------------</span>
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Net</span>(nn<span style="color:#f92672">.</span>Module):
@@ -283,20 +283,20 @@ optimizer <span style="color:#f92672">=</span> optim<span style="color:#f92672">
         <span style="color:#75715e"># print statistics</span>
         running_loss <span style="color:#f92672">+=</span> loss<span style="color:#f92672">.</span>item()
         <span style="color:#66d9ef">if</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2000</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1999</span>:    <span style="color:#75715e"># print every 2000 mini-batches</span>
-            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;[</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%5d</span><span style="color:#e6db74">] loss: </span><span style="color:#e6db74">%.3f</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span>
+            print(<span style="color:#e6db74">&#39;[</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%5d</span><span style="color:#e6db74">] loss: </span><span style="color:#e6db74">%.3f</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span>
                   (epoch <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, running_loss <span style="color:#f92672">/</span> <span style="color:#ae81ff">2000</span>))
             running_loss <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
 
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Finished Training&#39;</span>)
+print(<span style="color:#e6db74">&#39;Finished Training&#39;</span>)
 
 </code></pre></div><h2 id="在gpu上训练">在GPU上训练</h2>
 <p>定义一个GPU设备，然后将网络和训练集和lable都放入该设备中</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">device <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>device(<span style="color:#e6db74">&#34;cuda:0&#34;</span> <span style="color:#66d9ef">if</span> torch<span style="color:#f92672">.</span>cuda<span style="color:#f92672">.</span>is_available() <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;cpu&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">device <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>device(<span style="color:#e6db74">&#34;cuda:0&#34;</span> <span style="color:#66d9ef">if</span> torch<span style="color:#f92672">.</span>cuda<span style="color:#f92672">.</span>is_available() <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;cpu&#34;</span>)
 net<span style="color:#f92672">.</span>to(device)  <span style="color:#75715e"># nn.Module.to</span>
 input, lables <span style="color:#f92672">=</span> data[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>to(device), data[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>to(device) <span style="color:#75715e"># torch.Tensor.to</span>
 </code></pre></div><h2 id="unsqueeze"><code>unsqueeze</code></h2>
 <p><code>unsqueeze()</code>是指在扩展指定维度，例如</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]) <span style="color:#75715e"># shape为(3)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]) <span style="color:#75715e"># shape为(3)</span>
 xx <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>unsqueeze(<span style="color:#ae81ff">0</span>) <span style="color:#75715e"># 在第0个维度扩张，xx为 [[1,2,3]], shape 为(1,3)</span>
 xxx <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>unsqueeze(<span style="color:#ae81ff">1</span>) <span style="color:#75715e"># 在第1个维度扩张，xxx 为[[1], [2], [3]], shape为(3, 1)</span>
 </code></pre></div>

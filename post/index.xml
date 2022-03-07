@@ -6,10 +6,92 @@
     <description>Recent content in Posts on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 Mar 2021 13:48:37 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 22 Jan 2022 11:06:43 +0800</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sklearn中的模型</title>
+      <link>/post/2022/01/22/sklearn%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Sat, 22 Jan 2022 11:06:43 +0800</pubDate>
+      
+      <guid>/post/2022/01/22/sklearn%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9E%8B/</guid>
+      <description></description>
+    </item>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>机器学习基础</title>
+      <link>/post/2022/01/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Fri, 21 Jan 2022 10:57:44 +0800</pubDate>
+      
+      <guid>/post/2022/01/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</guid>
+      <description></description>
+    </item>
     
+    <item>
+      <title>相关系数</title>
+      <link>/post/2022/01/20/%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0/</link>
+      <pubDate>Thu, 20 Jan 2022 19:01:20 +0800</pubDate>
+      
+      <guid>/post/2022/01/20/%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python中机器学习相关的基础用法</title>
+      <link>/post/2022/01/19/python%E4%B8%AD%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Wed, 19 Jan 2022 22:35:56 +0800</pubDate>
+      
+      <guid>/post/2022/01/19/python%E4%B8%AD%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9B%B8%E5%85%B3%E7%9A%84%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Norm</title>
+      <link>/post/2022/01/19/norm/</link>
+      <pubDate>Wed, 19 Jan 2022 16:28:51 +0800</pubDate>
+      
+      <guid>/post/2022/01/19/norm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>在群晖docker中安装jellyfin</title>
+      <link>/post/2021/10/08/%E5%9C%A8%E7%BE%A4%E6%99%96docker%E4%B8%AD%E5%AE%89%E8%A3%85jellyfin/</link>
+      <pubDate>Fri, 08 Oct 2021 09:51:28 +0800</pubDate>
+      
+      <guid>/post/2021/10/08/%E5%9C%A8%E7%BE%A4%E6%99%96docker%E4%B8%AD%E5%AE%89%E8%A3%85jellyfin/</guid>
+      <description>参考文章群晖 Docker 安装 Jellyfin 媒体服务器并开启 Intel Quick Sync 提升性能, 以及解决 Docker 安装 Jellyfin 封面图和部分中文字幕变方块</description>
+    </item>
+    
+    <item>
+      <title>将群晖上的http服务反向代理为https</title>
+      <link>/post/2021/10/08/%E5%B0%86%E7%BE%A4%E6%99%96%E4%B8%8A%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E4%B8%BAhttps/</link>
+      <pubDate>Fri, 08 Oct 2021 09:05:51 +0800</pubDate>
+      
+      <guid>/post/2021/10/08/%E5%B0%86%E7%BE%A4%E6%99%96%E4%B8%8A%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E4%B8%BAhttps/</guid>
+      <description>在文章给群晖添加ssl证书中已经讲诉了如何添加ssl证书, 这对群晖默认端口的服务是直接生效的, 但是对其他如docker等的服务是无效的, 对此, 只需要利用群晖自带的反向代理就可以完成ssl加密. 需要完成反向代理和路由器端口映射. 本文以设置jellyfin反向代理为例. ## 前提
+ 假设已经架设好jellyfin服务了, 我使用的是docker中jellyfin服务, 也可以是其他方式, 主要目的是架设好jellyfin服务. 假设架设好的jellyfin服务后的端口号为8096, 此时已经可以通过8096端口访问jellyfin的http服务了, 以上为前提条件.
+反向代理 打开群晖的控制面板-&amp;gt;应用程序门户-&amp;gt;反向代理服务规则, 像下图一样填写, 表示将来自于https的18096端口的服务代理到http的8096端口, 完成后, 即可通过https的18096访问jellyfin了, 但是此时还未添加证书.
+为反向代理添加证书 打开群晖的控制面板-&amp;gt;安全性-&amp;gt;证书-&amp;gt;配置, 如下图, 给10896端口的服务选择你的证书.
+此时, 已经通过ssl加密了. 下一步需要在路由器上设置防火墙.
+防火墙设置 在防火墙中放行18096端口即可.</description>
+    </item>
+    
+    <item>
+      <title>给群晖添加ssl证书</title>
+      <link>/post/2021/10/05/%E7%BB%99%E7%BE%A4%E6%99%96%E6%B7%BB%E5%8A%A0ssl%E8%AF%81%E4%B9%A6/</link>
+      <pubDate>Tue, 05 Oct 2021 08:14:44 +0800</pubDate>
+      
+      <guid>/post/2021/10/05/%E7%BB%99%E7%BE%A4%E6%99%96%E6%B7%BB%E5%8A%A0ssl%E8%AF%81%E4%B9%A6/</guid>
+      <description>acme.sh已经把申请默认证书从Let&amp;rsquo;s Encrypt改为了ZeroSSL了. 本文利用acme.sh给群晖申请ZeroSSL证书, 并自动续期, 步骤包括:
+ 获取DNS的API用以后续验证域名属于你. 申请zerossl帐户. 利用acme.sh申请证书. 安装证书 自动续期证书.   获取DNS服务商的API 在申请证书的时候需要验证DNS属于是属于你的, 所以要先获取dns服务商的API以便在利用acme.sh申请时自动验证. 我这里使用的是godaddy的域名服务商自带的dns, 所以这里以godaddy举例.
+首先打开godaddy的开发者网页, 点击API Keys
+根据提示申请一个Production的API Key
+之后获得Key和Secret
+其他服务商获取方法大同小异.
+申请ZeroSSL帐户 打开ZeroSSL官网, 根据提示申请帐户, 这里需要提供一个邮箱, 这个邮箱在acme.sh申请证书时需要用到. 这里多说一句, 利用ZeroSSL官网就已经可以通过图形界面来申请证书了, 并不一定需要acme.sh, 但是我们可以利用acme.sh来自动化续签, 所以还是采用acme.sh的方法来申请证书.
+acme.sh申请证书 首先下载acme.sh
+# 下载并解压acme.sh wget https://github.com/acmesh-official/acme.sh/archive/master.tar.gz tar xvf master.tar.gz cd acme.sh-master/ chmod a+x acme.sh 在acme.sh的目录下, 有一个dnsapi的目录, 里面存放的是修改各个DNS服务商的API的样本文件, 我这里使用的godaddy, 所以编辑dnsapi/dns_gd.sh, 修改GD_Key和GD_Secret为之前申请的值.
+#!/usr/bin/env sh  #Godaddy domain api # #GD_Key=&amp;#34;这里修改为申请到的GD_Key&amp;#34; # #GD_Secret=&amp;#34;这里修改为申请到的GD_Secret&amp;#34; GD_Api=&amp;#34;https://api.godaddy.com/v1&amp;#34; 申请证书, --email参数为申请ZeroSSL时所用的邮箱, --dns为dns服务商</description>
+    </item>
     
     <item>
       <title>直接初始化和拷贝初始化</title>
@@ -18,7 +100,7 @@
       
       <guid>/post/2021/03/02/%E7%9B%B4%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E6%8B%B7%E8%B4%9D%E5%88%9D%E5%A7%8B%E5%8C%96/</guid>
       <description>拷贝初始化底层是先调用构造函数创建一个临时变量，再将临时变量通过拷贝构造函数创建新变量。考虑如下过程
-class A{ public: A() { cout &amp;lt;&amp;lt; &amp;#34;default constructor&amp;#34; &amp;lt;&amp;lt; endl; } A(const string&amp;amp; _str):str(_str) { cout &amp;lt;&amp;lt; &amp;#34;constructor&amp;#34; &amp;lt;&amp;lt; endl; } explicit A(const A&amp;amp; a) { cout &amp;lt;&amp;lt; &amp;#34;copy constructor&amp;#34; &amp;lt;&amp;lt; endl; } string str; } int main() { A a1; // direct initialiazation  A a2(string(&amp;#34;hi&amp;#34;)); // direct initialiazation  A a3 = string(&amp;#34;hi&amp;#34;); // error, string(&amp;#34;hi&amp;#34;) can&amp;#39;t  // implicit convert to A  // (copy initialiazation)  A a4 = a2; // the same as above  // a2 can&amp;#39;t implicit convert to A  // by call copy constructor } </description>
+class A{ public: A() { cout &amp;lt;&amp;lt; &amp;#34;default constructor&amp;#34; &amp;lt;&amp;lt; endl; } A(const string&amp;amp; _str):str(_str) { cout &amp;lt;&amp;lt; &amp;#34;constructor&amp;#34; &amp;lt;&amp;lt; endl; } explicit A(const A&amp;amp; a) { cout &amp;lt;&amp;lt; &amp;#34;copy constructor&amp;#34; &amp;lt;&amp;lt; endl; } string str; } int main() { A a1; // direct initialiazation  A a2(string(&amp;#34;hi&amp;#34;)); // direct initialiazation  A a3 = string(&amp;#34;hi&amp;#34;); // error, string(&amp;#34;hi&amp;#34;) can&amp;#39;t  // implicit convert to A  // (copy initialiazation)  A a4 = a2; // the same as above  // a2 can&amp;#39;t implicit convert to A  // by call copy constructor } 拷贝初始化发生情况  用= 定义变量时  string s1(&amp;#34;hi&amp;#34;); // direct initialiazation string s2 = s1; // copy initialiazation 将一个对象作为实参传递给一个非引用类型的形参  void Foo(string s) { } Foo(s1); // copy initialiazation 从一个返回类型为非引用类型的函数返回一个对象  string Foo2(){ string s(&amp;#34;hi&amp;#34;); return s; } Foo2(); // copy initialiazation 用花括号列表初始化一个数组中的元素或一个聚合类中的成员  // copy initialiazation string strs[] = {&amp;#34;This&amp;#34;, &amp;#34;is&amp;#34;, &amp;#34;copy&amp;#34;, &amp;#34;initialiazation&amp;#34;}; struct Data { int x; int y; }; // copy initialiazation Data dt = {0, 0}; 三五法则  拷贝构造函数 拷贝赋值运算符 析构函数 移动构造函数 移动赋值运算符    需要析构函数的类也需要拷贝和赋值操作</description>
     </item>
     
     <item>
@@ -198,7 +280,7 @@ import os os.environ[&amp;#39;CUDA_DEVICES_ORDER&amp;#39;] = &amp;#39;PCI_BUS_ID
  参数  mean: 分布的均值 stddev: standard deviation，标准差 seed: 随机种子 dtype: 数据类型，只能是float的类型，可选位数    tf.get_variable()
 获取一个变量或者创建一个新的变量
  重要参数  shape: list类型，是指变量的shape Initializer: 用于生成变量的初始化器    tf.nn.conv2d()
-2维卷积函数，列举主要参数tf.nn.conv2d(input, filter=None, strides=None, paddig=None, data_format=&#39;NHWC&amp;rsquo;)。
+2维卷积函数，列举主要参数tf.nn.conv2d(input, filter=None, strides=None, paddig=None, data_format=&amp;lsquo;NHWC&amp;rsquo;)。
  重要参数  input: 输入4-D的Tensor，数据格式只能是half,bfloat16,float32,float64 filter: 卷积核，也是一个4-D tensor，数据格式必须与input一样 strides: 移动步长，可以是长度为1,2,4的list，长度为1时，表示宽高方向的移动步长，并且一致。长度为2时，分别指定宽高方向的移动步长。长度为4时，设定根据data_format指定的位置对应方向移动步长。 padding: &amp;lsquo;VALID&amp;rsquo;表示不填充， SAME&amp;rsquo;表示填充。填充方式根据filter而定，如果filter的一个维度上的长度为奇数，则在该维度起始处和结束处填充0，如果为偶数则在结束处填充0。    一般来说，input的各个维度为[batch, in_height, in_width, in_channels]，filter的各个维度为 [filter_height, filter_width, in_channels, out_channels]</description>
     </item>
     
@@ -352,7 +434,7 @@ status GetElim(listlinear list, int loc, int *e){ if(list.length == 0 || loc &am
       
       <guid>/post/2019/12/10/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E5%8E%9F%E7%90%86/</guid>
       <description>在机器学习中，梯度下降法是首先接触的到的最优求解方法，特别是在线性回归中，目标函数往往是一个凸函数(convex)，可以通过梯度下降法求得全局最优解。梯度下降法的公式比较简单。例如，优化函数$J(\theta)$的梯度为$\nabla J(\theta)$，那么其梯度下降过程为：
-$$ \theta^{(k+1)} = \theta^{(k)}-\eta \nabla J(\theta)|_{\theta = \theta^{(k)}} $$ 也可以写成： $$ \theta_i^{(k+1)} = \theta_i^{(k)}-\eta \frac{\partial J(\theta_i)}{\partial \theta_i}|_{\theta_i = \theta_i^{(k)}} $$ 梯度下降法的推导方法如下：
+$$ \theta^{(k+1)} = \theta^{(k)}-\eta \nabla J(\theta)|{\theta = \theta^{(k)}} $$ 也可以写成： $$ \theta_i^{(k+1)} = \theta_i^{(k)}-\eta \frac{\partial J(\theta_i)}{\partial \theta_i}|{\theta_i = \theta_i^{(k)}} $$ 梯度下降法的推导方法如下：
 假设待优化函数为$J(\theta)$，根据一阶泰勒展开，得到 $$ J(\theta) = J(\theta^{(k)})+\nabla J(\theta^{(k)})(\theta-\theta^{(k)}) $$ 假设当前位置$\theta^{(k)}$的下一步更新位置为$\theta^{(k+1)}$，那么 $$ J(\theta^{(k+1)}) = J(\theta^{(k)})+\nabla J(\theta^{(k)})(\theta^{(k+1)}-\theta^{(k)}) $$ 也就是： $$ J(\theta^{(k+1)})-J(\theta^{(k)})=\nabla J(\theta^{(k)})(\theta^{(k+1)}-\theta^{(k)}) $$ 我们的目标是求的使$J(\theta)$的值取得最小的$\theta$，那么每次更新应该保证$J(\theta^{(k+1)})-J(\theta^{(k)})&amp;lt;0$，并且越小越好。可以观察上式中$\nabla J(\theta^{(k)})$和$\theta^{(k+1)}-\theta^{(k)}$表示的是两个向量的乘积。 $$ \nabla J(\theta^{(k)})(\theta^{(k+1)}-\theta^{(k)})=||\nabla J(\theta^{(k)})||\cdot||(\theta^{(k+1)}-\theta^{(k)}||\cdot cos\alpha $$ 回顾向量的乘法，$J(\theta^{(k+1)})-J(\theta^{(k)})$的值取决于$||\nabla J(\theta^{(k)})||$,$||(\theta^{(k+1)}-\theta^{(k)}||$以及$cos\alpha$的大小，对于给定目标函数$J(\theta)$，结果只与$\theta^{(k+1)}$和与之相关的$cos\alpha$如何取值有关。当$||(\theta^{(k+1)}-\theta^{(k)}||$确定时，可使$cos\alpha=-1$来使得向量乘积负得最大（即值最小），也就是两个向量的夹角为$180^{\circ}$，此时有 $$ \frac{(\theta^{(k+1)}-\theta^{(k)})}{||(\theta^{(k+1)}-\theta^{(k)})||}=-\frac{\nabla J(\theta^{(k)})}{||\nabla J(\theta^{(k)})||} $$ 也就是: $$ \theta^{(k+1)} = \theta^{(k)} -\frac{||(\theta^{(k+1)}-\theta^{(k)})||}{||\nabla J(\theta^{(k)})||} \nabla J(\theta^{(k)}) $$ 令$\eta=\frac{||(\theta^{(k+1)}-\theta^{(k)})||}{||\nabla J(\theta^{(k)})||}$，上式可写成: $$ \theta^{(k+1)} = \theta^{(k)} -\eta\nabla J(\theta^{(k)}) $$ 或写成： $$ \theta_i^{(k+1)} = \theta_i^{(k)} -\eta\frac{\partial J(\theta_i)}{\partial\theta_i} |_{\theta_i=\theta_i^{(k)}} $$</description>
     </item>
     

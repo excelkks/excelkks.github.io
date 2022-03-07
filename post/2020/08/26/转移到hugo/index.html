@@ -142,12 +142,12 @@ code.has-jax {
 <h2 id="博客环境搭建">博客环境搭建</h2>
 <p>介于hexo框架太麻烦了，要安装nodejs，又要安装各种包，实在是难同步。由于电脑前段时间崩了，重新搭建hexo环境总是失败，实在浪费了很多时间，于是决定迁移到hugo。</p>
 <p>在mac搭建hugo环境非常简单，只需要用homebrew即可安装</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install hugo
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install hugo
 </code></pre></div><p>这就算安装好hugo了，初始化新的hugo站点则至于要在任意路径下执行，再将主题放到theme中，我这里用的是yihui的<a href="https://github.com/yihui/hugo-ivy">hugo-ivy</a>进行的修改，<del>除了<a href="https://yihui.org">yihui</a>的字体好像经过优化了，其他基本类似</del>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hugo new site &lt;/path/to/site&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hugo new site &lt;/path/to/site&gt;
 git clone https://github.com/yihui/hugo-ivy themes/hugo-ivy
 </code></pre></div><p>yihui的主题可以很好的支持行间公式(双美元符<code>$$</code>)，但是不能支持行内公式(单美元符<code>$</code>)，于是从<a href="https://note.qidong.name/2018/03/hugo-mathjax">这里</a>中找到解决方案，即在<code>layouts/partials/mathjax.html</code>中加入：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>
         <span style="color:#a6e22e">async</span>
         <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#34;</span>&gt;
 <span style="color:#a6e22e">MathJax</span>.<span style="color:#a6e22e">Hub</span>.<span style="color:#a6e22e">Config</span>({
@@ -183,18 +183,18 @@ git clone https://github.com/yihui/hugo-ivy themes/hugo-ivy
 }
 &lt;/<span style="color:#f92672">style</span>&gt;
 </code></pre></div><p>最后在<code>partials/header_custom.html</code>中加入</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ partials &#34;mathjax.html&#34; }}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">{{ partials &#34;mathjax.html&#34; }}
 </code></pre></div><h3 id="关于字体">关于字体</h3>
 <p>yihui源博客采用的是思源字体，需要在css中嵌入js，登录<a href="https://fonts.adobe.com">adobe fonts</a>中搜索<code>Source Han Serif Simplified Chinese</code>，选中后点击<code>&lt;/&gt; Add to Web Project</code>，之后根据提示将<code>&lt;script&gt;</code>嵌入<code>partials/header_custom.html</code>中。可参考<a href="https://imjad.cn/archives/lab/how-to-introduce-source-han-fonts-into-web-pages-through-typekit/">这篇</a>博客。</p>
 <h2 id="博客部署">博客部署</h2>
 <p>首先在github上创建部署文件仓库excelkks.github.io，再在github上创建一个仓库blog用于存放源文件。</p>
 <p>在hugo站点的路径blog下把hugo站点使用版本控制</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd blog
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cd blog
 git init
 </code></pre></div><p>最后在站点目录下添加子仓库excelkks.github.io</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git submodule add https://github.com/excelkks/excelkks.github.io
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git submodule add https://github.com/excelkks/excelkks.github.io
 </code></pre></div><p>最后进行部署，1.在blog站点下生成部署文件到excelkks.github.io，2.推送子仓库excelkks.github.io，3.推送站点源文件仓库blog</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hugo -d excelkks.github.io
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hugo -d excelkks.github.io
 cd excelkks.github.io
 git add .
 git commit -m <span style="color:#e6db74">&#34;comment&#34;</span>

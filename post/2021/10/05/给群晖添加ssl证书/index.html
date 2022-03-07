@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>给群晖添加ssl证书 - excelkks</title>
+    <meta property="og:title" content="给群晖添加ssl证书 - excelkks">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="acme.sh已经把申请默认证书从Let&amp;rsquo;s Encrypt改为了ZeroSSL了. 本文利用acme.sh给群晖申请ZeroSSL证书, 并自动续期, 步骤包括:
+[&amp;hellip;] 在申请证书的时候需要验证DNS属于是属于你的, 所以要先获取dns服务商的API以便在利用acme.sh申请时自动验证. 我这里使用的是godaddy的域名服务商自带的dns, 所以这里 &amp;hellip;">
+      <meta property="og:description" content="acme.sh已经把申请默认证书从Let&amp;rsquo;s Encrypt改为了ZeroSSL了. 本文利用acme.sh给群晖申请ZeroSSL证书, 并自动续期, 步骤包括:
+[&amp;hellip;] 在申请证书的时候需要验证DNS属于是属于你的, 所以要先获取dns服务商的API以便在利用acme.sh申请时自动验证. 我这里使用的是godaddy的域名服务商自带的dns, 所以这里 &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+<script type="text/javascript"
+        async
+        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[\[','\]\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script>
+
+MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<style>
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+</style>
+
+<script>
+  (function(d) {
+    var config = {
+      kitId: 'hcr2dmn',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+<link rel="icon" type="image/png" href="/images/favicon/favicon.png" />
+<link rel="shortcut icon" type="image/png" href="/images/favicon/favicon.png" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/"><img src="/images/favicon/favicon.png" /></a></h1>
+
+<p class="tagline">just do it and waiting</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">主页</a></li>
+  
+  <li><a href="/about/">关于</a></li>
+  
+  <li><a href="/categories/">分类</a></li>
+  
+  <li><a href="/tags/">标签</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>给群晖添加ssl证书</h1>
+
+<h3>
+  2021-10-05</h3>
+<hr>
+
+
+      </header>
+
+
+
+<blockquote>
+<p>acme.sh已经把申请默认证书从Let&rsquo;s Encrypt改为了ZeroSSL了. 本文利用acme.sh给群晖申请ZeroSSL证书, 并自动续期, 步骤包括:</p>
+<ol>
+<li>获取DNS的API用以后续验证域名属于你.</li>
+<li>申请zerossl帐户.</li>
+<li>利用acme.sh申请证书.</li>
+<li>安装证书</li>
+<li>自动续期证书.</li>
+</ol>
+</blockquote>
+<h2 id="获取dns服务商的api">获取DNS服务商的API</h2>
+<p>在申请证书的时候需要验证DNS属于是属于你的, 所以要先获取dns服务商的API以便在利用<a href="https://github.com/acmesh-official/acme.sh">acme.sh</a>申请时自动验证. 我这里使用的是godaddy的域名服务商自带的dns, 所以这里以godaddy举例.</p>
+<p>首先打开<a href="https://developer.godaddy.com/">godaddy的开发者网页</a>, 点击API Keys</p>
+<p><img src="/images/ssl/godaddy.png" alt="godaddy"></p>
+<p>根据提示申请一个Production的API Key</p>
+<p><img src="/images/ssl/production.png" alt="production"></p>
+<p>之后获得Key和Secret</p>
+<p><img src="/images/ssl/created.png" alt="created"></p>
+<p>其他服务商获取方法大同小异.</p>
+<h2 id="申请zerossl帐户">申请ZeroSSL帐户</h2>
+<p>打开<a href="https://zerossl.com">ZeroSSL官网</a>, 根据提示申请帐户, 这里需要提供一个邮箱, 这个邮箱在acme.sh申请证书时需要用到. 这里多说一句, 利用ZeroSSL官网就已经可以通过图形界面来申请证书了, 并不一定需要acme.sh, 但是我们可以利用acme.sh来自动化续签, 所以还是采用acme.sh的方法来申请证书.</p>
+<h2 id="acmesh申请证书">acme.sh申请证书</h2>
+<p>首先下载acme.sh</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 下载并解压acme.sh</span>
+wget https://github.com/acmesh-official/acme.sh/archive/master.tar.gz
+tar xvf master.tar.gz
+cd acme.sh-master/
+chmod a+x acme.sh
+</code></pre></div><p>在acme.sh的目录下, 有一个dnsapi的目录, 里面存放的是修改各个DNS服务商的API的样本文件, 我这里使用的godaddy, 所以编辑dnsapi/dns_gd.sh, 修改GD_Key和GD_Secret为之前申请的值.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/usr/bin/env sh
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#Godaddy domain api</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e">#GD_Key=&#34;这里修改为申请到的GD_Key&#34;</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e">#GD_Secret=&#34;这里修改为申请到的GD_Secret&#34;</span>
+
+GD_Api<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://api.godaddy.com/v1&#34;</span>
+</code></pre></div><p>申请证书, <code>--email</code>参数为申请ZeroSSL时所用的邮箱, <code>--dns</code>为dns服务商</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./acme.sh  --email example@email.com --issue   -d  example.com   --dns  dns_gd
+</code></pre></div><p>如果没有问题的话, 证书已经位于<code>~/.acme.sh/example.com</code>路径下了.</p>
+<h2 id="安装证书">安装证书</h2>
+<p>申请好证书后, 安装到群晖上. 首先登陆到群晖的web管理页面, 打开控制面板, 进入高级模式, 点击安全性点击证书, 到达以下界面</p>
+<p><img src="/images/ssl/cert.png" alt="cert"></p>
+<p>点击<code>新增-&gt;导入新证书-&gt;导入证书</code>, 按步骤导入<code>~/.acme.sh/example.com</code>下的私钥和证书. 将导入的证书设为默认, 此时https已经是加密状态了.由于免费证书只有90天的有效期, 下一步, 自动更新证书.</p>
+<h2 id="证书更新">证书更新</h2>
+<h3 id="证书更新-1">证书更新</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./acme.sh --renew -d example.com
+</code></pre></div><p>证书更新后依旧存放在<code>~/.acme.sh/example.com</code>下, 需要再次上传到群晖中. 但是可以通过脚本来实现.</p>
+<h3 id="自动上传">自动上传</h3>
+<p>查看证书存放路径</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 查看证书</span>
+ls /usr/syno/etc/certificate/_archive
+</code></pre></div><p>该路径下一般有多个子路径, 包括自带了synology证书和我们自己申请的证书, 确定好我们自己申请的证书目录, 假设为<code>dQPaUd</code>, 那么就可以将证书上传(这里上传表示更新)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./acme.sh --install-cert -d example.com <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --certpath /usr/syno/etc/certificate/_archive/dQPaUd/cert.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --keypath /usr/syno/etc/certificate/_archive/dQPaUd/privkey.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --fullchainpath /usr/syno/etc/certificate/_archive/dQPaUd/fullchain.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --capath /usr/syno/etc/certificate/_archive/dQPaUd/chain.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --reloadcmd
+</code></pre></div><p>同步默认的证书</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">rsync -avzh /usr/syno/etc/certificate/_archive/dQPaUd/ /usr/syno/etc/certificate/system/default
+</code></pre></div><p>重启服务</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/usr/syno/etc/rc.sysv/nginx.sh reload
+</code></pre></div><p>此时, 证书更新完成.</p>
+<h2 id="自动更新证书">自动更新证书</h2>
+<p>证书更新部分属于每90天更新一次, 可以通过自动执行脚本去实现, 而不是每90天自己去执行. 这设定每个月执行一次. 打开<code>控制面板-&gt;任务计划</code></p>
+<h3 id="更新证书">更新证书</h3>
+<p>首先新增一个更新证书脚本, 周期设置如下</p>
+<p><img src="/images/ssl/time.png" alt="time"></p>
+<p>添加一个脚本</p>
+<p><img src="/images/ssl/script.png" alt="script"></p>
+<p>由于我把acme.sh执行文件放在了<code>/volume1/docker/cert/acme.sh-master</code>下, 所以我的脚本为</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 不要忘了吧example.com换成你自己的域名</span>
+/volume1/docker/cert/acme.sh-master/acme.sh --renew -d example.com
+</code></pre></div><h3 id="自动上传-1">自动上传</h3>
+<p>和上一步一样, 再增加一个计划事件, 但是事件运行时间改为<code>4:30</code>, 比更新证书晚30分钟, 脚本设置如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/volume1/docker/cert/acme.sh-master/acme.sh <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --install-cert -d example.com <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --certpath /usr/syno/etc/certificate/_archive/dQPaUd/cert.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --keypath /usr/syno/etc/certificate/_archive/dQPaUd/privkey.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --fullchainpath /usr/syno/etc/certificate/_archive/dQPaUd/fullchain.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --capath /usr/syno/etc/certificate/_archive/dQPaUd/chain.pem <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --reloadcmd
+
+rsync -avzh /usr/syno/etc/certificate/_archive/dQPaUd/ /usr/syno/etc/certificate/system/default/
+
+/usr/syno/etc/rc.sysv/nginx.sh reload
+</code></pre></div><p>至此, 自动更新证书完成.</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2021/03/02/%E7%9B%B4%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E6%8B%B7%E8%B4%9D%E5%88%9D%E5%A7%8B%E5%8C%96/">直接初始化和拷贝初始化</a></span>
+  <span class="nav-next"><a href="/post/2021/10/08/%E5%B0%86%E7%BE%A4%E6%99%96%E4%B8%8A%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E4%B8%BAhttps/">将群晖上的http服务反向代理为https</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/c&#43;&#43;.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/shell.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/markdown.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://excelkks.github.io">KKS</a> 2020 | <a href="https://github.com/excelkks">Github</a> | <a href="mailto:excelkks@hotmail.com">E-Mail</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
+
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+

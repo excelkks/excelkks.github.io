@@ -16,9 +16,9 @@
     
       
       <meta property="description" content="拷贝初始化底层是先调用构造函数创建一个临时变量，再将临时变量通过拷贝构造函数创建新变量。考虑如下过程
-">
+[&amp;hellip;] class A{ public: A() { cout &amp;lt;&amp;lt; &amp;#34;default constructor&amp;#34; &amp;lt;&amp;lt; endl; } A(const string&amp;amp; _str):str(_str) { cout &amp;lt;&amp;lt; &amp;hellip;">
       <meta property="og:description" content="拷贝初始化底层是先调用构造函数创建一个临时变量，再将临时变量通过拷贝构造函数创建新变量。考虑如下过程
-">
+[&amp;hellip;] class A{ public: A() { cout &amp;lt;&amp;lt; &amp;#34;default constructor&amp;#34; &amp;lt;&amp;lt; endl; } A(const string&amp;amp; _str):str(_str) { cout &amp;lt;&amp;lt; &amp;hellip;">
       
     
 
@@ -138,7 +138,7 @@ code.has-jax {
 
 
 <p>拷贝初始化底层是先调用构造函数创建一个临时变量，再将临时变量通过拷贝构造函数创建新变量。考虑如下过程</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span>{
 <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
     A() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;default constructor&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
     A(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span> _str)<span style="color:#f92672">:</span>str(_str) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;constructor&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
@@ -156,13 +156,64 @@ code.has-jax {
 </span><span style="color:#75715e"></span>                         <span style="color:#75715e">// a2 can&#39;t implicit convert to A
 </span><span style="color:#75715e"></span>                         <span style="color:#75715e">// by call copy constructor
 </span><span style="color:#75715e"></span>}
-</code></pre></div>
+</code></pre></div><h2 id="拷贝初始化发生情况">拷贝初始化发生情况</h2>
+<ol>
+<li>用<code>=</code> 定义变量时</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">string <span style="color:#a6e22e">s1</span>(<span style="color:#e6db74">&#34;hi&#34;</span>);    <span style="color:#75715e">// direct initialiazation
+</span><span style="color:#75715e"></span>string s2 <span style="color:#f92672">=</span> s1;     <span style="color:#75715e">// copy initialiazation
+</span></code></pre></div><ol start="2">
+<li>将一个对象作为实参传递给一个非引用类型的形参</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Foo</span>(string s) {  
+}
+Foo(s1);            <span style="color:#75715e">// copy initialiazation
+</span></code></pre></div><ol start="3">
+<li>从一个返回类型为非引用类型的函数返回一个对象</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">string <span style="color:#a6e22e">Foo2</span>(){
+  string s(<span style="color:#e6db74">&#34;hi&#34;</span>);
+  <span style="color:#66d9ef">return</span> s;
+}
+Foo2();             <span style="color:#75715e">// copy initialiazation
+</span></code></pre></div><ol start="4">
+<li>用花括号列表初始化一个数组中的元素或一个聚合类中的成员</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// copy initialiazation
+</span><span style="color:#75715e"></span>string strs[] <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;This&#34;</span>, <span style="color:#e6db74">&#34;is&#34;</span>, <span style="color:#e6db74">&#34;copy&#34;</span>, <span style="color:#e6db74">&#34;initialiazation&#34;</span>};
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Data</span> {
+  <span style="color:#66d9ef">int</span> x;
+  <span style="color:#66d9ef">int</span> y;
+};
+
+<span style="color:#75715e">// copy initialiazation
+</span><span style="color:#75715e"></span>Data dt <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>};
+</code></pre></div><h2 id="三五法则">三五法则</h2>
+<ul>
+<li>拷贝构造函数</li>
+<li>拷贝赋值运算符</li>
+<li>析构函数</li>
+<li>移动构造函数</li>
+<li>移动赋值运算符</li>
+</ul>
+<ol>
+<li>
+<p>需要析构函数的类也需要拷贝和赋值操作</p>
+<p>需要息高函数一般是有内存要手动释放. 那么拷贝时也要手动管理这部分内存.</p>
+</li>
+<li>
+<p>需要拷贝操作的类也需要赋值操作, 反之亦然</p>
+<p>考虑这样一个例子, 假设每个类具有独一无二的序号, 那么每次拷贝构造出一个新的类都需要一个新的序号, 同时, 类赋值的时候要避免将序号赋值出去. 但是, 这个类不需要自定义析构函数.</p>
+</li>
+</ol>
+
 
   <footer>
   
 <nav class="post-nav">
   <span class="nav-prev">&larr; <a href="/post/2021/01/06/%E5%9C%A8linux%E4%B8%AD%E5%BC%80%E5%90%AFsamba%E6%9C%8D%E5%8A%A1/">在linux中开启samba服务</a></span>
-  <span class="nav-next"></span>
+  <span class="nav-next"><a href="/post/2021/10/05/%E7%BB%99%E7%BE%A4%E6%99%96%E6%B7%BB%E5%8A%A0ssl%E8%AF%81%E4%B9%A6/">给群晖添加ssl证书</a> &rarr;</span>
 </nav>
 
 

@@ -6,11 +6,7 @@
     <description>Recent content in language on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 Dec 2020 11:39:33 +0800</lastBuildDate>
-    
-	<atom:link href="/tags/language/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 18 Dec 2020 11:39:33 +0800</lastBuildDate><atom:link href="/tags/language/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Pytorch Sequential</title>
       <link>/post/2020/12/18/pytorch-sequential/</link>
@@ -72,7 +68,7 @@ import os os.environ[&amp;#39;CUDA_DEVICES_ORDER&amp;#39;] = &amp;#39;PCI_BUS_ID
  参数  mean: 分布的均值 stddev: standard deviation，标准差 seed: 随机种子 dtype: 数据类型，只能是float的类型，可选位数    tf.get_variable()
 获取一个变量或者创建一个新的变量
  重要参数  shape: list类型，是指变量的shape Initializer: 用于生成变量的初始化器    tf.nn.conv2d()
-2维卷积函数，列举主要参数tf.nn.conv2d(input, filter=None, strides=None, paddig=None, data_format=&#39;NHWC&amp;rsquo;)。
+2维卷积函数，列举主要参数tf.nn.conv2d(input, filter=None, strides=None, paddig=None, data_format=&amp;lsquo;NHWC&amp;rsquo;)。
  重要参数  input: 输入4-D的Tensor，数据格式只能是half,bfloat16,float32,float64 filter: 卷积核，也是一个4-D tensor，数据格式必须与input一样 strides: 移动步长，可以是长度为1,2,4的list，长度为1时，表示宽高方向的移动步长，并且一致。长度为2时，分别指定宽高方向的移动步长。长度为4时，设定根据data_format指定的位置对应方向移动步长。 padding: &amp;lsquo;VALID&amp;rsquo;表示不填充， SAME&amp;rsquo;表示填充。填充方式根据filter而定，如果filter的一个维度上的长度为奇数，则在该维度起始处和结束处填充0，如果为偶数则在结束处填充0。    一般来说，input的各个维度为[batch, in_height, in_width, in_channels]，filter的各个维度为 [filter_height, filter_width, in_channels, out_channels]</description>
     </item>
     

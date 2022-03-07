@@ -140,12 +140,12 @@ code.has-jax {
 <h3 id="oswalk">os.walk</h3>
 <p><code>os.walk(path)</code>用于遍历目录。返回值是一个遍历器，需要用<code>for</code>循环不断遍历，每次遍历得到长度为3的tuple，分别为(目录, [目录下的子目录], [目录下的文件])。
 使用方法示例:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> root, dirs, files <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>walk(<span style="color:#e6db74">&#39;.&#39;</span>):
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> root, dirs, files <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>walk(<span style="color:#e6db74">&#39;.&#39;</span>):
     <span style="color:#66d9ef">for</span> file <span style="color:#f92672">in</span> files:
-        <span style="color:#66d9ef">print</span>(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(root, file))
+        print(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(root, file))
     <span style="color:#66d9ef">for</span> dir <span style="color:#f92672">in</span> dirs:
-        <span style="color:#66d9ef">print</span>(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(root, dir))
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./directory_2
+        print(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(root, dir))
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./directory_2
 ./directory_1
 ./directory_2/file_2_1
 ./directory_2/directory_2_1
@@ -158,13 +158,13 @@ code.has-jax {
 </code></pre></div><h3 id="glob模块">glob模块</h3>
 <h4 id="globglob">glob.glob</h4>
 <p><code>glob.glob</code>用于以shell-style的方式匹配目录下的文件, 例如shell匹配所有jpg图片</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">*.jpg
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">*.jpg
 </code></pre></div><p>在python中用<code>glob.glob</code>的方式为</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">files <span style="color:#f92672">=</span> glob<span style="color:#f92672">.</span>glob(<span style="color:#e6db74">&#39;*.py&#39;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">files <span style="color:#f92672">=</span> glob<span style="color:#f92672">.</span>glob(<span style="color:#e6db74">&#39;*.py&#39;</span>)
 </code></pre></div><h3 id="numpy模块">numpy模块</h3>
 <h4 id="randomget_state">random.get_state</h4>
 <p><code>numpy.random.get_state()</code>一般与<code>numpy.random.set_state()</code>和<code>numpy.random.shuffle()</code>一起使用，用于打乱numpy数组的顺序。例如打乱数据集</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">state <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>get_state()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">state <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>get_state()
 np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>shuffle(dataset_images)
 <span style="color:#75715e"># 保证打乱的顺序与之前一致</span>
 np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>set_state(state)

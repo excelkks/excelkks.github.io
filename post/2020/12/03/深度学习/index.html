@@ -141,13 +141,13 @@ code.has-jax {
 
 <h3 id="1-避免tensorflow占用全部gpu">1. 避免tensorflow占用全部GPU</h3>
 <p>使用tensorflow时，启用GPU支持会占用所有的GPU，虽然每个GPU都只占用了一点，GPU占用情况可以用如下命令查看：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nvidia-msi
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">nvidia-msi
 </code></pre></div><p>解决GPU全占的办法是加入以下代码</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;CUDA_DEVICES_ORDER&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;PCI_BUS_ID&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;CUDA_DEVICES_ORDER&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;PCI_BUS_ID&#39;</span>
 os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;CUDA_VISIBLE_DEVICES&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0&#39;</span>  <span style="color:#75715e"># 使用 0 GPU</span>
 config <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>ConfigProto()
 <span style="color:#75715e">#config.gpu_options.per_process_gpu_memory_fraction = 0.9 # 控制使用每个GPU的大小</span>
-config<span style="color:#f92672">.</span>gpu_options<span style="color:#f92672">.</span>allow_growth <span style="color:#f92672">=</span> True
+config<span style="color:#f92672">.</span>gpu_options<span style="color:#f92672">.</span>allow_growth <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
 </code></pre></div>
 
   <footer>
