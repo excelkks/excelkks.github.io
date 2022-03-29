@@ -14,15 +14,8 @@
       
       <guid>/post/2019/12/05/ycbcr%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
       <description>YCbCr格式的理解 YUV格式 YUV格式有别于传统的RGB三原色格式，YUV是将亮度分量Y和两个色度分量U、V分开，其中Y表示灰阶值，U表示蓝色与亮度值之间的差异，V表示红色与亮度之间的差异，于是对亮度分量的处理Y并不影响U、V分量，此外单独传输Y分量可向后兼容老式黑白电视。YCbCr格式与YUV格式类似，YCbCr主要应用于图像、视频压缩的数字彩色信息表示，是YUV压缩和偏移的版本。RGB与YCbCr的转换如下：
-$$ \begin{bmatrix} Y \\
-Cb \\
-Cr \end{bmatrix} = \begin{bmatrix} 0.299 &amp;amp; 0.587&amp;amp; 0.114 \\
--0.169&amp;amp; -0.331&amp;amp; 0.449 \\
-0.449 &amp;amp; -0.418&amp;amp; -0.0813 \\
-\end{bmatrix} \begin{bmatrix} R \\ G \\ B \end{bmatrix}+ \begin{bmatrix} 0 \\ 128 \\ 128 \end{bmatrix} $$
-$$ \begin{bmatrix} R \\ G \\ B \end{bmatrix} = \begin{bmatrix} 1.0 &amp;amp; 0.0 &amp;amp; 1.402 \\
-1.0 &amp;amp; -0.344 &amp;amp; -0.714 \\
-1.0 &amp;amp; 1.772 &amp;amp; 0.0 \end{bmatrix} \begin{bmatrix} Y \\ Cb-128 \\ Cr-128 \end{bmatrix} $$</description>
+$$ \begin{bmatrix} Y \\ Cb \\ Cr \end{bmatrix} = \begin{bmatrix} 0.299 &amp;amp; 0.587&amp;amp; 0.114 \\ -0.169&amp;amp; -0.331&amp;amp; 0.449 \\ 0.449 &amp;amp; -0.418&amp;amp; -0.0813 \\ \end{bmatrix} \begin{bmatrix} R \\ G \\ B \end{bmatrix}+ \begin{bmatrix} 0 \\ 128 \\ 128 \end{bmatrix} $$
+$$ \begin{bmatrix} R \\ G \\ B \end{bmatrix} = \begin{bmatrix} 1.0 &amp;amp; 0.0 &amp;amp; 1.402 \\ 1.0 &amp;amp; -0.344 &amp;amp; -0.714 \\ 1.0 &amp;amp; 1.772 &amp;amp; 0.0 \end{bmatrix} \begin{bmatrix} Y \\ Cb-128 \\ Cr-128 \end{bmatrix} $$</description>
     </item>
     
   </channel>

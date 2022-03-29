@@ -16,9 +16,9 @@
     
       
       <meta property="description" content="保证已经安装：
-[&amp;hellip;] # [compiler] sudo apt-get install build-essential # required sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev # [optional] sudo &amp;hellip;">
+[&amp;hellip;] # [compiler] sudo apt-get install build-essential # required sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev # [optional]  sudo &amp;hellip;">
       <meta property="og:description" content="保证已经安装：
-[&amp;hellip;] # [compiler] sudo apt-get install build-essential # required sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev # [optional] sudo &amp;hellip;">
+[&amp;hellip;] # [compiler] sudo apt-get install build-essential # required sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev # [optional]  sudo &amp;hellip;">
       
     
 
@@ -152,72 +152,71 @@ code.has-jax {
 <li>[optional] CUDA Toolkit 6.5 or higher
 可通过以下命令安装</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># [compiler]</span>
-sudo apt-get install build-essential
-<span style="color:#75715e"># required</span>
-sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
-<span style="color:#75715e"># [optional]</span>
- sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
-
-</code></pre></div><h3 id="1-编译opencv">1 编译opencv</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># [compiler]</span>
+</span></span><span style="display:flex;"><span>sudo apt-get install build-essential
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># required</span>
+</span></span><span style="display:flex;"><span>sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [optional]</span>
+</span></span><span style="display:flex;"><span> sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+</span></span></code></pre></div><h3 id="1-编译opencv">1 编译opencv</h3>
 <h4 id="11-下载opencv4源码">1.1 下载opencv4源码</h4>
 <p>打开<a href="https://opencv.org/releases/">opencv sources</a>，下载源码Sources</p>
 <h4 id="12-cmake编译opencv4库">1.2 CMake编译opencv4库</h4>
 <p>进入opencv源码目录，创建build文件夹</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd opencv
-mkdir build
-cd build
-</code></pre></div><p>配置CMAKE参数，例如</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd opencv
+</span></span><span style="display:flex;"><span>mkdir build
+</span></span><span style="display:flex;"><span>cd build
+</span></span></code></pre></div><p>配置CMAKE参数，例如</p>
 <ol>
 <li><code>CMAKE_BUILD_TYPE=Release</code>  设置编译版本</li>
 <li><code>CMAKE_INSTALL_PREFIX=/usr/local</code> 设置opencv库的安装目录</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Release -DCMAKE_INSTALL_PREFIX<span style="color:#f92672">=</span>/usr/local ..
-</code></pre></div><p>此时，opencv库将被安装在/usr/local目录中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cmake -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Release -DCMAKE_INSTALL_PREFIX<span style="color:#f92672">=</span>/usr/local ..
+</span></span></code></pre></div><p>此时，opencv库将被安装在/usr/local目录中</p>
 <h3 id="2-测试opencv4">2 测试opencv4</h3>
 <p>新建测试文件DisplayImage.cpp</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;opencv2/opencv.hpp&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> cv;
-
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv)
-{
-    <span style="color:#66d9ef">if</span>(argc <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span>){
-        printf(<span style="color:#e6db74">&#34;usage: DisplayImage.out &lt;Image_Path&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
-        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
-    }
-
-    Mat image;
-    image <span style="color:#f92672">=</span> imread(argv[<span style="color:#ae81ff">1</span>], <span style="color:#ae81ff">1</span>);
-
-    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>image.data){
-        printf(<span style="color:#e6db74">&#34;No image data</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
-        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
-    }
-
-    namedWindow(<span style="color:#e6db74">&#34;Display Image&#34;</span>, WINDOW_AUTOSIZE);
-    imshow(<span style="color:#e6db74">&#34;Display Image&#34;</span>, image);
-
-    waitKey(<span style="color:#ae81ff">0</span>);
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-</code></pre></div><p>新建CMakeLists.txt文件</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cmake" data-lang="cmake">cmake_minimum_required(<span style="color:#e6db74">VERSION</span> <span style="color:#e6db74">2.8</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>project(<span style="color:#e6db74">DisplayImage</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>set(<span style="color:#e6db74">CMAKE_CXX_STANDARD</span> <span style="color:#e6db74">11</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>set(<span style="color:#e6db74">CMAKE_CXX_STANDARD_REQUIRED</span> <span style="color:#e6db74">TRUE</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>find_package(<span style="color:#e6db74">OpenCV</span> <span style="color:#e6db74">HINTS</span> <span style="color:#e6db74">&#34;/usr/local/opencv&#34;</span>) <span style="color:#75715e"># “/usr/local/opencv” is the path of compiled opencv
-</span><span style="color:#75715e"></span>include_directories(<span style="color:#f92672">${</span>OpenCV_INCLUDE_DIRS<span style="color:#f92672">}</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>aux_source_directory(<span style="color:#e6db74">.</span> <span style="color:#e6db74">DIR_SRCS</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>add_executable(<span style="color:#e6db74">DisplayImage</span> <span style="color:#f92672">${</span>DIR_SRCS<span style="color:#f92672">}</span>)<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>target_link_libraries(<span style="color:#e6db74">DisplayImage</span> <span style="color:#f92672">${</span>OpenCV_LIBS<span style="color:#f92672">}</span>)<span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div><p>接下来cmake，可能需要安装提示将cuda指定版本</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cmake -D CUDA_TOOLKIT_ROOT_DIR<span style="color:#f92672">=</span>/usr/local/cuda-9<span style="color:#f92672">=</span>8.0 .
-</code></pre></div><p>最后直接make即可编译二进制可执行文件。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;opencv2/opencv.hpp&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> cv;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(argc <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span>){
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;usage: DisplayImage.out &lt;Image_Path&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Mat image;
+</span></span><span style="display:flex;"><span>    image <span style="color:#f92672">=</span> imread(argv[<span style="color:#ae81ff">1</span>], <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>image.data){
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#e6db74">&#34;No image data</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    namedWindow(<span style="color:#e6db74">&#34;Display Image&#34;</span>, WINDOW_AUTOSIZE);
+</span></span><span style="display:flex;"><span>    imshow(<span style="color:#e6db74">&#34;Display Image&#34;</span>, image);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    waitKey(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>新建CMakeLists.txt文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmake" data-lang="cmake"><span style="display:flex;"><span>cmake_minimum_required(<span style="color:#e6db74">VERSION</span> <span style="color:#e6db74">2.8</span>)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>project(<span style="color:#e6db74">DisplayImage</span>)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>set(<span style="color:#e6db74">CMAKE_CXX_STANDARD</span> <span style="color:#e6db74">11</span>)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>set(<span style="color:#e6db74">CMAKE_CXX_STANDARD_REQUIRED</span> <span style="color:#e6db74">TRUE</span>)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>find_package(<span style="color:#e6db74">OpenCV</span> <span style="color:#e6db74">HINTS</span> <span style="color:#e6db74">&#34;/usr/local/opencv&#34;</span>) <span style="color:#75715e"># “/usr/local/opencv” is the path of compiled opencv
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>include_directories(<span style="color:#f92672">${</span>OpenCV_INCLUDE_DIRS<span style="color:#f92672">}</span>)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>aux_source_directory(<span style="color:#e6db74">.</span> <span style="color:#e6db74">DIR_SRCS</span>)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>add_executable(<span style="color:#e6db74">DisplayImage</span> <span style="color:#f92672">${</span>DIR_SRCS<span style="color:#f92672">}</span>)<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>target_link_libraries(<span style="color:#e6db74">DisplayImage</span> <span style="color:#f92672">${</span>OpenCV_LIBS<span style="color:#f92672">}</span>)<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>接下来cmake，可能需要安装提示将cuda指定版本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cmake -D CUDA_TOOLKIT_ROOT_DIR<span style="color:#f92672">=</span>/usr/local/cuda-9<span style="color:#f92672">=</span>8.0 .
+</span></span></code></pre></div><p>最后直接make即可编译二进制可执行文件。</p>
 
 
   <footer>

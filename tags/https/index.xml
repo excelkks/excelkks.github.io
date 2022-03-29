@@ -22,7 +22,7 @@
 申请ZeroSSL帐户 打开ZeroSSL官网, 根据提示申请帐户, 这里需要提供一个邮箱, 这个邮箱在acme.sh申请证书时需要用到. 这里多说一句, 利用ZeroSSL官网就已经可以通过图形界面来申请证书了, 并不一定需要acme.sh, 但是我们可以利用acme.sh来自动化续签, 所以还是采用acme.sh的方法来申请证书.
 acme.sh申请证书 首先下载acme.sh
 # 下载并解压acme.sh wget https://github.com/acmesh-official/acme.sh/archive/master.tar.gz tar xvf master.tar.gz cd acme.sh-master/ chmod a+x acme.sh 在acme.sh的目录下, 有一个dnsapi的目录, 里面存放的是修改各个DNS服务商的API的样本文件, 我这里使用的godaddy, 所以编辑dnsapi/dns_gd.sh, 修改GD_Key和GD_Secret为之前申请的值.
-#!/usr/bin/env sh  #Godaddy domain api # #GD_Key=&amp;#34;这里修改为申请到的GD_Key&amp;#34; # #GD_Secret=&amp;#34;这里修改为申请到的GD_Secret&amp;#34; GD_Api=&amp;#34;https://api.godaddy.com/v1&amp;#34; 申请证书, --email参数为申请ZeroSSL时所用的邮箱, --dns为dns服务商</description>
+#!/usr/bin/env sh  #Godaddy domain api # #GD_Key=&amp;#34;这里修改为申请到的GD_Key&amp;#34; # #GD_Secret=&amp;#34;这里修改为申请到的GD_Secret&amp;#34;  GD_Api=&amp;#34;https://api.godaddy.com/v1&amp;#34; 申请证书, --email参数为申请ZeroSSL时所用的邮箱, --dns为dns服务商</description>
     </item>
     
   </channel>

@@ -90,7 +90,7 @@
 申请ZeroSSL帐户 打开ZeroSSL官网, 根据提示申请帐户, 这里需要提供一个邮箱, 这个邮箱在acme.sh申请证书时需要用到. 这里多说一句, 利用ZeroSSL官网就已经可以通过图形界面来申请证书了, 并不一定需要acme.sh, 但是我们可以利用acme.sh来自动化续签, 所以还是采用acme.sh的方法来申请证书.
 acme.sh申请证书 首先下载acme.sh
 # 下载并解压acme.sh wget https://github.com/acmesh-official/acme.sh/archive/master.tar.gz tar xvf master.tar.gz cd acme.sh-master/ chmod a+x acme.sh 在acme.sh的目录下, 有一个dnsapi的目录, 里面存放的是修改各个DNS服务商的API的样本文件, 我这里使用的godaddy, 所以编辑dnsapi/dns_gd.sh, 修改GD_Key和GD_Secret为之前申请的值.
-#!/usr/bin/env sh  #Godaddy domain api # #GD_Key=&amp;#34;这里修改为申请到的GD_Key&amp;#34; # #GD_Secret=&amp;#34;这里修改为申请到的GD_Secret&amp;#34; GD_Api=&amp;#34;https://api.godaddy.com/v1&amp;#34; 申请证书, --email参数为申请ZeroSSL时所用的邮箱, --dns为dns服务商</description>
+#!/usr/bin/env sh  #Godaddy domain api # #GD_Key=&amp;#34;这里修改为申请到的GD_Key&amp;#34; # #GD_Secret=&amp;#34;这里修改为申请到的GD_Secret&amp;#34;  GD_Api=&amp;#34;https://api.godaddy.com/v1&amp;#34; 申请证书, --email参数为申请ZeroSSL时所用的邮箱, --dns为dns服务商</description>
     </item>
     
     <item>
@@ -100,7 +100,7 @@ acme.sh申请证书 首先下载acme.sh
       
       <guid>/post/2021/03/02/%E7%9B%B4%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E6%8B%B7%E8%B4%9D%E5%88%9D%E5%A7%8B%E5%8C%96/</guid>
       <description>拷贝初始化底层是先调用构造函数创建一个临时变量，再将临时变量通过拷贝构造函数创建新变量。考虑如下过程
-class A{ public: A() { cout &amp;lt;&amp;lt; &amp;#34;default constructor&amp;#34; &amp;lt;&amp;lt; endl; } A(const string&amp;amp; _str):str(_str) { cout &amp;lt;&amp;lt; &amp;#34;constructor&amp;#34; &amp;lt;&amp;lt; endl; } explicit A(const A&amp;amp; a) { cout &amp;lt;&amp;lt; &amp;#34;copy constructor&amp;#34; &amp;lt;&amp;lt; endl; } string str; } int main() { A a1; // direct initialiazation  A a2(string(&amp;#34;hi&amp;#34;)); // direct initialiazation  A a3 = string(&amp;#34;hi&amp;#34;); // error, string(&amp;#34;hi&amp;#34;) can&amp;#39;t  // implicit convert to A  // (copy initialiazation)  A a4 = a2; // the same as above  // a2 can&amp;#39;t implicit convert to A  // by call copy constructor } 拷贝初始化发生情况  用= 定义变量时  string s1(&amp;#34;hi&amp;#34;); // direct initialiazation string s2 = s1; // copy initialiazation 将一个对象作为实参传递给一个非引用类型的形参  void Foo(string s) { } Foo(s1); // copy initialiazation 从一个返回类型为非引用类型的函数返回一个对象  string Foo2(){ string s(&amp;#34;hi&amp;#34;); return s; } Foo2(); // copy initialiazation 用花括号列表初始化一个数组中的元素或一个聚合类中的成员  // copy initialiazation string strs[] = {&amp;#34;This&amp;#34;, &amp;#34;is&amp;#34;, &amp;#34;copy&amp;#34;, &amp;#34;initialiazation&amp;#34;}; struct Data { int x; int y; }; // copy initialiazation Data dt = {0, 0}; 三五法则  拷贝构造函数 拷贝赋值运算符 析构函数 移动构造函数 移动赋值运算符    需要析构函数的类也需要拷贝和赋值操作</description>
+class A{ public:  A() { cout &amp;lt;&amp;lt; &amp;#34;default constructor&amp;#34; &amp;lt;&amp;lt; endl; }  A(const string&amp;amp; _str):str(_str) { cout &amp;lt;&amp;lt; &amp;#34;constructor&amp;#34; &amp;lt;&amp;lt; endl; }  explicit A(const A&amp;amp; a) { cout &amp;lt;&amp;lt; &amp;#34;copy constructor&amp;#34; &amp;lt;&amp;lt; endl; }  string str; }  int main() {  A a1; // direct initialiazation  A a2(string(&amp;#34;hi&amp;#34;)); // direct initialiazation  A a3 = string(&amp;#34;hi&amp;#34;); // error, string(&amp;#34;hi&amp;#34;) can&amp;#39;t  // implicit convert to A  // (copy initialiazation)  A a4 = a2; // the same as above  // a2 can&amp;#39;t implicit convert to A  // by call copy constructor } 拷贝初始化发生情况  用= 定义变量时  string s1(&amp;#34;hi&amp;#34;); // direct initialiazation string s2 = s1; // copy initialiazation 将一个对象作为实参传递给一个非引用类型的形参  void Foo(string s) { } Foo(s1); // copy initialiazation 从一个返回类型为非引用类型的函数返回一个对象  string Foo2(){  string s(&amp;#34;hi&amp;#34;);  return s; } Foo2(); // copy initialiazation 用花括号列表初始化一个数组中的元素或一个聚合类中的成员  // copy initialiazation string strs[] = {&amp;#34;This&amp;#34;, &amp;#34;is&amp;#34;, &amp;#34;copy&amp;#34;, &amp;#34;initialiazation&amp;#34;};  struct Data {  int x;  int y; };  // copy initialiazation Data dt = {0, 0}; 三五法则  拷贝构造函数 拷贝赋值运算符 析构函数 移动构造函数 移动赋值运算符    需要析构函数的类也需要拷贝和赋值操作</description>
     </item>
     
     <item>
@@ -111,9 +111,9 @@ class A{ public: A() { cout &amp;lt;&amp;lt; &amp;#34;default constructor&amp;#3
       <guid>/post/2021/01/06/%E5%9C%A8linux%E4%B8%AD%E5%BC%80%E5%90%AFsamba%E6%9C%8D%E5%8A%A1/</guid>
       <description>linux中samba的应用 服务器端 在linux中开启samba共享服务，首先安装samba服务
 # ubuntu apt install samba 配置文件的路径在/etc/samba/smb.conf，如果需要添加共享，需要添加如下内容
-[share] comment = comments path = /path/to/share browseable = yes writeable = yes public = yes # create mask = 0775 # 创建文件的权限 # directory mask = 0775 # 创建目录的权限 # valid users = heijunma,root #允许访问该共享的用户 # write list = heijunma,root #可写入共享的用户列表 重启smb服务
+[share]  comment = comments  path = /path/to/share  browseable = yes  writeable = yes  public = yes  # create mask = 0775 # 创建文件的权限  # directory mask = 0775 # 创建目录的权限  # valid users = heijunma,root #允许访问该共享的用户  # write list = heijunma,root #可写入共享的用户列表 重启smb服务
 service smbd restart service nmb restart 在linux中访问samba共享 首先需要安装cifs，再进行挂载，samba的默认端口为445和139
-apt install cifs-utils mount.cifs -o username=user,password=passwd,port=&amp;lt;port&amp;gt; //ip/share/path/ /mount/point </description>
+apt install cifs-utils mount.</description>
     </item>
     
     <item>
@@ -124,7 +124,7 @@ apt install cifs-utils mount.cifs -o username=user,password=passwd,port=&amp;lt;
       <guid>/post/2021/01/06/omv%E6%90%AD%E5%BB%BA%E4%B8%80/</guid>
       <description>omv配置网络 在面板上设置了静态网络发现无法上网，因此这里直接编辑netplan的配置文件实现静态ipv4.
 编辑文件/etc/netplan/10-openmediavault-eno1.yaml
-network: ethernets: eno1: match: macaddress: xx:xx:xx:xx:xx:xx dhcp4: false dhcp6: false addresses: [192.168.2.222/24] gateway4: 192.168.2.1 nameservers: addresses: [114.114.114.114, 8.8.8.8] link-local: [] 最后执行
+network:  ethernets:  eno1:  match:  macaddress: xx:xx:xx:xx:xx:xx  dhcp4: false  dhcp6: false  addresses: [192.168.2.222/24]  gateway4: 192.168.2.1  nameservers:  addresses: [114.114.114.114, 8.8.8.8]  link-local: [] 最后执行
 netplan apply 上面编辑的配置文件中相当于没有启用ipv6，如果要启用ipv6，可以把 dhcp6: false 改为dhcp6: true .
 docker安装 wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash ipv6 ddns 首先要有一个域名，可以使用常见的阿里云域名、cloudflare 或者是godaddy。由于我之前已经有了一个godaddy的域名，我这里直接用godaddy。关于阿里云域名的教程在网上很多，可以更容易解决。
 关于申请域名部分比较简单，这里不赘述。
@@ -132,7 +132,7 @@ docker安装 wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packa
 创建API Key 进入管理API页面，创建api key
 Next后得到 Key和Secret.
 创建脚本 将上面的到的Key和Secret填入下方
-#!/bin/bash  #这里是你购买的域名 mydomain=&amp;#34;domain.xyz&amp;#34; #这里是dns配置中的名称 myhostname=&amp;#34;router&amp;#34; #这里key和Secret之间注意有个冒号 gdapikey=&amp;#34;你的key:你的Secret&amp;#34; logdest=&amp;#34;local7.info&amp;#34; #另外注意，我这里的ipv6地址，所以使用的是AAAA类型解析，如果是ipv4那么下面所有的AAAA需改为A setNewIp(){ #这里的地址也是为ipv6服务，ipv4地址为https://api.ipify.org myip=`curl -s &amp;#34;https://api6.ipify.org&amp;#34;` dnsdata=`curl -s -X GET -H &amp;#34;Authorization: sso-key ${gdapikey}&amp;#34; &amp;#34;https://api.</description>
+#!/bin/bash  #这里是你购买的域名 mydomain=&amp;#34;domain.xyz&amp;#34; #这里是dns配置中的名称 myhostname=&amp;#34;router&amp;#34; #这里key和Secret之间注意有个冒号 gdapikey=&amp;#34;你的key:你的Secret&amp;#34; logdest=&amp;#34;local7.</description>
     </item>
     
     <item>
@@ -141,7 +141,7 @@ Next后得到 Key和Secret.
       <pubDate>Wed, 06 Jan 2021 14:18:40 +0800</pubDate>
       
       <guid>/post/2021/01/06/systemd%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/</guid>
-      <description>systemd开机运行服务 [Unit] Description=renew ipv6 (ddns) After=network.target # needed service [Service] Type=oneshot # start once ExecStart=/bin/bash /etc/scripts # what to execute [Install] WantedBy=multi-user.target # startup execute 参考How to write startup script for systemd</description>
+      <description>systemd开机运行服务 [Unit] Description=renew ipv6 (ddns) After=network.target # needed service  [Service] Type=oneshot # start once ExecStart=/bin/bash /etc/scripts # what to execute  [Install] WantedBy=multi-user.target # startup execute 参考How to write startup script for systemd</description>
     </item>
     
     <item>
@@ -155,7 +155,7 @@ Next后得到 Key和Secret.
 cat /var/log/auth.log | awk &amp;#39;/Failed/{print $(NF-3)}&amp;#39; | sort | uniq -c | awk &amp;#39;{print $2&amp;#34; = &amp;#34;$1;}&amp;#39; 参看登录成功IP
 cat /var/log/auth.log | awk &amp;#39;/Accepted/{print $(NF-3)}&amp;#39; | sort | uniq -c | awk &amp;#39;{print $2&amp;#34; = &amp;#34;$1;}&amp;#39; 参考拒绝登录IP
 cat /var/log/auth.log | awk &amp;#39;/refused/{print $(NF -1)}&amp;#39; | sort |uniq -c | awk &amp;#39;{print $2&amp;#34; = &amp;#34;$1}&amp;#39; 加入黑名单 将3次登录失败的IP加入/etc/hostd.deny黑名单，禁止其通过sshd登录。这里每10分钟检查一次log文件。脚本文件/scripts/host_block.sh如下：
-#!/bin/bash # -*- coding: UTF-8 -*- # Filename: host_block.sh # Description: 将SSH多次登录失败的IP加入黑名单 # Date: 2021-01-06 block_ip(){ cat /var/log/auth.</description>
+#!/bin/bash # -*- coding: UTF-8 -*- # Filename: host_block.sh # Description: 将SSH多次登录失败的IP加入黑名单 # Date: 2021-01-06  block_ip(){  cat /var/log/auth.</description>
     </item>
     
     <item>
@@ -203,8 +203,8 @@ $$ \Phi(x) = \int_{-\infty}^x \frac{1}{\sqrt{2\pi}}e^{-\frac{-t^2}{2}}dt $$</des
       
       <guid>/post/2020/12/18/pytorch-sequential/</guid>
       <description>torch.nn.Sequential 快速构建一个neural network可以通过torch.nn.Module构建类，也可通过设计一个torch.nn.Sequential来构建网络计算过程。实际上，只需要将网络上的各个计算过程都堆叠在Sequential中既可以了，例如：
-model = torch.nn.Sequential( torch.nn.Linear(3, 1), torch.nn.Flatten(0,1)) Sequential是一个容器，一般来说，可以用多个Sequential来构建Module. 例如LeNet-5网络的构建
-class LeNet5(torch.nn.Module): def __init__(self): super(LeNet5,self).__init__() self.conv1 = torch.nn.Sequential( torch.nn.Conv2d(1,6,5), torch.nn.ReLU(), torch.nn.MaxPool2d(2,2) ) self.conv2 = torch.nn.Sequential( torch.nn.Conv2d(6,16,5), torch.nn.ReLU(), torch.nn.MaxPool2d(2,2) ) self.conv3 = torch.nn.Sequential( torch.nn.Conv2d(16,120,5), torch.nn.ReLU() ) self.fc = torch.nn.Sequential( torch.nn.Linear(120,84), torch.nn.ReLU(), torch.nn.Linear(84,10), torch.nn.LogSoftmax(dim=-1) ) def forward(self, image): output = self.conv1(image) output = self.conv2(output) output = self.conv3(output) output = output.view(image.size(0),-1) output = self.fc(output) return output </description>
+model = torch.nn.Sequential(  torch.nn.Linear(3, 1),  torch.nn.Flatten(0,1)) Sequential是一个容器，一般来说，可以用多个Sequential来构建Module. 例如LeNet-5网络的构建
+class LeNet5(torch.nn.Module):  def __init__(self):  super(LeNet5,self).__init__()  self.conv1 = torch.nn.Sequential(  torch.nn.Conv2d(1,6,5),  torch.nn.ReLU(),  torch.nn.MaxPool2d(2,2)  )  self.conv2 = torch.nn.Sequential(  torch.nn.Conv2d(6,16,5),  torch.nn.ReLU(),  torch.nn.MaxPool2d(2,2)  )  self.conv3 = torch.nn.Sequential(  torch.nn.Conv2d(16,120,5),  torch.nn.ReLU()  )  self.fc = torch.nn.Sequential(  torch.nn.Linear(120,84),  torch.nn.ReLU(),  torch.nn.Linear(84,10),  torch.nn.LogSoftmax(dim=-1)  )  def forward(self, image):  output = self.</description>
     </item>
     
     <item>
@@ -215,7 +215,7 @@ class LeNet5(torch.nn.Module): def __init__(self): super(LeNet5,self).__init__()
       <guid>/post/2020/12/18/pytorch-nn-module/</guid>
       <description>[toc]
 nn.Module 继承nn.Module类 在nn(neural network)模块中，有一个nn.Module类，这是一个快速构建神经网络的基类。你可以通过继承这个类，并重写forward(input)方法，来创建一个自定义各个网络层的神经网络类。例如下面这个Net	类定义了一个LeNet-5网络。
-import torch import torch.nn as nn import torch.nn.functional as F class Net(nn.Module): def __init__(self): super(Net, self).__init__() # 1 input image channel, 6 output channels, 3x3 square convolution # kernel self.conv1 = nn.Conv2d(1, 6, 3) self.conv2 = nn.Conv2d(6, 16, 3) # an affine operation: y = Wx + b self.fc1 = nn.Linear(16 * 6 * 6, 120) # 6*6 from image dimension self.fc2 = nn.Linear(120, 84) self.</description>
+import torch import torch.nn as nn import torch.nn.functional as F   class Net(nn.Module):   def __init__(self):  super(Net, self).__init__()  # 1 input image channel, 6 output channels, 3x3 square convolution  # kernel  self.conv1 = nn.Conv2d(1, 6, 3)  self.conv2 = nn.Conv2d(6, 16, 3)  # an affine operation: y = Wx + b  self.fc1 = nn.Linear(16 * 6 * 6, 120) # 6*6 from image dimension  self.</description>
     </item>
     
     <item>
@@ -227,7 +227,7 @@ import torch import torch.nn as nn import torch.nn.functional as F class Net(nn.
       <description>[toc]
 torch.autograd.Function 自定义一个计算过程，并且定义其反向传播过程。例如计算 $y = a+bx+cx^2+dx^3$时，用两步替代该过程 $y= a+b\times P_3(c+dx), P_3(x) = \frac{1}{2}(5x^3-3x)$
 那么可以通过torch.autograd.Function定义$P_3(x)$，过程如下：
-# -*- coding: utf-8 -*- import torch import math class LegendrePolynomial3(torch.autograd.Function): &amp;#34;&amp;#34;&amp;#34; We can implement our own custom autograd Functions by subclassing torch.autograd.Function and implementing the forward and backward passes which operate on Tensors. &amp;#34;&amp;#34;&amp;#34; @staticmethod def forward(ctx, input): &amp;#34;&amp;#34;&amp;#34; In the forward pass we receive a Tensor containing the input and return a Tensor containing the output.</description>
+# -*- coding: utf-8 -*- import torch import math   class LegendrePolynomial3(torch.autograd.Function):  &amp;#34;&amp;#34;&amp;#34; We can implement our own custom autograd Functions by subclassing torch.autograd.Function and implementing the forward and backward passes which operate on Tensors. &amp;#34;&amp;#34;&amp;#34;   @staticmethod  def forward(ctx, input):  &amp;#34;&amp;#34;&amp;#34; In the forward pass we receive a Tensor containing the input and return a Tensor containing the output.</description>
     </item>
     
     <item>
@@ -252,7 +252,7 @@ x = torch.randn(5, 3) y = torch.randn(5, 3) # 直接加 result1 = x + y   函数
       
       <guid>/post/2020/12/11/os%E6%A8%A1%E5%9D%97/</guid>
       <description>os.walk os.walk(path)用于遍历目录。返回值是一个遍历器，需要用for循环不断遍历，每次遍历得到长度为3的tuple，分别为(目录, [目录下的子目录], [目录下的文件])。 使用方法示例:
-for root, dirs, files in os.walk(&amp;#39;.&amp;#39;): for file in files: print(os.path.join(root, file)) for dir in dirs: print(os.path.join(root, dir)) ./directory_2 ./directory_1 ./directory_2/file_2_1 ./directory_2/directory_2_1 ./directory_2/directory_2_1/file_2_1_1 ./directory_1/directory_1_1 ./directory_1/directory_1_2 ./directory_1/directory_1_1/file_1_1_2 ./directory_1/directory_1_1/file_1_1_1 ./directory_1/directory_1_2/file_1_2_1 glob模块 glob.glob glob.glob用于以shell-style的方式匹配目录下的文件, 例如shell匹配所有jpg图片
+for root, dirs, files in os.walk(&amp;#39;.&amp;#39;):  for file in files:  print(os.path.join(root, file))  for dir in dirs:  print(os.path.join(root, dir)) ./directory_2 ./directory_1 ./directory_2/file_2_1 ./directory_2/directory_2_1 ./directory_2/directory_2_1/file_2_1_1 ./directory_1/directory_1_1 ./directory_1/directory_1_2 ./directory_1/directory_1_1/file_1_1_2 ./directory_1/directory_1_1/file_1_1_1 ./directory_1/directory_1_2/file_1_2_1 glob模块 glob.glob glob.glob用于以shell-style的方式匹配目录下的文件, 例如shell匹配所有jpg图片
 *.jpg 在python中用glob.glob的方式为
 files = glob.glob(&amp;#39;*.py&amp;#39;) numpy模块 random.get_state numpy.random.get_state()一般与numpy.random.set_state()和numpy.random.shuffle()一起使用，用于打乱numpy数组的顺序。例如打乱数据集
 state = np.random.get_state() np.random.shuffle(dataset_images) # 保证打乱的顺序与之前一致 np.random.set_state(state) np.random.shuffle(dataset_labels) </description>
@@ -320,9 +320,9 @@ os.environ[&amp;#39;CUDA_DEVICES_ORDER&amp;#39;] = &amp;#39;PCI_BUS_ID&amp;#39; 
   ctexbook对应book
   ctexbeamer对应breamer
 以下是一个基本示例
-\documentclass[UTF8]{ctexart} \begin{document} 中文文档类测试。你需要将所有的源文件保存为 UTF-8 编码。 你可以使用 XeLaTeX 或 LuaLaTeX 编译。 \end{document}   具体的可以查看宏包的文档, 查看宏包文档的方式是在终端输入texdoc &amp;lt;package&amp;gt;, 这里输入texdoc ctex即可打开ctex的说明文档.
+\documentclass[UTF8]{ctexart} \begin{document} 中文文档类测试。你需要将所有的源文件保存为 UTF-8 编码。  你可以使用 XeLaTeX 或 LuaLaTeX 编译。 \end{document}   具体的可以查看宏包的文档, 查看宏包文档的方式是在终端输入texdoc &amp;lt;package&amp;gt;, 这里输入texdoc ctex即可打开ctex的说明文档.
 字体设置 你可以在导言区加入\ctexset控制命令来设置一些字体相关的内容, 例如可以设置摘要和参考文献的名称, 格式如下:
-\ctexset{ abstractname = {本文概要}, bibname = {文\quad 献} } ctex设置了一些默认的字体集, 基本上是根据操作系统来设置的, 默认情况下会根据当前操作系统来设置, 这些字体集的具体设置可以在ctex宏包的目录下的. 字体集的设置可以在\documentclass中设置, 也可以在\ctexset中设置, 下面是两种设置方式:
+\ctexset{  abstractname = {本文概要},  bibname = {文\quad 献} } ctex设置了一些默认的字体集, 基本上是根据操作系统来设置的, 默认情况下会根据当前操作系统来设置, 这些字体集的具体设置可以在ctex宏包的目录下的. 字体集的设置可以在\documentclass中设置, 也可以在\ctexset中设置, 下面是两种设置方式:
 % fontset = &amp;lt;none | adobe | fondol | founder | mac | % macnew | macold | ubuntu | windows | windowsnew | % windowsold |.</description>
     </item>
     
@@ -375,7 +375,7 @@ os.environ[&amp;#39;CUDA_DEVICES_ORDER&amp;#39;] = &amp;#39;PCI_BUS_ID&amp;#39; 
 在mac搭建hugo环境非常简单，只需要用homebrew即可安装
 brew install hugo 这就算安装好hugo了，初始化新的hugo站点则至于要在任意路径下执行，再将主题放到theme中，我这里用的是yihui的hugo-ivy进行的修改，除了yihui的字体好像经过优化了，其他基本类似.
 hugo new site &amp;lt;/path/to/site&amp;gt; git clone https://github.com/yihui/hugo-ivy themes/hugo-ivy yihui的主题可以很好的支持行间公式(双美元符$$)，但是不能支持行内公式(单美元符$)，于是从这里中找到解决方案，即在layouts/partials/mathjax.html中加入：
-&amp;lt;script type=&amp;#34;text/javascript&amp;#34; async src=&amp;#34;https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;#34;&amp;gt; MathJax.Hub.Config({ tex2jax: { inlineMath: [[&amp;#39;$&amp;#39;,&amp;#39;$&amp;#39;], [&amp;#39;\\(&amp;#39;,&amp;#39;\\)&amp;#39;]], displayMath: [[&amp;#39;$$&amp;#39;,&amp;#39;$$&amp;#39;], [&amp;#39;\[\[&amp;#39;,&amp;#39;\]\]&amp;#39;]], processEscapes: true, processEnvironments: true, skipTags: [&amp;#39;script&amp;#39;, &amp;#39;noscript&amp;#39;, &amp;#39;style&amp;#39;, &amp;#39;textarea&amp;#39;, &amp;#39;pre&amp;#39;], TeX: { equationNumbers: { autoNumber: &amp;#34;AMS&amp;#34; }, extensions: [&amp;#34;AMSmath.js&amp;#34;, &amp;#34;AMSsymbols.js&amp;#34;] } } }); MathJax.Hub.Queue(function() { // Fix &amp;lt;code&amp;gt; tags after MathJax finishes running. This is a  // hack to overcome a shortcoming of Markdown.</description>
+&amp;lt;script type=&amp;#34;text/javascript&amp;#34;  async  src=&amp;#34;https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;#34;&amp;gt; MathJax.Hub.Config({  tex2jax: {  inlineMath: [[&amp;#39;$&amp;#39;,&amp;#39;$&amp;#39;], [&amp;#39;\\(&amp;#39;,&amp;#39;\\)&amp;#39;]],  displayMath: [[&amp;#39;$$&amp;#39;,&amp;#39;$$&amp;#39;], [&amp;#39;\[\[&amp;#39;,&amp;#39;\]\]&amp;#39;]],  processEscapes: true,  processEnvironments: true,  skipTags: [&amp;#39;script&amp;#39;, &amp;#39;noscript&amp;#39;, &amp;#39;style&amp;#39;, &amp;#39;textarea&amp;#39;, &amp;#39;pre&amp;#39;],  TeX: { equationNumbers: { autoNumber: &amp;#34;AMS&amp;#34; },  extensions: [&amp;#34;AMSmath.js&amp;#34;, &amp;#34;AMSsymbols.js&amp;#34;] }  } });  MathJax.Hub.Queue(function() {  // Fix &amp;lt;code&amp;gt; tags after MathJax finishes running.</description>
     </item>
     
     <item>
@@ -394,9 +394,9 @@ hugo new site &amp;lt;/path/to/site&amp;gt; git clone https://github.com/yihui/h
       
       <guid>/post/2019/12/16/%E4%B8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BA%BF%E6%80%A7%E8%A1%A8/</guid>
       <description>顾名思义，顺序存储的线性表就是存储方式是在内存中安装先后顺序依次存储、逻辑结构为线性结构的一种数据结构。 其存储方式如下图所示： 各个储存单元都是顺序排放的。为了顺序存储数据，需要为一个顺序存储线性表指定长度。 下面是顺序存储的线性表结构代码
-#define LIST_LENGTH_MAX 20 struct listlinear_t { int data[LIST_LENGTH_MAX]; int length; }listlinear; 为了指示对线性表的操作后的返回状态，可以作如下定义
-#define OK 1 #define ERROR 0 #define TRUE 1 #define FALSE 0 线性表初始化 void InitList(listlinear *list) { for(int i=0; i&amp;lt;LIST_LENGTH_MAX; i++) list-&amp;gt;data[i] = 0; list-&amp;gt;length = 0; } 查询数据 查询线性表中的第loc个数据，由于顺序存储的线性表按照先后顺序存储在存储单元内，因此支持随机查询数据, 代码的实现如下
-status GetElim(listlinear list, int loc, int *e){ if(list.length == 0 || loc &amp;gt; list.length) return ERROR; *e = list.data[loc]; return OK; } 插入数据 顺序存储的方式使线性表在需要插入数据时要重新排放存储单元的数据，但要在第loc处插入数据时，loc后的数据需要在当前的存储单元后移个位置，如下图，在data[2]处插入数据，则原来data[2]处的数据需要向后存放致data[3]处，后面的数据依次后移。 代码实现如下:</description>
+#define LIST_LENGTH_MAX 20 struct listlinear_t {  int data[LIST_LENGTH_MAX];  int length; }listlinear; 为了指示对线性表的操作后的返回状态，可以作如下定义
+#define OK 1 #define ERROR 0 #define TRUE 1 #define FALSE 0 线性表初始化 void InitList(listlinear *list) {  for(int i=0; i&amp;lt;LIST_LENGTH_MAX; i++)  list-&amp;gt;data[i] = 0;  list-&amp;gt;length = 0; } 查询数据 查询线性表中的第loc个数据，由于顺序存储的线性表按照先后顺序存储在存储单元内，因此支持随机查询数据, 代码的实现如下
+status GetElim(listlinear list, int loc, int *e){  if(list.length == 0 || loc &amp;gt; list.length)  return ERROR;  *e = list.</description>
     </item>
     
     <item>
@@ -445,15 +445,8 @@ $$ \theta^{(k+1)} = \theta^{(k)}-\eta \nabla J(\theta)|{\theta = \theta^{(k)}} $
       
       <guid>/post/2019/12/05/ycbcr%E6%A0%BC%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
       <description>YCbCr格式的理解 YUV格式 YUV格式有别于传统的RGB三原色格式，YUV是将亮度分量Y和两个色度分量U、V分开，其中Y表示灰阶值，U表示蓝色与亮度值之间的差异，V表示红色与亮度之间的差异，于是对亮度分量的处理Y并不影响U、V分量，此外单独传输Y分量可向后兼容老式黑白电视。YCbCr格式与YUV格式类似，YCbCr主要应用于图像、视频压缩的数字彩色信息表示，是YUV压缩和偏移的版本。RGB与YCbCr的转换如下：
-$$ \begin{bmatrix} Y \\
-Cb \\
-Cr \end{bmatrix} = \begin{bmatrix} 0.299 &amp;amp; 0.587&amp;amp; 0.114 \\
--0.169&amp;amp; -0.331&amp;amp; 0.449 \\
-0.449 &amp;amp; -0.418&amp;amp; -0.0813 \\
-\end{bmatrix} \begin{bmatrix} R \\ G \\ B \end{bmatrix}+ \begin{bmatrix} 0 \\ 128 \\ 128 \end{bmatrix} $$
-$$ \begin{bmatrix} R \\ G \\ B \end{bmatrix} = \begin{bmatrix} 1.0 &amp;amp; 0.0 &amp;amp; 1.402 \\
-1.0 &amp;amp; -0.344 &amp;amp; -0.714 \\
-1.0 &amp;amp; 1.772 &amp;amp; 0.0 \end{bmatrix} \begin{bmatrix} Y \\ Cb-128 \\ Cr-128 \end{bmatrix} $$</description>
+$$ \begin{bmatrix} Y \\ Cb \\ Cr \end{bmatrix} = \begin{bmatrix} 0.299 &amp;amp; 0.587&amp;amp; 0.114 \\ -0.169&amp;amp; -0.331&amp;amp; 0.449 \\ 0.449 &amp;amp; -0.418&amp;amp; -0.0813 \\ \end{bmatrix} \begin{bmatrix} R \\ G \\ B \end{bmatrix}+ \begin{bmatrix} 0 \\ 128 \\ 128 \end{bmatrix} $$
+$$ \begin{bmatrix} R \\ G \\ B \end{bmatrix} = \begin{bmatrix} 1.0 &amp;amp; 0.0 &amp;amp; 1.402 \\ 1.0 &amp;amp; -0.344 &amp;amp; -0.714 \\ 1.0 &amp;amp; 1.772 &amp;amp; 0.0 \end{bmatrix} \begin{bmatrix} Y \\ Cb-128 \\ Cr-128 \end{bmatrix} $$</description>
     </item>
     
     <item>
@@ -482,15 +475,11 @@ $$ \begin{bmatrix} R \\ G \\ B \end{bmatrix} = \begin{bmatrix} 1.0 &amp;amp; 0.0
       
       <guid>/post/2019/11/18/lk%E5%85%89%E6%B5%81%E6%B3%95/</guid>
       <description>1 超定方程组求解 1.1 超定方程组 超定方程组是指方程的个数大于未知数个数的方程组，例如
-$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\
-&amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \\
-a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} \end{bmatrix} \times \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\
-\end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \\ &amp;hellip; \\ b_n \\
-\end{bmatrix} $$
+$$ \begin{bmatrix} a_{11} &amp;amp; a_{12} &amp;amp; a_{13} \\ a_{21} &amp;amp; a_{22} &amp;amp; a_{23} \\ &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; \\ a_{n1} &amp;amp; a_{n2} &amp;amp; a_{n3} \end{bmatrix} \times \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ \end{bmatrix} = \begin{bmatrix} b_1 \\ b_2 \\ &amp;hellip; \\ b_n \\ \end{bmatrix} $$
 其中，$n&amp;gt;3$，将上述方程表示为$\boldsymbol{A}_{n\times 3}x_{3\times 1}=b_{n\times 1}$，该方程不能按照一般的求解方法求解，但可以求的最小二乘法的解。
 先给出结论，该超定方程组的最小二乘解为： $$x=(\boldsymbol{A}^{T}\boldsymbol{A})^{-1}\boldsymbol{A}^{T}b$$
 1.2 超定方程组的最小二乘解 对于无一般解的超定方程组$\boldsymbol{A}x=b$来说，假设$r=\boldsymbol{A}x -b$，使得$||r||^2_2=（\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$的值最小的解即为最小二乘解。于是，问题转变为最小化$(\boldsymbol{A}x -b)^{T}(\boldsymbol{A}x -b)$，令 $$J(x)=(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)$$ 对上式求导，可得
-$$ \begin{aligned} \frac{\partial J(x)}{\partial x} &amp;amp; =\frac{\partial{(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)}}{\partial{x}} \\</description>
+$$ \begin{aligned} \frac{\partial J(x)}{\partial x} &amp;amp; =\frac{\partial{(\boldsymbol{A}x-b)^T(\boldsymbol{A}x-b)}}{\partial{x}} \\ &amp;amp; =\frac{\partial(x^T\boldsymbol{A}^T\boldsymbol{A}x-x^T\boldsymbol{A}^Tb-b^T\boldsymbol{A}x+b^Tb)}{\partial{x}} \\ &amp;amp; =(\boldsymbol{A}^T\boldsymbol{A}x)^T+x^T\boldsymbol{A}\boldsymbol{A}-b^T\boldsymbol{A}-b^T\boldsymbol{A} \\ &amp;amp; =2(x^T\boldsymbol{A}^T\boldsymbol{A}-b^T\boldsymbol{A}) \end{aligned} $$</description>
     </item>
     
     <item>

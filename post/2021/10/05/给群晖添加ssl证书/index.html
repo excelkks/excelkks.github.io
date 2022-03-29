@@ -160,48 +160,48 @@ code.has-jax {
 <p>打开<a href="https://zerossl.com">ZeroSSL官网</a>, 根据提示申请帐户, 这里需要提供一个邮箱, 这个邮箱在acme.sh申请证书时需要用到. 这里多说一句, 利用ZeroSSL官网就已经可以通过图形界面来申请证书了, 并不一定需要acme.sh, 但是我们可以利用acme.sh来自动化续签, 所以还是采用acme.sh的方法来申请证书.</p>
 <h2 id="acmesh申请证书">acme.sh申请证书</h2>
 <p>首先下载acme.sh</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 下载并解压acme.sh</span>
-wget https://github.com/acmesh-official/acme.sh/archive/master.tar.gz
-tar xvf master.tar.gz
-cd acme.sh-master/
-chmod a+x acme.sh
-</code></pre></div><p>在acme.sh的目录下, 有一个dnsapi的目录, 里面存放的是修改各个DNS服务商的API的样本文件, 我这里使用的godaddy, 所以编辑dnsapi/dns_gd.sh, 修改GD_Key和GD_Secret为之前申请的值.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/usr/bin/env sh
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#Godaddy domain api</span>
-<span style="color:#75715e">#</span>
-<span style="color:#75715e">#GD_Key=&#34;这里修改为申请到的GD_Key&#34;</span>
-<span style="color:#75715e">#</span>
-<span style="color:#75715e">#GD_Secret=&#34;这里修改为申请到的GD_Secret&#34;</span>
-
-GD_Api<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://api.godaddy.com/v1&#34;</span>
-</code></pre></div><p>申请证书, <code>--email</code>参数为申请ZeroSSL时所用的邮箱, <code>--dns</code>为dns服务商</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./acme.sh  --email example@email.com --issue   -d  example.com   --dns  dns_gd
-</code></pre></div><p>如果没有问题的话, 证书已经位于<code>~/.acme.sh/example.com</code>路径下了.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 下载并解压acme.sh</span>
+</span></span><span style="display:flex;"><span>wget https://github.com/acmesh-official/acme.sh/archive/master.tar.gz
+</span></span><span style="display:flex;"><span>tar xvf master.tar.gz
+</span></span><span style="display:flex;"><span>cd acme.sh-master/
+</span></span><span style="display:flex;"><span>chmod a+x acme.sh
+</span></span></code></pre></div><p>在acme.sh的目录下, 有一个dnsapi的目录, 里面存放的是修改各个DNS服务商的API的样本文件, 我这里使用的godaddy, 所以编辑dnsapi/dns_gd.sh, 修改GD_Key和GD_Secret为之前申请的值.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/env sh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Godaddy domain api</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#GD_Key=&#34;这里修改为申请到的GD_Key&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#GD_Secret=&#34;这里修改为申请到的GD_Secret&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>GD_Api<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://api.godaddy.com/v1&#34;</span>
+</span></span></code></pre></div><p>申请证书, <code>--email</code>参数为申请ZeroSSL时所用的邮箱, <code>--dns</code>为dns服务商</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./acme.sh  --email example@email.com --issue   -d  example.com   --dns  dns_gd
+</span></span></code></pre></div><p>如果没有问题的话, 证书已经位于<code>~/.acme.sh/example.com</code>路径下了.</p>
 <h2 id="安装证书">安装证书</h2>
 <p>申请好证书后, 安装到群晖上. 首先登陆到群晖的web管理页面, 打开控制面板, 进入高级模式, 点击安全性点击证书, 到达以下界面</p>
 <p><img src="/images/ssl/cert.png" alt="cert"></p>
 <p>点击<code>新增-&gt;导入新证书-&gt;导入证书</code>, 按步骤导入<code>~/.acme.sh/example.com</code>下的私钥和证书. 将导入的证书设为默认, 此时https已经是加密状态了.由于免费证书只有90天的有效期, 下一步, 自动更新证书.</p>
 <h2 id="证书更新">证书更新</h2>
 <h3 id="证书更新-1">证书更新</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./acme.sh --renew -d example.com
-</code></pre></div><p>证书更新后依旧存放在<code>~/.acme.sh/example.com</code>下, 需要再次上传到群晖中. 但是可以通过脚本来实现.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./acme.sh --renew -d example.com
+</span></span></code></pre></div><p>证书更新后依旧存放在<code>~/.acme.sh/example.com</code>下, 需要再次上传到群晖中. 但是可以通过脚本来实现.</p>
 <h3 id="自动上传">自动上传</h3>
 <p>查看证书存放路径</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 查看证书</span>
-ls /usr/syno/etc/certificate/_archive
-</code></pre></div><p>该路径下一般有多个子路径, 包括自带了synology证书和我们自己申请的证书, 确定好我们自己申请的证书目录, 假设为<code>dQPaUd</code>, 那么就可以将证书上传(这里上传表示更新)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./acme.sh --install-cert -d example.com <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --certpath /usr/syno/etc/certificate/_archive/dQPaUd/cert.pem <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --keypath /usr/syno/etc/certificate/_archive/dQPaUd/privkey.pem <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --fullchainpath /usr/syno/etc/certificate/_archive/dQPaUd/fullchain.pem <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --capath /usr/syno/etc/certificate/_archive/dQPaUd/chain.pem <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --reloadcmd
-</code></pre></div><p>同步默认的证书</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">rsync -avzh /usr/syno/etc/certificate/_archive/dQPaUd/ /usr/syno/etc/certificate/system/default
-</code></pre></div><p>重启服务</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/usr/syno/etc/rc.sysv/nginx.sh reload
-</code></pre></div><p>此时, 证书更新完成.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 查看证书</span>
+</span></span><span style="display:flex;"><span>ls /usr/syno/etc/certificate/_archive
+</span></span></code></pre></div><p>该路径下一般有多个子路径, 包括自带了synology证书和我们自己申请的证书, 确定好我们自己申请的证书目录, 假设为<code>dQPaUd</code>, 那么就可以将证书上传(这里上传表示更新)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./acme.sh --install-cert -d example.com <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --certpath /usr/syno/etc/certificate/_archive/dQPaUd/cert.pem <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --keypath /usr/syno/etc/certificate/_archive/dQPaUd/privkey.pem <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --fullchainpath /usr/syno/etc/certificate/_archive/dQPaUd/fullchain.pem <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --capath /usr/syno/etc/certificate/_archive/dQPaUd/chain.pem <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --reloadcmd
+</span></span></code></pre></div><p>同步默认的证书</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rsync -avzh /usr/syno/etc/certificate/_archive/dQPaUd/ /usr/syno/etc/certificate/system/default
+</span></span></code></pre></div><p>重启服务</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>/usr/syno/etc/rc.sysv/nginx.sh reload
+</span></span></code></pre></div><p>此时, 证书更新完成.</p>
 <h2 id="自动更新证书">自动更新证书</h2>
 <p>证书更新部分属于每90天更新一次, 可以通过自动执行脚本去实现, 而不是每90天自己去执行. 这设定每个月执行一次. 打开<code>控制面板-&gt;任务计划</code></p>
 <h3 id="更新证书">更新证书</h3>
@@ -210,22 +210,22 @@ ls /usr/syno/etc/certificate/_archive
 <p>添加一个脚本</p>
 <p><img src="/images/ssl/script.png" alt="script"></p>
 <p>由于我把acme.sh执行文件放在了<code>/volume1/docker/cert/acme.sh-master</code>下, 所以我的脚本为</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 不要忘了吧example.com换成你自己的域名</span>
-/volume1/docker/cert/acme.sh-master/acme.sh --renew -d example.com
-</code></pre></div><h3 id="自动上传-1">自动上传</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 不要忘了吧example.com换成你自己的域名</span>
+</span></span><span style="display:flex;"><span>/volume1/docker/cert/acme.sh-master/acme.sh --renew -d example.com
+</span></span></code></pre></div><h3 id="自动上传-1">自动上传</h3>
 <p>和上一步一样, 再增加一个计划事件, 但是事件运行时间改为<code>4:30</code>, 比更新证书晚30分钟, 脚本设置如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">/volume1/docker/cert/acme.sh-master/acme.sh <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --install-cert -d example.com <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --certpath /usr/syno/etc/certificate/_archive/dQPaUd/cert.pem <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --keypath /usr/syno/etc/certificate/_archive/dQPaUd/privkey.pem <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --fullchainpath /usr/syno/etc/certificate/_archive/dQPaUd/fullchain.pem <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --capath /usr/syno/etc/certificate/_archive/dQPaUd/chain.pem <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    --reloadcmd
-
-rsync -avzh /usr/syno/etc/certificate/_archive/dQPaUd/ /usr/syno/etc/certificate/system/default/
-
-/usr/syno/etc/rc.sysv/nginx.sh reload
-</code></pre></div><p>至此, 自动更新证书完成.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>/volume1/docker/cert/acme.sh-master/acme.sh <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --install-cert -d example.com <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --certpath /usr/syno/etc/certificate/_archive/dQPaUd/cert.pem <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --keypath /usr/syno/etc/certificate/_archive/dQPaUd/privkey.pem <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --fullchainpath /usr/syno/etc/certificate/_archive/dQPaUd/fullchain.pem <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --capath /usr/syno/etc/certificate/_archive/dQPaUd/chain.pem <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --reloadcmd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rsync -avzh /usr/syno/etc/certificate/_archive/dQPaUd/ /usr/syno/etc/certificate/system/default/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/usr/syno/etc/rc.sysv/nginx.sh reload
+</span></span></code></pre></div><p>至此, 自动更新证书完成.</p>
 
 
   <footer>

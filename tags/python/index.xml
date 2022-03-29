@@ -14,7 +14,7 @@
       
       <guid>/post/2020/12/11/os%E6%A8%A1%E5%9D%97/</guid>
       <description>os.walk os.walk(path)用于遍历目录。返回值是一个遍历器，需要用for循环不断遍历，每次遍历得到长度为3的tuple，分别为(目录, [目录下的子目录], [目录下的文件])。 使用方法示例:
-for root, dirs, files in os.walk(&amp;#39;.&amp;#39;): for file in files: print(os.path.join(root, file)) for dir in dirs: print(os.path.join(root, dir)) ./directory_2 ./directory_1 ./directory_2/file_2_1 ./directory_2/directory_2_1 ./directory_2/directory_2_1/file_2_1_1 ./directory_1/directory_1_1 ./directory_1/directory_1_2 ./directory_1/directory_1_1/file_1_1_2 ./directory_1/directory_1_1/file_1_1_1 ./directory_1/directory_1_2/file_1_2_1 glob模块 glob.glob glob.glob用于以shell-style的方式匹配目录下的文件, 例如shell匹配所有jpg图片
+for root, dirs, files in os.walk(&amp;#39;.&amp;#39;):  for file in files:  print(os.path.join(root, file))  for dir in dirs:  print(os.path.join(root, dir)) ./directory_2 ./directory_1 ./directory_2/file_2_1 ./directory_2/directory_2_1 ./directory_2/directory_2_1/file_2_1_1 ./directory_1/directory_1_1 ./directory_1/directory_1_2 ./directory_1/directory_1_1/file_1_1_2 ./directory_1/directory_1_1/file_1_1_1 ./directory_1/directory_1_2/file_1_2_1 glob模块 glob.glob glob.glob用于以shell-style的方式匹配目录下的文件, 例如shell匹配所有jpg图片
 *.jpg 在python中用glob.glob的方式为
 files = glob.glob(&amp;#39;*.py&amp;#39;) numpy模块 random.get_state numpy.random.get_state()一般与numpy.random.set_state()和numpy.random.shuffle()一起使用，用于打乱numpy数组的顺序。例如打乱数据集
 state = np.random.get_state() np.random.shuffle(dataset_images) # 保证打乱的顺序与之前一致 np.random.set_state(state) np.random.shuffle(dataset_labels) </description>

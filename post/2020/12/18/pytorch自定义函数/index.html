@@ -145,43 +145,43 @@ code.has-jax {
 <h2 id="torchautogradfunction"><code>torch.autograd.Function</code></h2>
 <p>自定义一个计算过程，并且定义其反向传播过程。例如计算 $y = a+bx+cx^2+dx^3$时，用两步替代该过程 $y= a+b\times P_3(c+dx), P_3(x) = \frac{1}{2}(5x^3-3x)$</p>
 <p>那么可以通过<code>torch.autograd.Function</code>定义$P_3(x)$，过程如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
-<span style="color:#f92672">import</span> torch
-<span style="color:#f92672">import</span> math
-
-
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LegendrePolynomial3</span>(torch<span style="color:#f92672">.</span>autograd<span style="color:#f92672">.</span>Function):
-    <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">    We can implement our own custom autograd Functions by subclassing
-</span><span style="color:#e6db74">    torch.autograd.Function and implementing the forward and backward passes
-</span><span style="color:#e6db74">    which operate on Tensors.
-</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
-
-    <span style="color:#a6e22e">@staticmethod</span>
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(ctx, input):
-        <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">        In the forward pass we receive a Tensor containing the input and return
-</span><span style="color:#e6db74">        a Tensor containing the output. ctx is a context object that can be used
-</span><span style="color:#e6db74">        to stash information for backward computation. You can cache arbitrary
-</span><span style="color:#e6db74">        objects for use in the backward pass using the ctx.save_for_backward method.
-</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
-        ctx<span style="color:#f92672">.</span>save_for_backward(input)
-        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> (<span style="color:#ae81ff">5</span> <span style="color:#f92672">*</span> input <span style="color:#f92672">**</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> input)
-
-    <span style="color:#a6e22e">@staticmethod</span>
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">backward</span>(ctx, grad_output):
-        <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">        In the backward pass we receive a Tensor containing the gradient of the loss
-</span><span style="color:#e6db74">        with respect to the output, and we need to compute the gradient of the loss
-</span><span style="color:#e6db74">        with respect to the input.
-</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
-        input, <span style="color:#f92672">=</span> ctx<span style="color:#f92672">.</span>saved_tensors
-        <span style="color:#66d9ef">return</span> grad_output <span style="color:#f92672">*</span> <span style="color:#ae81ff">1.5</span> <span style="color:#f92672">*</span> (<span style="color:#ae81ff">5</span> <span style="color:#f92672">*</span> input <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
-</code></pre></div><h3 id="apply方法"><code>apply</code>方法</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># -*- coding: utf-8 -*-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> math
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LegendrePolynomial3</span>(torch<span style="color:#f92672">.</span>autograd<span style="color:#f92672">.</span>Function):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    We can implement our own custom autograd Functions by subclassing
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    torch.autograd.Function and implementing the forward and backward passes
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    which operate on Tensors.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@staticmethod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(ctx, input):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        In the forward pass we receive a Tensor containing the input and return
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        a Tensor containing the output. ctx is a context object that can be used
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        to stash information for backward computation. You can cache arbitrary
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        objects for use in the backward pass using the ctx.save_for_backward method.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        ctx<span style="color:#f92672">.</span>save_for_backward(input)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> (<span style="color:#ae81ff">5</span> <span style="color:#f92672">*</span> input <span style="color:#f92672">**</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> input)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@staticmethod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">backward</span>(ctx, grad_output):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        In the backward pass we receive a Tensor containing the gradient of the loss
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        with respect to the output, and we need to compute the gradient of the loss
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        with respect to the input.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        input, <span style="color:#f92672">=</span> ctx<span style="color:#f92672">.</span>saved_tensors
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> grad_output <span style="color:#f92672">*</span> <span style="color:#ae81ff">1.5</span> <span style="color:#f92672">*</span> (<span style="color:#ae81ff">5</span> <span style="color:#f92672">*</span> input <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><h3 id="apply方法"><code>apply</code>方法</h3>
 <p><code>torch.autograd.Function</code>定义的计算过程通过<code>apples</code>来调用。例如</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">P3 <span style="color:#f92672">=</span> LegendrePolynomial3<span style="color:#f92672">.</span>apply
-y_pred <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b<span style="color:#f92672">*</span>P3(c<span style="color:#f92672">+</span>d<span style="color:#f92672">*</span>x)
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>P3 <span style="color:#f92672">=</span> LegendrePolynomial3<span style="color:#f92672">.</span>apply
+</span></span><span style="display:flex;"><span>y_pred <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b<span style="color:#f92672">*</span>P3(c<span style="color:#f92672">+</span>d<span style="color:#f92672">*</span>x)
+</span></span></code></pre></div>
 
   <footer>
   

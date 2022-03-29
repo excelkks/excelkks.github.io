@@ -17,10 +17,10 @@
       
       <meta property="description" content="在linux中开启samba共享服务，首先安装samba服务
 [&amp;hellip;] # ubuntu apt install samba 配置文件的路径在/etc/samba/smb.conf，如果需要添加共享，需要添加如下内容
-[&amp;hellip;] [share] comment = comments path = /path/to/share browseable = yes &amp;hellip;">
+[&amp;hellip;] [share]  comment = comments  path = /path/to/share  browseable = yes &amp;hellip;">
       <meta property="og:description" content="在linux中开启samba共享服务，首先安装samba服务
 [&amp;hellip;] # ubuntu apt install samba 配置文件的路径在/etc/samba/smb.conf，如果需要添加共享，需要添加如下内容
-[&amp;hellip;] [share] comment = comments path = /path/to/share browseable = yes &amp;hellip;">
+[&amp;hellip;] [share]  comment = comments  path = /path/to/share  browseable = yes &amp;hellip;">
       
     
 
@@ -142,27 +142,27 @@ code.has-jax {
 <h2 id="linux中samba的应用">linux中samba的应用</h2>
 <h3 id="服务器端">服务器端</h3>
 <p>在linux中开启samba共享服务，首先安装samba服务</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># ubuntu</span>
-apt install samba
-</code></pre></div><p>配置文件的路径在<code>/etc/samba/smb.conf</code>，如果需要添加共享，需要添加如下内容</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>share<span style="color:#f92672">]</span>
-  comment <span style="color:#f92672">=</span> comments
-  path <span style="color:#f92672">=</span> /path/to/share
-  browseable <span style="color:#f92672">=</span> yes
-  writeable <span style="color:#f92672">=</span> yes
-  public <span style="color:#f92672">=</span> yes
-  <span style="color:#75715e"># create mask = 0775   # 创建文件的权限</span>
-  <span style="color:#75715e"># directory mask = 0775  # 创建目录的权限</span>
-  <span style="color:#75715e"># valid users = heijunma,root  #允许访问该共享的用户</span>
-  <span style="color:#75715e"># write list = heijunma,root  #可写入共享的用户列表</span>
-</code></pre></div><p>重启smb服务</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">service smbd restart
-service nmb restart
-</code></pre></div><h3 id="在linux中访问samba共享">在linux中访问samba共享</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># ubuntu</span>
+</span></span><span style="display:flex;"><span>apt install samba
+</span></span></code></pre></div><p>配置文件的路径在<code>/etc/samba/smb.conf</code>，如果需要添加共享，需要添加如下内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>share<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  comment <span style="color:#f92672">=</span> comments
+</span></span><span style="display:flex;"><span>  path <span style="color:#f92672">=</span> /path/to/share
+</span></span><span style="display:flex;"><span>  browseable <span style="color:#f92672">=</span> yes
+</span></span><span style="display:flex;"><span>  writeable <span style="color:#f92672">=</span> yes
+</span></span><span style="display:flex;"><span>  public <span style="color:#f92672">=</span> yes
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># create mask = 0775   # 创建文件的权限</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># directory mask = 0775  # 创建目录的权限</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># valid users = heijunma,root  #允许访问该共享的用户</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># write list = heijunma,root  #可写入共享的用户列表</span>
+</span></span></code></pre></div><p>重启smb服务</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>service smbd restart
+</span></span><span style="display:flex;"><span>service nmb restart
+</span></span></code></pre></div><h3 id="在linux中访问samba共享">在linux中访问samba共享</h3>
 <p>首先需要安装<code>cifs</code>，再进行挂载，samba的默认端口为445和139</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">apt install cifs-utils
-mount.cifs -o username<span style="color:#f92672">=</span>user,password<span style="color:#f92672">=</span>passwd,port<span style="color:#f92672">=</span>&lt;port&gt; //ip/share/path/ /mount/point
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>apt install cifs-utils
+</span></span><span style="display:flex;"><span>mount.cifs -o username<span style="color:#f92672">=</span>user,password<span style="color:#f92672">=</span>passwd,port<span style="color:#f92672">=</span>&lt;port&gt; //ip/share/path/ /mount/point
+</span></span></code></pre></div>
 
   <footer>
   

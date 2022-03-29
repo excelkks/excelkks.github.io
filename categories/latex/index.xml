@@ -19,9 +19,9 @@
   ctexbook对应book
   ctexbeamer对应breamer
 以下是一个基本示例
-\documentclass[UTF8]{ctexart} \begin{document} 中文文档类测试。你需要将所有的源文件保存为 UTF-8 编码。 你可以使用 XeLaTeX 或 LuaLaTeX 编译。 \end{document}   具体的可以查看宏包的文档, 查看宏包文档的方式是在终端输入texdoc &amp;lt;package&amp;gt;, 这里输入texdoc ctex即可打开ctex的说明文档.
+\documentclass[UTF8]{ctexart} \begin{document} 中文文档类测试。你需要将所有的源文件保存为 UTF-8 编码。  你可以使用 XeLaTeX 或 LuaLaTeX 编译。 \end{document}   具体的可以查看宏包的文档, 查看宏包文档的方式是在终端输入texdoc &amp;lt;package&amp;gt;, 这里输入texdoc ctex即可打开ctex的说明文档.
 字体设置 你可以在导言区加入\ctexset控制命令来设置一些字体相关的内容, 例如可以设置摘要和参考文献的名称, 格式如下:
-\ctexset{ abstractname = {本文概要}, bibname = {文\quad 献} } ctex设置了一些默认的字体集, 基本上是根据操作系统来设置的, 默认情况下会根据当前操作系统来设置, 这些字体集的具体设置可以在ctex宏包的目录下的. 字体集的设置可以在\documentclass中设置, 也可以在\ctexset中设置, 下面是两种设置方式:
+\ctexset{  abstractname = {本文概要},  bibname = {文\quad 献} } ctex设置了一些默认的字体集, 基本上是根据操作系统来设置的, 默认情况下会根据当前操作系统来设置, 这些字体集的具体设置可以在ctex宏包的目录下的. 字体集的设置可以在\documentclass中设置, 也可以在\ctexset中设置, 下面是两种设置方式:
 % fontset = &amp;lt;none | adobe | fondol | founder | mac | % macnew | macold | ubuntu | windows | windowsnew | % windowsold |.</description>
     </item>
     

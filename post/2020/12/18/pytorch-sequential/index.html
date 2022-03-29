@@ -16,9 +16,9 @@
     
       
       <meta property="description" content="快速构建一个neural network可以通过torch.nn.Module构建类，也可通过设计一个torch.nn.Sequential来构建网络计算过程。实际上，只需要将网络上的各个计算过程都堆叠在Sequential中既可以了，例如：
-[&amp;hellip;] model = torch.nn.Sequential( torch.nn.Linear(3, 1), &amp;hellip;">
+[&amp;hellip;] model = torch.nn.Sequential(  torch.nn.Linear(3, 1), &amp;hellip;">
       <meta property="og:description" content="快速构建一个neural network可以通过torch.nn.Module构建类，也可通过设计一个torch.nn.Sequential来构建网络计算过程。实际上，只需要将网络上的各个计算过程都堆叠在Sequential中既可以了，例如：
-[&amp;hellip;] model = torch.nn.Sequential( torch.nn.Linear(3, 1), &amp;hellip;">
+[&amp;hellip;] model = torch.nn.Sequential(  torch.nn.Linear(3, 1), &amp;hellip;">
       
     
 
@@ -139,41 +139,41 @@ code.has-jax {
 
 <h2 id="torchnnsequential"><code>torch.nn.Sequential</code></h2>
 <p>快速构建一个neural network可以通过<code>torch.nn.Module</code>构建类，也可通过设计一个<code>torch.nn.Sequential</code>来构建网络计算过程。实际上，只需要将网络上的各个计算过程都堆叠在Sequential中既可以了，例如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">model <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
-        torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>),
-        torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Flatten(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>))
-</code></pre></div><p>Sequential是一个容器，一般来说，可以用多个Sequential来构建Module. 例如LeNet-5网络的构建</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LeNet5</span>(torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Module):
-    <span style="color:#66d9ef">def</span> __init__(self):
-        super(LeNet5,self)<span style="color:#f92672">.</span>__init__()
-        self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
-            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>),
-            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ReLU(),
-            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>MaxPool2d(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)
-        )
-        self<span style="color:#f92672">.</span>conv2 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
-            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">5</span>),
-            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ReLU(),
-            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>MaxPool2d(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)
-        )
-        self<span style="color:#f92672">.</span>conv3 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
-            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">120</span>,<span style="color:#ae81ff">5</span>),
-            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ReLU()
-        )
-        self<span style="color:#f92672">.</span>fc <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
-            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">120</span>,<span style="color:#ae81ff">84</span>),
-            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ReLU(),
-            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">84</span>,<span style="color:#ae81ff">10</span>),
-            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>LogSoftmax(dim<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>)
-        )
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, image):
-        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>conv1(image)
-        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>conv2(output)
-        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>conv3(output)
-        output <span style="color:#f92672">=</span> output<span style="color:#f92672">.</span>view(image<span style="color:#f92672">.</span>size(<span style="color:#ae81ff">0</span>),<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
-        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc(output)
-        <span style="color:#66d9ef">return</span> output
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>model <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>        torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>        torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Flatten(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>))
+</span></span></code></pre></div><p>Sequential是一个容器，一般来说，可以用多个Sequential来构建Module. 例如LeNet-5网络的构建</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LeNet5</span>(torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        super(LeNet5,self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>),
+</span></span><span style="display:flex;"><span>            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ReLU(),
+</span></span><span style="display:flex;"><span>            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>MaxPool2d(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv2 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">5</span>),
+</span></span><span style="display:flex;"><span>            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ReLU(),
+</span></span><span style="display:flex;"><span>            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>MaxPool2d(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv3 <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">16</span>,<span style="color:#ae81ff">120</span>,<span style="color:#ae81ff">5</span>),
+</span></span><span style="display:flex;"><span>            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ReLU()
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Sequential(
+</span></span><span style="display:flex;"><span>            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">120</span>,<span style="color:#ae81ff">84</span>),
+</span></span><span style="display:flex;"><span>            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ReLU(),
+</span></span><span style="display:flex;"><span>            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">84</span>,<span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>            torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>LogSoftmax(dim<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, image):
+</span></span><span style="display:flex;"><span>        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>conv1(image)
+</span></span><span style="display:flex;"><span>        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>conv2(output)
+</span></span><span style="display:flex;"><span>        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>conv3(output)
+</span></span><span style="display:flex;"><span>        output <span style="color:#f92672">=</span> output<span style="color:#f92672">.</span>view(image<span style="color:#f92672">.</span>size(<span style="color:#ae81ff">0</span>),<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc(output)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> output
+</span></span></code></pre></div>
 
   <footer>
   

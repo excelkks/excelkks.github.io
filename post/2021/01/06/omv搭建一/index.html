@@ -17,10 +17,10 @@
       
       <meta property="description" content="在面板上设置了静态网络发现无法上网，因此这里直接编辑netplan的配置文件实现静态ipv4.
 编辑文件/etc/netplan/10-openmediavault-eno1.yaml
-[&amp;hellip;] network: ethernets: eno1: match: macaddress: xx:xx:xx:xx:xx:xx dhcp4: false dhcp6: false &amp;hellip;">
+[&amp;hellip;] network:  ethernets:  eno1:  match:  macaddress: xx:xx:xx:xx:xx:xx  dhcp4: false  dhcp6: false &amp;hellip;">
       <meta property="og:description" content="在面板上设置了静态网络发现无法上网，因此这里直接编辑netplan的配置文件实现静态ipv4.
 编辑文件/etc/netplan/10-openmediavault-eno1.yaml
-[&amp;hellip;] network: ethernets: eno1: match: macaddress: xx:xx:xx:xx:xx:xx dhcp4: false dhcp6: false &amp;hellip;">
+[&amp;hellip;] network:  ethernets:  eno1:  match:  macaddress: xx:xx:xx:xx:xx:xx  dhcp4: false  dhcp6: false &amp;hellip;">
       
     
 
@@ -142,21 +142,21 @@ code.has-jax {
 <h1 id="omv配置网络">omv配置网络</h1>
 <p>在面板上设置了静态网络发现无法上网，因此这里直接编辑netplan的配置文件实现静态ipv4.</p>
 <p>编辑文件<code>/etc/netplan/10-openmediavault-eno1.yaml</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">network:
-  ethernets:
-    eno1:
-      match:
-        macaddress: xx:xx:xx:xx:xx:xx
-      dhcp4: false
-      dhcp6: false
-      addresses: <span style="color:#f92672">[</span>192.168.2.222/24<span style="color:#f92672">]</span>
-      gateway4: 192.168.2.1
-      nameservers:
-        addresses: <span style="color:#f92672">[</span>114.114.114.114, 8.8.8.8<span style="color:#f92672">]</span>
-      link-local: <span style="color:#f92672">[]</span>
-</code></pre></div><p>最后执行</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">netplan apply
-</code></pre></div><p>上面编辑的配置文件中相当于没有启用ipv6，如果要启用ipv6，可以把 <code>dhcp6: false</code> 改为<code>dhcp6: true</code> .</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>network:
+</span></span><span style="display:flex;"><span>  ethernets:
+</span></span><span style="display:flex;"><span>    eno1:
+</span></span><span style="display:flex;"><span>      match:
+</span></span><span style="display:flex;"><span>        macaddress: xx:xx:xx:xx:xx:xx
+</span></span><span style="display:flex;"><span>      dhcp4: false
+</span></span><span style="display:flex;"><span>      dhcp6: false
+</span></span><span style="display:flex;"><span>      addresses: <span style="color:#f92672">[</span>192.168.2.222/24<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>      gateway4: 192.168.2.1
+</span></span><span style="display:flex;"><span>      nameservers:
+</span></span><span style="display:flex;"><span>        addresses: <span style="color:#f92672">[</span>114.114.114.114, 8.8.8.8<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>      link-local: <span style="color:#f92672">[]</span>
+</span></span></code></pre></div><p>最后执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>netplan apply
+</span></span></code></pre></div><p>上面编辑的配置文件中相当于没有启用ipv6，如果要启用ipv6，可以把 <code>dhcp6: false</code> 改为<code>dhcp6: true</code> .</p>
 <h3 id="docker安装">docker安装</h3>
 <pre tabindex="0"><code class="language-shel" data-lang="shel">wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash
 </code></pre><h2 id="ipv6-ddns">ipv6 ddns</h2>
@@ -176,49 +176,49 @@ code.has-jax {
 <p><img src="/images/nas/created.png" alt="created"></p>
 <h3 id="创建脚本">创建脚本</h3>
 <p>将上面的到的Key和Secret填入下方</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#这里是你购买的域名</span>
-mydomain<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;domain.xyz&#34;</span>
-<span style="color:#75715e">#这里是dns配置中的名称</span>
-myhostname<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;router&#34;</span>
-<span style="color:#75715e">#这里key和Secret之间注意有个冒号</span>
-gdapikey<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;你的key:你的Secret&#34;</span>
-logdest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;local7.info&#34;</span>
-<span style="color:#75715e">#另外注意，我这里的ipv6地址，所以使用的是AAAA类型解析，如果是ipv4那么下面所有的AAAA需改为A</span>
-
-setNewIp<span style="color:#f92672">(){</span>
-    <span style="color:#75715e">#这里的地址也是为ipv6服务，ipv4地址为https://api.ipify.org</span>
-    myip<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>curl -s <span style="color:#e6db74">&#34;https://api6.ipify.org&#34;</span><span style="color:#e6db74">`</span>
-    dnsdata<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>curl -s -X GET -H <span style="color:#e6db74">&#34;Authorization: sso-key </span><span style="color:#e6db74">${</span>gdapikey<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;https://api.godaddy.com/v1/domains/</span><span style="color:#e6db74">${</span>mydomain<span style="color:#e6db74">}</span><span style="color:#e6db74">/records/AAAA/</span><span style="color:#e6db74">${</span>myhostname<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">`</span><span style="color:#75715e">#这里最后的2-9是针对性取得ipv6的字符, dnsdata中的返回字符串是一个json格式，需对齐解析。</span>
-    gdip<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>echo $dnsdata | cut -d <span style="color:#e6db74">&#39;,&#39;</span> -f <span style="color:#ae81ff">1</span> | tr -d <span style="color:#e6db74">&#39;&#34;&#39;</span> | cut -d <span style="color:#e6db74">&#34;:&#34;</span> -f 2-9<span style="color:#e6db74">`</span>
-    echo <span style="color:#e6db74">&#34;`date &#39;+%Y-%m-%d %H:%M:%S&#39;` - Current External IP is </span>$myip<span style="color:#e6db74">, GoDaddy DNS IP is </span>$gdip<span style="color:#e6db74">&#34;</span>
-
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$gdip<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span>$myip<span style="color:#e6db74">&#34;</span> -a <span style="color:#e6db74">&#34;</span>$myip<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-        echo <span style="color:#e6db74">&#34;IP has changed!! Updating on GoDaddy&#34;</span>
-        curl -s -X PUT <span style="color:#e6db74">&#34;https://api.godaddy.com/v1/domains/</span><span style="color:#e6db74">${</span>mydomain<span style="color:#e6db74">}</span><span style="color:#e6db74">/records/AAAA/</span><span style="color:#e6db74">${</span>myhostname<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> -H <span style="color:#e6db74">&#34;Authorization: sso-key </span><span style="color:#e6db74">${</span>gdapikey<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> -d <span style="color:#e6db74">&#34;[{\&#34;data\&#34;: \&#34;</span><span style="color:#e6db74">${</span>myip<span style="color:#e6db74">}</span><span style="color:#e6db74">\&#34;}]&#34;</span>
-        logger -p $logdest <span style="color:#e6db74">&#34;Changed IP on </span><span style="color:#e6db74">${</span>hostname<span style="color:#e6db74">}</span><span style="color:#e6db74">.</span><span style="color:#e6db74">${</span>mydomain<span style="color:#e6db74">}</span><span style="color:#e6db74"> from </span><span style="color:#e6db74">${</span>gdip<span style="color:#e6db74">}</span><span style="color:#e6db74"> to </span><span style="color:#e6db74">${</span>myip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-    <span style="color:#66d9ef">fi</span>
-<span style="color:#f92672">}</span>
-<span style="color:#66d9ef">while</span><span style="color:#f92672">(</span>true<span style="color:#f92672">)</span>:
-<span style="color:#66d9ef">do</span>
-    setNewIp
-    <span style="color:#75715e"># 每15分钟更新一下IP</span>
-    sleep <span style="color:#ae81ff">900</span>
-<span style="color:#66d9ef">done</span>
-</code></pre></div><h3 id="开机执行脚本">开机执行脚本</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#这里是你购买的域名</span>
+</span></span><span style="display:flex;"><span>mydomain<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;domain.xyz&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#这里是dns配置中的名称</span>
+</span></span><span style="display:flex;"><span>myhostname<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;router&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#这里key和Secret之间注意有个冒号</span>
+</span></span><span style="display:flex;"><span>gdapikey<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;你的key:你的Secret&#34;</span>
+</span></span><span style="display:flex;"><span>logdest<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;local7.info&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#另外注意，我这里的ipv6地址，所以使用的是AAAA类型解析，如果是ipv4那么下面所有的AAAA需改为A</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>setNewIp<span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#这里的地址也是为ipv6服务，ipv4地址为https://api.ipify.org</span>
+</span></span><span style="display:flex;"><span>    myip<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>curl -s <span style="color:#e6db74">&#34;https://api6.ipify.org&#34;</span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>    dnsdata<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>curl -s -X GET -H <span style="color:#e6db74">&#34;Authorization: sso-key </span><span style="color:#e6db74">${</span>gdapikey<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;https://api.godaddy.com/v1/domains/</span><span style="color:#e6db74">${</span>mydomain<span style="color:#e6db74">}</span><span style="color:#e6db74">/records/AAAA/</span><span style="color:#e6db74">${</span>myhostname<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">`</span><span style="color:#75715e">#这里最后的2-9是针对性取得ipv6的字符, dnsdata中的返回字符串是一个json格式，需对齐解析。</span>
+</span></span><span style="display:flex;"><span>    gdip<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>echo $dnsdata | cut -d <span style="color:#e6db74">&#39;,&#39;</span> -f <span style="color:#ae81ff">1</span> | tr -d <span style="color:#e6db74">&#39;&#34;&#39;</span> | cut -d <span style="color:#e6db74">&#34;:&#34;</span> -f 2-9<span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;`date &#39;+%Y-%m-%d %H:%M:%S&#39;` - Current External IP is </span>$myip<span style="color:#e6db74">, GoDaddy DNS IP is </span>$gdip<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$gdip<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span>$myip<span style="color:#e6db74">&#34;</span> -a <span style="color:#e6db74">&#34;</span>$myip<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        echo <span style="color:#e6db74">&#34;IP has changed!! Updating on GoDaddy&#34;</span>
+</span></span><span style="display:flex;"><span>        curl -s -X PUT <span style="color:#e6db74">&#34;https://api.godaddy.com/v1/domains/</span><span style="color:#e6db74">${</span>mydomain<span style="color:#e6db74">}</span><span style="color:#e6db74">/records/AAAA/</span><span style="color:#e6db74">${</span>myhostname<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> -H <span style="color:#e6db74">&#34;Authorization: sso-key </span><span style="color:#e6db74">${</span>gdapikey<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> -d <span style="color:#e6db74">&#34;[{\&#34;data\&#34;: \&#34;</span><span style="color:#e6db74">${</span>myip<span style="color:#e6db74">}</span><span style="color:#e6db74">\&#34;}]&#34;</span>
+</span></span><span style="display:flex;"><span>        logger -p $logdest <span style="color:#e6db74">&#34;Changed IP on </span><span style="color:#e6db74">${</span>hostname<span style="color:#e6db74">}</span><span style="color:#e6db74">.</span><span style="color:#e6db74">${</span>mydomain<span style="color:#e6db74">}</span><span style="color:#e6db74"> from </span><span style="color:#e6db74">${</span>gdip<span style="color:#e6db74">}</span><span style="color:#e6db74"> to </span><span style="color:#e6db74">${</span>myip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span><span style="color:#f92672">(</span>true<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>    setNewIp
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 每15分钟更新一下IP</span>
+</span></span><span style="display:flex;"><span>    sleep <span style="color:#ae81ff">900</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span></code></pre></div><h3 id="开机执行脚本">开机执行脚本</h3>
 <p>将上面的脚本命名为<code>ddnsipv6.sh</code>放如路径<code>/etc/scripts</code>中，利用systemd开机启动脚本，在<code>/etc/systemd/system</code>中创建服务<code>renewip.service</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
-Description<span style="color:#f92672">=</span>renew ipv6 <span style="color:#f92672">(</span>ddns<span style="color:#f92672">)</span>
-After<span style="color:#f92672">=</span>network.target
-
-<span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
-Type<span style="color:#f92672">=</span>oneshot
-ExecStart<span style="color:#f92672">=</span>/bin/bash /etc/scripts
-
-<span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
-WantedBy<span style="color:#f92672">=</span>multi-user.target
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Description<span style="color:#f92672">=</span>renew ipv6 <span style="color:#f92672">(</span>ddns<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>After<span style="color:#f92672">=</span>network.target
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Type<span style="color:#f92672">=</span>oneshot
+</span></span><span style="display:flex;"><span>ExecStart<span style="color:#f92672">=</span>/bin/bash /etc/scripts
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>WantedBy<span style="color:#f92672">=</span>multi-user.target
+</span></span></code></pre></div>
 
   <footer>
   
