@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>c&#43;&#43; on excelkks</title>
+    <link>/tags/c&#43;&#43;/</link>
+    <description>Recent content in c&#43;&#43; on excelkks</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 09 Oct 2022 14:01:12 +0800</lastBuildDate><atom:link href="/tags/c++/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C&#43;&#43;知识</title>
+      <link>/post/2022/10/09/c-%E7%9F%A5%E8%AF%86/</link>
+      <pubDate>Sun, 09 Oct 2022 14:01:12 +0800</pubDate>
+      
+      <guid>/post/2022/10/09/c-%E7%9F%A5%E8%AF%86/</guid>
+      <description>纯虚类的命名  加if表示interface. 例如HM中的TEncEntropyIf, TComBitIf, TEncBinIf  </description>
+    </item>
+    
+  </channel>
+</rss>

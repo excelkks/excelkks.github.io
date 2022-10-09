@@ -6,14 +6,23 @@
     <description>Recent content in Home on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Oct 2022 10:15:05 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Oct 2022 14:01:12 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Vim_tips</title>
-      <link>/post/2022/10/08/vim_tips/</link>
+      <title>C&#43;&#43;知识</title>
+      <link>/post/2022/10/09/c-%E7%9F%A5%E8%AF%86/</link>
+      <pubDate>Sun, 09 Oct 2022 14:01:12 +0800</pubDate>
+      
+      <guid>/post/2022/10/09/c-%E7%9F%A5%E8%AF%86/</guid>
+      <description>纯虚类的命名  加if表示interface. 例如HM中的TEncEntropyIf, TComBitIf, TEncBinIf  </description>
+    </item>
+    
+    <item>
+      <title>vim tips</title>
+      <link>/post/2022/10/08/vim-tips/</link>
       <pubDate>Sat, 08 Oct 2022 10:15:05 +0800</pubDate>
       
-      <guid>/post/2022/10/08/vim_tips/</guid>
-      <description></description>
+      <guid>/post/2022/10/08/vim-tips/</guid>
+      <description>命令:g和:v :g表示</description>
     </item>
     
     <item>
