@@ -17,7 +17,7 @@
 在网上搜了一圈后，普遍给出的方案都是把 double backslash 换为quadruple backslash\\\\，这样确实可以解决问题，但是问题也很明显，就是无法与其他的 Markdown 编辑器兼容，特别是我平时喜欢用 Tyopra 编辑markdown文件。
 我的最终方案是在hugo博客的根目录下建立一个data路径用于存放原始的markdown文件，平时的编辑，更改都在data/post路径下的mardown文件进行，写好后再用脚本将data/post文章的公式中的double backslash改为quadraple backslash后放入content/post中。这样平时只需要在data/post中编辑，编辑完后在用脚本renew一下就可以了。这应该是我能想到的最不折腾的方案了。
 我的写作流程基本上可以归结为如下：
- blog -n &amp;quot;post title&amp;quot; 基于hugo的hugo new post/post_title 创建post并放到data/post路径下 在data/post路径下写作 blog -r 更新所有post，即处理\\ blog -d &amp;quot;comment&amp;quot; 提交到仓库，更新博客网站  </description>
+blog -n &amp;quot;post title&amp;quot; 基于hugo的hugo new post/post_title 创建post并放到data/post路径下 在data/post路径下写作 blog -r 更新所有post，即处理\\ blog -d &amp;quot;comment&amp;quot; 提交到仓库，更新博客网站 </description>
     </item>
     
     <item>
@@ -26,21 +26,22 @@
       <pubDate>Thu, 27 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>/post/2020/08/27/pandocs-markdown/</guid>
-      <description>段落 分段必须要用空行隔开，多个空行只当作1个空行。如果需要强制空行，可以用反斜杠符加换行符。例如
-段落1 段落2  段落3   段落4 \ 段落5 \ \ \ 段落6 段落1 段落2
+      <description>段落分段必须要用空行隔开，多个空行只当作1个空行。如果需要强制空行，可以用反斜杠符加换行符。例如
+段落1段落2段落3段落4 \段落5 \\\段落6段落1 段落2
 段落3
 段落4
 段落5
 段落6
 扩展名为escaped_line-breaks
-标题 ATX-style标题 标准markdown不要求标题的前面需要空行，而pandoc’s markdown要求在标题前要有空行，标题中可以有url符号和强调符号，例如
-# A level-one heading with a [link](/url) and *emphasis* 扩展名为blank_before_header
-标题属性 标题属性中的内容可以是
-{#identifier .class .class key=value key=value} 扩展为 header_attributes
-标题标识符 给标题添加一个标识符号，可以自己添加{#identifier}，如果自己不添加，将会自动设为{#标题}。例如：
-&amp;lt;!--手动添加--&amp;gt; # My heading {#foo}  &amp;lt;!--自动添加--&amp;gt; # 段落 跳转到[段落](#段落) 跳转到段落
-标题编号 如果指定了--number-sections，将会自动给各个标题编号，但是有些标题不想被编号，这时，在标题的标识符中添加-或.unnumbered即可，例如：
-# My heading {-} # My heading {.unnumbered} 代码块 缩进代码块 只需要4个空格或者一个TAB即可将接下来的内容变为代码块</description>
+标题ATX-style标题标准markdown不要求标题的前面需要空行，而pandoc’s markdown要求在标题前要有空行，标题中可以有url符号和强调符号，例如
+# A level-one heading with a [link](/url) and *emphasis*扩展名为blank_before_header
+标题属性标题属性中的内容可以是
+{#identifier .class .class key=value key=value}扩展为 header_attributes
+标题标识符给标题添加一个标识符号，可以自己添加{#identifier}，如果自己不添加，将会自动设为{#标题}。例如：
+&amp;lt;!--手动添加--&amp;gt;# My heading {#foo}&amp;lt;!--自动添加--&amp;gt;# 段落跳转到[段落](#段落)跳转到段落
+标题编号如果指定了--number-sections，将会自动给各个标题编号，但是有些标题不想被编号，这时，在标题的标识符中添加-或.unnumbered即可，例如：
+# My heading {-}# My heading {.unnumbered}代码块缩进代码块只需要4个空格或者一个TAB即可将接下来的内容变为代码块
+if (a &amp;gt; 3) {moveShip(5 * gravity, DOWN);}围栏代码块波浪线型可以添加多个属性，例如</description>
     </item>
     
   </channel>

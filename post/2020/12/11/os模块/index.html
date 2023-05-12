@@ -16,9 +16,9 @@
     
       
       <meta property="description" content="os.walk(path)用于遍历目录。返回值是一个遍历器，需要用for循环不断遍历，每次遍历得到长度为3的tuple，分别为(目录, [目录下的子目录], [目录下的文件])。 使用方法示例:
-[&amp;hellip;] for root, dirs, files in os.walk(&amp;#39;.&amp;#39;):  for file in files: &amp;hellip;">
+[&amp;hellip;] for root, dirs, files in os.walk(&amp;#39;.&amp;#39;): for file in files: print(os.path.join(root, &amp;hellip;">
       <meta property="og:description" content="os.walk(path)用于遍历目录。返回值是一个遍历器，需要用for循环不断遍历，每次遍历得到长度为3的tuple，分别为(目录, [目录下的子目录], [目录下的文件])。 使用方法示例:
-[&amp;hellip;] for root, dirs, files in os.walk(&amp;#39;.&amp;#39;):  for file in files: &amp;hellip;">
+[&amp;hellip;] for root, dirs, files in os.walk(&amp;#39;.&amp;#39;): for file in files: print(os.path.join(root, &amp;hellip;">
       
     
 
@@ -38,44 +38,21 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     <link rel="stylesheet" href="/css/custom.css" />
-<script type="text/javascript"
-        async
-        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[\[','\]\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
 <script>
-
-MathJax.Hub.Queue(function() {
-    
-    
-    
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
 </script>
-
-<style>
-code.has-jax {
-    font: inherit;
-    font-size: 100%;
-    background: inherit;
-    border: inherit;
-    color: #515151;
-}
-</style>
 
 <script>
   (function(d) {

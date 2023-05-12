@@ -14,8 +14,8 @@
       
       <guid>/post/2020/12/18/pytorch-sequential/</guid>
       <description>torch.nn.Sequential 快速构建一个neural network可以通过torch.nn.Module构建类，也可通过设计一个torch.nn.Sequential来构建网络计算过程。实际上，只需要将网络上的各个计算过程都堆叠在Sequential中既可以了，例如：
-model = torch.nn.Sequential(  torch.nn.Linear(3, 1),  torch.nn.Flatten(0,1)) Sequential是一个容器，一般来说，可以用多个Sequential来构建Module. 例如LeNet-5网络的构建
-class LeNet5(torch.nn.Module):  def __init__(self):  super(LeNet5,self).__init__()  self.conv1 = torch.nn.Sequential(  torch.nn.Conv2d(1,6,5),  torch.nn.ReLU(),  torch.nn.MaxPool2d(2,2)  )  self.conv2 = torch.nn.Sequential(  torch.nn.Conv2d(6,16,5),  torch.nn.ReLU(),  torch.nn.MaxPool2d(2,2)  )  self.conv3 = torch.nn.Sequential(  torch.nn.Conv2d(16,120,5),  torch.nn.ReLU()  )  self.fc = torch.nn.Sequential(  torch.nn.Linear(120,84),  torch.nn.ReLU(),  torch.nn.Linear(84,10),  torch.nn.LogSoftmax(dim=-1)  )  def forward(self, image):  output = self.</description>
+model = torch.nn.Sequential( torch.nn.Linear(3, 1), torch.nn.Flatten(0,1)) Sequential是一个容器，一般来说，可以用多个Sequential来构建Module. 例如LeNet-5网络的构建
+class LeNet5(torch.nn.Module): def __init__(self): super(LeNet5,self).__init__() self.conv1 = torch.nn.Sequential( torch.nn.Conv2d(1,6,5), torch.nn.ReLU(), torch.nn.MaxPool2d(2,2) ) self.conv2 = torch.nn.Sequential( torch.nn.Conv2d(6,16,5), torch.nn.ReLU(), torch.nn.MaxPool2d(2,2) ) self.conv3 = torch.nn.Sequential( torch.nn.Conv2d(16,120,5), torch.nn.ReLU() ) self.fc = torch.nn.Sequential( torch.nn.Linear(120,84), torch.nn.ReLU(), torch.nn.Linear(84,10), torch.nn.LogSoftmax(dim=-1) ) def forward(self, image): output = self.conv1(image) output = self.conv2(output) output = self.conv3(output) output = output.view(image.size(0),-1) output = self.fc(output) return output </description>
     </item>
     
     <item>
@@ -26,7 +26,7 @@ class LeNet5(torch.nn.Module):  def __init__(self):  super(LeNet5,self).__init__
       <guid>/post/2020/12/18/pytorch-nn-module/</guid>
       <description>[toc]
 nn.Module 继承nn.Module类 在nn(neural network)模块中，有一个nn.Module类，这是一个快速构建神经网络的基类。你可以通过继承这个类，并重写forward(input)方法，来创建一个自定义各个网络层的神经网络类。例如下面这个Net	类定义了一个LeNet-5网络。
-import torch import torch.nn as nn import torch.nn.functional as F   class Net(nn.Module):   def __init__(self):  super(Net, self).__init__()  # 1 input image channel, 6 output channels, 3x3 square convolution  # kernel  self.conv1 = nn.Conv2d(1, 6, 3)  self.conv2 = nn.Conv2d(6, 16, 3)  # an affine operation: y = Wx + b  self.fc1 = nn.Linear(16 * 6 * 6, 120) # 6*6 from image dimension  self.</description>
+import torch import torch.nn as nn import torch.nn.functional as F class Net(nn.Module): def __init__(self): super(Net, self).__init__() # 1 input image channel, 6 output channels, 3x3 square convolution # kernel self.conv1 = nn.Conv2d(1, 6, 3) self.conv2 = nn.Conv2d(6, 16, 3) # an affine operation: y = Wx + b self.fc1 = nn.Linear(16 * 6 * 6, 120) # 6*6 from image dimension self.fc2 = nn.Linear(120, 84) self.</description>
     </item>
     
     <item>
@@ -38,7 +38,7 @@ import torch import torch.nn as nn import torch.nn.functional as F   class Net(n
       <description>[toc]
 torch.autograd.Function 自定义一个计算过程，并且定义其反向传播过程。例如计算 $y = a+bx+cx^2+dx^3$时，用两步替代该过程 $y= a+b\times P_3(c+dx), P_3(x) = \frac{1}{2}(5x^3-3x)$
 那么可以通过torch.autograd.Function定义$P_3(x)$，过程如下：
-# -*- coding: utf-8 -*- import torch import math   class LegendrePolynomial3(torch.autograd.Function):  &amp;#34;&amp;#34;&amp;#34; We can implement our own custom autograd Functions by subclassing torch.autograd.Function and implementing the forward and backward passes which operate on Tensors. &amp;#34;&amp;#34;&amp;#34;   @staticmethod  def forward(ctx, input):  &amp;#34;&amp;#34;&amp;#34; In the forward pass we receive a Tensor containing the input and return a Tensor containing the output.</description>
+# -*- coding: utf-8 -*- import torch import math class LegendrePolynomial3(torch.autograd.Function): &amp;#34;&amp;#34;&amp;#34; We can implement our own custom autograd Functions by subclassing torch.autograd.Function and implementing the forward and backward passes which operate on Tensors. &amp;#34;&amp;#34;&amp;#34; @staticmethod def forward(ctx, input): &amp;#34;&amp;#34;&amp;#34; In the forward pass we receive a Tensor containing the input and return a Tensor containing the output.</description>
     </item>
     
     <item>
@@ -49,11 +49,13 @@ torch.autograd.Function 自定义一个计算过程，并且定义其反向传�
       <guid>/post/2020/12/18/pytorch%E5%9F%BA%E7%A1%80/</guid>
       <description>[toc]
 Tensor的创建 tensor是基本的数据类型，基本的创建方式有
- torch.empty(5, 3) 未初始化的tensor, 里面的值为内存中原有的值 torch.randn(5,3) 创建tensor，并随机初始化 torch.zeros(5, 3, dtype=torch.long) 创建tensor，并初始化为0，指定数据类型 torch.tensor([5.5, 3])创建tensor，并直接值初始化  除了上述的创建方式，还有可以利用已经存在的tensor来创建，假设现有x = torch.zeros(5,3, dtype=torch.float32)，那么，可以根据以下方式创建
- x.new_ones(5,3) 创建tensor，并值初始化为0，除了shape外，其他属性与x一致 torch.randn_like(x, dtype=torch.float) 创建tensor，随机初始化值，除了明确指定的属性type=torch.float外，其他属性与x一致  Operations 加法   直接加
-x = torch.randn(5, 3) y = torch.randn(5, 3) # 直接加 result1 = x + y   函数方法
-# 结果赋值到result2 result2 = torch.add(x, y) # 预先指定结果保存到变量 torch.add(x, y, out=result3)   立地加(in-place)
-# 立地(in-place)加，结果直接加到被加数中, 一般立地加的函数都以_结束， # 例如x.copy_(y), x.</description>
+torch.empty(5, 3) 未初始化的tensor, 里面的值为内存中原有的值 torch.randn(5,3) 创建tensor，并随机初始化 torch.zeros(5, 3, dtype=torch.long) 创建tensor，并初始化为0，指定数据类型 torch.tensor([5.5, 3])创建tensor，并直接值初始化 除了上述的创建方式，还有可以利用已经存在的tensor来创建，假设现有x = torch.zeros(5,3, dtype=torch.float32)，那么，可以根据以下方式创建
+x.new_ones(5,3) 创建tensor，并值初始化为0，除了shape外，其他属性与x一致 torch.randn_like(x, dtype=torch.float) 创建tensor，随机初始化值，除了明确指定的属性type=torch.float外，其他属性与x一致 Operations 加法 直接加
+x = torch.randn(5, 3) y = torch.randn(5, 3) # 直接加 result1 = x + y 函数方法
+# 结果赋值到result2 result2 = torch.add(x, y) # 预先指定结果保存到变量 torch.add(x, y, out=result3) 立地加(in-place)
+# 立地(in-place)加，结果直接加到被加数中, 一般立地加的函数都以_结束， # 例如x.copy_(y), x.t_() y.add_(x) 索引 可以使用标准的类似numpy的索引。例如x[:, 1]
+resize resize或者reshape一个tensor，可以使用函数torch.view，例如
+x = torch.randn(4, 4) y = x.</description>
     </item>
     
   </channel>

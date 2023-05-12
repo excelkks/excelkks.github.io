@@ -16,9 +16,9 @@
     
       
       <meta property="description" content="快速构建一个neural network可以通过torch.nn.Module构建类，也可通过设计一个torch.nn.Sequential来构建网络计算过程。实际上，只需要将网络上的各个计算过程都堆叠在Sequential中既可以了，例如：
-[&amp;hellip;] model = torch.nn.Sequential(  torch.nn.Linear(3, 1), &amp;hellip;">
+[&amp;hellip;] model = torch.nn.Sequential( torch.nn.Linear(3, 1), &amp;hellip;">
       <meta property="og:description" content="快速构建一个neural network可以通过torch.nn.Module构建类，也可通过设计一个torch.nn.Sequential来构建网络计算过程。实际上，只需要将网络上的各个计算过程都堆叠在Sequential中既可以了，例如：
-[&amp;hellip;] model = torch.nn.Sequential(  torch.nn.Linear(3, 1), &amp;hellip;">
+[&amp;hellip;] model = torch.nn.Sequential( torch.nn.Linear(3, 1), &amp;hellip;">
       
     
 
@@ -38,44 +38,21 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     <link rel="stylesheet" href="/css/custom.css" />
-<script type="text/javascript"
-        async
-        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[\[','\]\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
 <script>
-
-MathJax.Hub.Queue(function() {
-    
-    
-    
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
 </script>
-
-<style>
-code.has-jax {
-    font: inherit;
-    font-size: 100%;
-    background: inherit;
-    border: inherit;
-    color: #515151;
-}
-</style>
 
 <script>
   (function(d) {

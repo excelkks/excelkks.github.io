@@ -13,7 +13,7 @@
       <pubDate>Sun, 09 Oct 2022 14:01:12 +0800</pubDate>
       
       <guid>/post/2022/10/09/c-%E7%9F%A5%E8%AF%86/</guid>
-      <description>纯虚类的命名  加if表示interface. 例如HM中的TEncEntropyIf, TComBitIf, TEncBinIf  </description>
+      <description>纯虚类的命名 加if表示interface. 例如HM中的TEncEntropyIf, TComBitIf, TEncBinIf </description>
     </item>
     
   </channel>

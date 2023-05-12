@@ -16,9 +16,9 @@
     
       
       <meta property="description" content="拷贝初始化底层是先调用构造函数创建一个临时变量，再将临时变量通过拷贝构造函数创建新变量。考虑如下过程
-[&amp;hellip;] class A{ public:  A() { cout &amp;lt;&amp;lt; &amp;#34;default constructor&amp;#34; &amp;lt;&amp;lt; endl; }  A(const string&amp;amp; _str):str(_str) { cout &amp;lt;&amp;lt; &amp;hellip;">
+[&amp;hellip;] class A{ public: A() { cout &amp;lt;&amp;lt; &amp;#34;default constructor&amp;#34; &amp;lt;&amp;lt; endl; } A(const string&amp;amp; _str):str(_str) { cout &amp;lt;&amp;lt; &amp;hellip;">
       <meta property="og:description" content="拷贝初始化底层是先调用构造函数创建一个临时变量，再将临时变量通过拷贝构造函数创建新变量。考虑如下过程
-[&amp;hellip;] class A{ public:  A() { cout &amp;lt;&amp;lt; &amp;#34;default constructor&amp;#34; &amp;lt;&amp;lt; endl; }  A(const string&amp;amp; _str):str(_str) { cout &amp;lt;&amp;lt; &amp;hellip;">
+[&amp;hellip;] class A{ public: A() { cout &amp;lt;&amp;lt; &amp;#34;default constructor&amp;#34; &amp;lt;&amp;lt; endl; } A(const string&amp;amp; _str):str(_str) { cout &amp;lt;&amp;lt; &amp;hellip;">
       
     
 
@@ -38,44 +38,21 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     <link rel="stylesheet" href="/css/custom.css" />
-<script type="text/javascript"
-        async
-        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[\[','\]\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
 <script>
-
-MathJax.Hub.Queue(function() {
-    
-    
-    
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
 </script>
-
-<style>
-code.has-jax {
-    font: inherit;
-    font-size: 100%;
-    background: inherit;
-    border: inherit;
-    color: #515151;
-}
-</style>
 
 <script>
   (function(d) {

@@ -39,44 +39,21 @@ $p = Pb = \frac{aa^T}{a^Ta}b \to P = &amp;hellip;">
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     <link rel="stylesheet" href="/css/custom.css" />
-<script type="text/javascript"
-        async
-        src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$'], ['\[\[','\]\]']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
 <script>
-
-MathJax.Hub.Queue(function() {
-    
-    
-    
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
 </script>
-
-<style>
-code.has-jax {
-    font: inherit;
-    font-size: 100%;
-    background: inherit;
-    border: inherit;
-    color: #515151;
-}
-</style>
 
 <script>
   (function(d) {
@@ -160,7 +137,7 @@ code.has-jax {
 <p>$P^2 = A(A^TA)^{-1}A^TA(A^TA)^{-1}A^T = A(A^TA)^{-1}A^T$</p>
 <h2 id="least-squares">least squares</h2>
 <p>Given batch of points close to but not on the line. Suppose those points are $(1, 1)$, $ (2,2)$, $(3,2)$. Find $C, D$ makes those points closest to the line $C+Dt = b$.</p>
-<p>$\left[\matrix{1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3}\right]\left[\matrix{C\\D}\right]=\left[\matrix{1\\2\\3}\right] \to A\left[\matrix{C\\D}\right]=b$</p>
+<p>$$\left[\begin{matrix}1 &amp; 1 \\ 1 &amp; 2 \\ 1 &amp; 3\end{matrix}\right]\left[\begin{matrix}C\\D\end{matrix}\right]=\left[\begin{matrix}1\\2\\3\end{matrix}\right] \to A\left[\begin{matrix}C\\D\end{matrix}\right]=b$$</p>
 <p>No solution to this equation. So we Minimize the $||Ax - b||^2 = ||e||^2$, $||e||^2 = e_1^2+e_2^2+e_3^2$</p>
 
 

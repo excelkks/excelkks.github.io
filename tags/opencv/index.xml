@@ -14,7 +14,7 @@
       
       <guid>/post/2019/11/28/cmake%E7%BC%96%E8%AF%91%E4%B8%8E%E6%B5%8B%E8%AF%95opencv4/</guid>
       <description>保证已经安装：
- GCC 4.4.x or later CMake 2.8.7 or higher Git GTK+2.x or higher, incuding headers(libgtk2.0-dev) pkg-config Python 2.6 or later and Numpy 1.5 or later with developer package (python-dev, python-numpy) ffmpeg or libav development packages: libavcodec-dev, libavformat-dev, libswscale-dev [optional] libtbb2 libtbb-dev [optional] libdc1394 2.x [optional] libjpeg-dev, libpng-dev, libtiff-dev, libjasper-dev, libdc1394-22-dev [optional] CUDA Toolkit 6.5 or higher 可通过以下命令安装  # [compiler] sudo apt-get install build-essential # required sudo apt-get install cmake git libgtk2.</description>
+GCC 4.4.x or later CMake 2.8.7 or higher Git GTK+2.x or higher, incuding headers(libgtk2.0-dev) pkg-config Python 2.6 or later and Numpy 1.5 or later with developer package (python-dev, python-numpy) ffmpeg or libav development packages: libavcodec-dev, libavformat-dev, libswscale-dev [optional] libtbb2 libtbb-dev [optional] libdc1394 2.x [optional] libjpeg-dev, libpng-dev, libtiff-dev, libjasper-dev, libdc1394-22-dev [optional] CUDA Toolkit 6.5 or higher 可通过以下命令安装 # [compiler] sudo apt-get install build-essential # required sudo apt-get install cmake git libgtk2.</description>
     </item>
     
   </channel>

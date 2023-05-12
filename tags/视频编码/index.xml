@@ -14,7 +14,7 @@
       
       <guid>/post/2019/12/10/skipmergeamvp%E6%A8%A1%E5%BC%8F/</guid>
       <description>在H.265中，帧间预测模式包括Skip模式、Merge模式、AMVP模式，其中，Skip模式是一种特殊的Merge模式。它们所需要编码的信息如下
-    MVP MVD 量化残差     Skip ✔ ❌ ❌   Merge ✔ ❌ ✔   AMVP ✔ ✔ ✔    MVP的获取方法都是通过在编解码端建立候选列表，但要注意的是Skip模式和Merge模式建立MVP列表的方法一样，而AMVP建立候选列表的方式与Merge模式建立候选列表的方式不一样</description>
+MVP MVD 量化残差 Skip ✔ ❌ ❌ Merge ✔ ❌ ✔ AMVP ✔ ✔ ✔ MVP的获取方法都是通过在编解码端建立候选列表，但要注意的是Skip模式和Merge模式建立MVP列表的方法一样，而AMVP建立候选列表的方式与Merge模式建立候选列表的方式不一样</description>
     </item>
     
   </channel>
