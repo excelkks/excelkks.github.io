@@ -6,7 +6,27 @@
     <description>Recent content in Posts on excelkks</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Oct 2022 14:01:12 +0800</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 May 2023 09:59:36 +0800</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>算法研究文档的构成</title>
+      <link>/post/2023/05/16/%E7%AE%97%E6%B3%95%E7%A0%94%E7%A9%B6%E6%96%87%E6%A1%A3%E7%9A%84%E6%9E%84%E6%88%90/</link>
+      <pubDate>Tue, 16 May 2023 09:59:36 +0800</pubDate>
+      
+      <guid>/post/2023/05/16/%E7%AE%97%E6%B3%95%E7%A0%94%E7%A9%B6%E6%96%87%E6%A1%A3%E7%9A%84%E6%9E%84%E6%88%90/</guid>
+      <description>一篇优化算法研究过程的文档基本的构成包括以下几个部分:
+简介. 简单介绍背景
+策略.
+基本策略
+策略的合理性分析
+提出策略的预期
+已有原始算法的数据分析
+统计数据的相关性
+通过已有数据评估预期
+总结
+对优化算法的数据
+总结优化算法</description>
+    </item>
+    
     <item>
       <title>C&#43;&#43;知识</title>
       <link>/post/2022/10/09/c-%E7%9F%A5%E8%AF%86/</link>
